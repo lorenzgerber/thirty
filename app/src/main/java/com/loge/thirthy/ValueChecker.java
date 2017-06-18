@@ -68,7 +68,14 @@ public class ValueChecker {
         // the combinations that together give maximal points
 
 
+        Arrays.fill(bitframe, false);
         Collections.sort(mCombinations);
+        for(Combinations combination : mCombinations){
+
+
+        }
+
+
 
         return bitframe;
 
@@ -102,6 +109,10 @@ public class ValueChecker {
 
         public int getRank(){
             return this.mRank;
+        }
+
+        public boolean[] getBitframe() {
+            return this.mBitframe;
         }
 
         @Override
