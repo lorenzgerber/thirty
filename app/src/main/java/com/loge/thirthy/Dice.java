@@ -1,7 +1,5 @@
 package com.loge.thirthy;
 
-import android.support.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -45,8 +43,8 @@ public class Dice implements Iterable<Die> {
     }
 
     public Iterator<Die> iterator() {
-        Iterator<Die> idie = mDice.iterator();
-        return idie;
+        Iterator<Die> iDie = mDice.iterator();
+        return iDie;
     }
 
     public int size(){

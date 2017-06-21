@@ -1,15 +1,12 @@
 package com.loge.thirthy;
 
-import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-import static java.util.Collections.sort;
 
 /**
  * Created by loge on 2017-06-17.
@@ -22,25 +19,47 @@ public class ValueChecker {
 
     public ValueChecker(Dice dice){
         mDice = dice;
-
     }
 
-    public boolean[] checkFor(int faceValue){
+    public int getPoints(int faceValue){
+        int points = 0;
+        int counter = 0;
+        boolean bitArray[] = getCombination(faceValue);
+        for (Die die : mDice){
+            if(bitArray[counter]){
+                points += die.getValue();
+            }
+            counter++;
+        }
+
+        return points;
+    }
+
+    public boolean[] getCombination(int faceValue){
 
         int mFaceValue = faceValue;
         int sumCounter;
         mCombinations = new ArrayList<>();
+        boolean resultFrame[] = new boolean[mDice.size()];
+
+
+        /*
+        Taking care of special case '3'
+         */
+        if (mFaceValue == 3){
+            int counter = 0;
+            for(Die die : mDice){
+                if(die.getValue() < 4){
+                   resultFrame[counter] = true;
+                }
+                counter++;
+            }
+
+            return resultFrame;
+        }
 
         boolean[] bitframe = new boolean[mDice.size()];
         final int total = mDice.size();
-        final int [] num = new int[mDice.size()];
-        int arrayCounter = 0;
-        for(Die die : mDice){
-            num[arrayCounter] = die.getValue();
-            arrayCounter++;
-        }
-
-
         for(int x=1;x<ValueChecker.pow2(total);x++)
         {
             for(int i=0;i<total;i++)
@@ -55,7 +74,7 @@ public class ValueChecker {
             // find all Die combinations that divide by facevalue
             sumCounter = 0;
             for (int i = 0;i < total; i++) {
-                if( bitframe[i] == true ) {
+                if( bitframe[i]) {
                     sumCounter = sumCounter + mDice.getFaceValue(i);
                 }
             }
@@ -64,20 +83,29 @@ public class ValueChecker {
             }
         }
 
-        // implement to to through sorted list of mCombinations and get
-        // the combinations that together give maximal points
-
-
         Arrays.fill(bitframe, false);
         Collections.sort(mCombinations);
+
+        Arrays.fill(resultFrame, false);
+        int points;
+        boolean doesNotFit;
         for(Combinations combination : mCombinations){
-
-
+            doesNotFit = false;
+            for(int i = 0 ; i < mDice.size(); i++){
+                if(resultFrame[i] == combination.getBitframe()[i] && resultFrame[i] == true) {
+                    doesNotFit = true;
+                }
+            }
+            if(!doesNotFit){
+                for(int i = 0 ; i < mDice.size(); i++){
+                    if(combination.getBitframe()[i]){
+                        resultFrame[i] = true;
+                    };
+                }
+            }
         }
 
-
-
-        return bitframe;
+        return resultFrame;
 
     }
 
@@ -92,7 +120,7 @@ public class ValueChecker {
 
 
 
-    private class Combinations implements Comparable<Combinations>{
+    private class Combinations implements Comparable<Combinations> {
         int mRank = 0;
         boolean[] mBitframe;
 
@@ -120,7 +148,6 @@ public class ValueChecker {
             int compareRank = ((Combinations) compareCombination).getRank();
             return this.getRank() - compareRank;
         }
-
 
     }
 
