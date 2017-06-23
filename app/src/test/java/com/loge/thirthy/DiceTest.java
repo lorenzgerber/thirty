@@ -24,6 +24,11 @@ public class DiceTest {
         assertNotNull(new Dice.Builder(2).addDie(new Die(1)).addDie(new Die(1)).build());
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void addNoDices() throws Exception {
+        new Dice.Builder(1).build();
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void addTooManyDie() throws Exception {
         new Dice.Builder(1).addDie(new Die(1)).addDie(new Die(1)).build();
