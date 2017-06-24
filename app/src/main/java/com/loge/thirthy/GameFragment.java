@@ -24,11 +24,15 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     GameState mGameState;
     ArrayList<ImageButton> mImageButtons = new ArrayList<>();
     Button mThrowButton;
+    Button mTakePointsButton;
     ArrayList<CombinationListItem> mCombinationsLeft;
     Spinner mSpinner;
     int[][] mImageIds;
     int mDieMode;
+    int mCombinationChosen;
+    int mSpinnerPosition;
     Dice mDice;
+    ArrayAdapter<CombinationListItem> mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -45,6 +49,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
         // Get ImageButton Widgets
         initImageButtons(v);
         initThrowButton(v);
+        initTakePointsButton(v);
         initSpinner(v);
         attachImageButtonListeners();
         mImageIds = new int[3][6];
@@ -53,8 +58,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
 
         return v;
     }
-
-
 
     private void updateUI() {
 
@@ -177,10 +180,10 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     mDice = mDiceState.getDice();
                 }
 
-                if(mGameState.getRound() == 3){
+                if(mGameState.getThrow() == 3){
                     mThrowButton.setEnabled(false);
                 } else {
-                    mGameState.nextRound();
+                    mGameState.nextThrow();
                 }
 
                 updateUI();
@@ -188,15 +191,42 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
         });
     }
 
+    private void initTakePointsButton(View v){
+        mTakePointsButton = (Button) v.findViewById(R.id.take_points);
+        mTakePointsButton.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v){
+                // Check for mode 1 set, otherwise Toast
+
+                // Calculate points
+                int mPoints = 0;
+                for(Die die:mDice){
+                    if(die.getMode()==1){
+                        mPoints += die.getValue();
+                    }
+                }
+                //mGameState.setPoints();
+                // remove combination from list
+                mCombinationsLeft.remove(mSpinnerPosition);
+                mAdapter.notifyDataSetChanged();
+                mSpinner.setAdapter(mAdapter);
+
+                // Check Round
+                // throw all dice
+            }
+
+        });
+
+    }
 
     private void initSpinner(View v){
         mSpinner = (Spinner) v.findViewById(R.id.choose_points);
         //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.dice_combinations_array, android.R.layout.simple_spinner_item);
         //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ArrayAdapter<CombinationListItem> adapter = new ArrayAdapter<CombinationListItem>(getActivity(), android.R.layout.simple_spinner_item);
-        adapter.addAll(mCombinationsLeft);
-        mSpinner.setAdapter(adapter);
+        mAdapter = new ArrayAdapter<CombinationListItem>(getActivity(), android.R.layout.simple_spinner_item, mCombinationsLeft);
+        //mAdapter.addAll(mCombinationsLeft);
+        mSpinner.setAdapter(mAdapter);
         mSpinner.setOnItemSelectedListener(this);
 
     }
@@ -233,6 +263,10 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     mDice.getDie(i).setMode(1);
                 }
             }
+            // get id from combination and set as active
+            CombinationListItem mSelectedObject = (CombinationListItem) mSpinner.getAdapter().getItem(position);
+            int mCombinationChosen = mSelectedObject.getId();
+            mSpinnerPosition = position;
             updateUI();
             Toast.makeText(getActivity(), String.valueOf(mValueChecker.getPoints(position + 2)) + " points!", Toast.LENGTH_SHORT).show();
         }
