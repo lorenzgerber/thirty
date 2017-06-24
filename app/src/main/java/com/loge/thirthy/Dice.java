@@ -70,6 +70,10 @@ public class Dice implements Iterable<Die> {
         return mDice.get(index);
     }
 
+    public void setDie(int index, Die die){
+        mDice.set(index, die);
+    }
+
     public int size(){
         return mDice.size();
     }

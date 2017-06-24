@@ -5,7 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -13,10 +18,14 @@ import java.util.ArrayList;
  * Created by loge on 2017-06-22.
  */
 
-public class GameFragment extends Fragment {
+public class GameFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
+    DiceState mDiceState;
     GameState mGameState;
     ArrayList<ImageButton> mImageButtons = new ArrayList<>();
+    Button mThrowButton;
+    ArrayList<CombinationListItem> mCombinationsLeft;
+    Spinner mSpinner;
     int[][] mImageIds;
     int mDieMode;
     Dice mDice;
@@ -24,7 +33,9 @@ public class GameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        mDiceState = DiceState.get(getActivity());
         mGameState = GameState.get(getActivity());
+        mCombinationsLeft = mDiceState.getCombinationsLeft();
     }
 
     @Override
@@ -33,7 +44,9 @@ public class GameFragment extends Fragment {
 
         // Get ImageButton Widgets
         initImageButtons(v);
-        attachListeners();
+        initThrowButton(v);
+        initSpinner(v);
+        attachImageButtonListeners();
         mImageIds = new int[3][6];
         initImageIds();
         updateUI();
@@ -46,7 +59,7 @@ public class GameFragment extends Fragment {
     private void updateUI() {
 
 
-        mDice = mGameState.getDice();
+        mDice = mDiceState.getDice();
         mDieMode = mDice.getMode();
 
         for (Die die : mDice){
@@ -64,7 +77,7 @@ public class GameFragment extends Fragment {
         mImageButtons.add((ImageButton) v.findViewById(R.id.die_six));
     }
 
-    private void attachListeners(){
+    private void attachImageButtonListeners(){
         mImageButtons.get(0).setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -144,9 +157,47 @@ public class GameFragment extends Fragment {
                 updateUI();
             }
         });
+    }
+
+    private void initThrowButton(View v){
+        mThrowButton = (Button) v.findViewById(R.id.roll_dice);
+        mThrowButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                boolean mThrowAll = true;
+                for (Die die: mDice){
+                    if(die.getMode() == 2){
+                        mDiceState.rollDice(die.getPosition());
+                        mThrowAll = false;
+                    }
+                }
+                if (mThrowAll){
+                    mDiceState.rollAllDice();
+                    mDice = mDiceState.getDice();
+                }
+
+                if(mGameState.getRound() == 3){
+                    mThrowButton.setEnabled(false);
+                } else {
+                    mGameState.nextRound();
+                }
+
+                updateUI();
+            }
+        });
+    }
 
 
 
+    private void initSpinner(View v){
+        mSpinner = (Spinner) v.findViewById(R.id.choose_points);
+        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.dice_combinations_array, android.R.layout.simple_spinner_item);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CombinationListItem> adapter = new ArrayAdapter<CombinationListItem>(getActivity(), android.R.layout.simple_spinner_item);
+        adapter.addAll(mCombinationsLeft);
+        mSpinner.setAdapter(adapter);
+        mSpinner.setOnItemSelectedListener(this);
 
     }
 
@@ -171,4 +222,26 @@ public class GameFragment extends Fragment {
         mImageIds[2][5] = R.drawable.red6;
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (position != 0){
+            ValueChecker mValueChecker = new ValueChecker(mDiceState.getDice());
+            boolean[] mCombination = mValueChecker.getCombination(position+2);
+            mDice.setMode(2);
+            for(int i = 0; i < 6; i++){
+                if (mCombination[i]){
+                    mDice.getDie(i).setMode(1);
+                }
+            }
+            updateUI();
+            Toast.makeText(getActivity(), String.valueOf(mValueChecker.getPoints(position + 2)) + " points!", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
