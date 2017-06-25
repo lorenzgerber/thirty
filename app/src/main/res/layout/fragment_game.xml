@@ -71,24 +71,24 @@
         android:id="@+id/take_points"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Take Points"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:text="Take Points"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Spinner
         android:id="@+id/choose_points"
-        android:layout_width="272dp"
-        android:layout_height="46dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/take_points"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="457dp"/>
+        tools:layout_editor_absoluteY="457dp" />
 
     <Button
         android:id="@+id/roll_dice"

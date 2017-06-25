@@ -222,10 +222,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
 
     private void initSpinner(View v){
         mSpinner = (Spinner) v.findViewById(R.id.choose_points);
-        //ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.dice_combinations_array, android.R.layout.simple_spinner_item);
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mAdapter = new ArrayAdapter<CombinationListItem>(getActivity(), android.R.layout.simple_spinner_item, mCombinationsLeft);
-        //mAdapter.addAll(mCombinationsLeft);
         mSpinner.setAdapter(mAdapter);
         mSpinner.setOnItemSelectedListener(this);
 
@@ -256,7 +253,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position != 0){
             ValueChecker mValueChecker = new ValueChecker(mDiceState.getDice());
-            boolean[] mCombination = mValueChecker.getCombination(position+2);
+            boolean[] mCombination = mValueChecker.getCombination(mCombinationsLeft.get(position).getId());
             mDice.setMode(2);
             for(int i = 0; i < 6; i++){
                 if (mCombination[i]){
