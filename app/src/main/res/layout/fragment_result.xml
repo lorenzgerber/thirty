@@ -7,4 +7,137 @@
     android:layout_height="match_parent"
     tools:context="com.loge.thirthy.ResultActivity">
 
+    <TextView
+        android:id="@+id/text_result_title"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:layout_marginStart="8dp"
+        android:text="Your Score:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"/>
+
+    <TextView
+        android:id="@+id/text_result_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Low:"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"/>
+
+    <TextView
+        android:id="@+id/text_result_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Four:"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_low"/>
+
+    <TextView
+        android:id="@+id/text_result_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Five:"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_four"/>
+
+    <TextView
+        android:id="@+id/text_result_six"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Six:"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_five"/>
+
+    <TextView
+        android:id="@+id/text_result_seven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seven:"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_six"/>
+
+    <TextView
+        android:id="@+id/text_result_eight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eight:"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_seven"/>
+
+    <TextView
+        android:id="@+id/text_result_nine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nine:"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_eight"/>
+
+    <TextView
+        android:id="@+id/text_result_ten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ten:"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_nine"/>
+
+    <TextView
+        android:id="@+id/text_result_eleven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eleven:"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_ten"/>
+
+    <TextView
+        android:id="@+id/text_result_tvelve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Twelve"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_eleven"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"/>
+
+    <TextView
+        android:id="@+id/text_result_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Total Points:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_result_tvelve"/>
+
+    <Button
+        android:id="@+id/button_play_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Again"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"/>
 </android.support.constraint.ConstraintLayout>

@@ -32,7 +32,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     Spinner mSpinner;
     int[][] mImageIds;
     int mDieMode;
-    int mCombinationChosen;
+    //int mCombinationChosen;
     int mSpinnerPosition;
     Dice mDice;
     ArrayAdapter<CombinationListItem> mAdapter;
@@ -221,6 +221,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                 // Check Round
                 if(mGameState.getRound() < NUMBER_OF_ROUNDS){
                     mGameState.nextRound();
+                    mGameState.resetThrow();
                     mDiceState.rollAllDice();
                     updateUI();
                 } else {
