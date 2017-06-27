@@ -222,10 +222,9 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
 
     private void initSpinner(View v){
         mSpinner = (Spinner) v.findViewById(R.id.choose_points);
-        mAdapter = new ArrayAdapter<CombinationListItem>(getActivity(), android.R.layout.simple_spinner_item, mCombinationsLeft);
+        mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, mCombinationsLeft);
         mSpinner.setAdapter(mAdapter);
         mSpinner.setOnItemSelectedListener(this);
-
     }
 
     private void initImageIds(){
