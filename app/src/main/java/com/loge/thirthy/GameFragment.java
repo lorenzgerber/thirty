@@ -1,5 +1,6 @@
 package com.loge.thirthy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
  */
 
 public class GameFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+
+    private static int NUMBER_OF_ROUNDS = 10;
 
     DiceState mDiceState;
     GameState mGameState;
@@ -206,14 +209,26 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                         mPoints += die.getValue();
                     }
                 }
-                //mGameState.setPoints();
+
+                // set points in the array
+                mGameState.setPoints(mCombinationsLeft.get(mSpinnerPosition).getId()-3, mPoints);
+
                 // remove combination from list
                 mCombinationsLeft.remove(mSpinnerPosition);
                 mAdapter.notifyDataSetChanged();
                 mSpinner.setAdapter(mAdapter);
 
                 // Check Round
-                // throw all dice
+                if(mGameState.getRound() < NUMBER_OF_ROUNDS){
+                    mGameState.nextRound();
+                    mDiceState.rollAllDice();
+                    updateUI();
+                } else {
+                    Intent intent = new Intent(getActivity(), ResultActivity.class);
+                    startActivity(intent);
+                }
+
+
             }
 
         });
@@ -253,7 +268,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
         if (position != 0){
             ValueChecker mValueChecker = new ValueChecker(mDiceState.getDice());
             boolean[] mCombination = mValueChecker.getCombination(mCombinationsLeft.get(position).getId());
-            mDice.setMode(2);
+            mDice.setMode(0);
             for(int i = 0; i < 6; i++){
                 if (mCombination[i]){
                     mDice.getDie(i).setMode(1);
@@ -264,7 +279,9 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
             int mCombinationChosen = mSelectedObject.getId();
             mSpinnerPosition = position;
             updateUI();
-            Toast.makeText(getActivity(), String.valueOf(mValueChecker.getPoints(position + 2)) + " points!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), String.valueOf(
+                    mValueChecker.getPoints(mCombinationsLeft.get(mSpinnerPosition).getId())) +
+                    " points!", Toast.LENGTH_SHORT).show();
         }
 
 
