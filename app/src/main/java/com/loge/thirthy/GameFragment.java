@@ -46,6 +46,13 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mCombinationsLeft = mDiceState.getCombinationsLeft();
+        updateUI();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_game, container, false);
 
@@ -183,12 +190,13 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     mDice = mDiceState.getDice();
                 }
 
-                if(mGameState.getThrow() == 3){
+                if(mGameState.getThrow() == 2){
                     mThrowButton.setEnabled(false);
                 } else {
                     mGameState.nextThrow();
                 }
 
+                mSpinner.setSelection(0);
                 updateUI();
             }
         });
@@ -201,6 +209,12 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
             @Override
             public void onClick(View v){
                 // Check for mode 1 set, otherwise Toast
+                if(mDice.getMode() != 1){
+                    Toast.makeText(getActivity(),
+                            getResources().getString(R.string.choose_combination),
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 // Calculate points
                 int mPoints = 0;
@@ -222,6 +236,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                 if(mGameState.getRound() < NUMBER_OF_ROUNDS){
                     mGameState.nextRound();
                     mGameState.resetThrow();
+                    mThrowButton.setEnabled(true);
                     mDiceState.rollAllDice();
                     updateUI();
                 } else {
@@ -275,9 +290,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     mDice.getDie(i).setMode(1);
                 }
             }
-            // get id from combination and set as active
-            CombinationListItem mSelectedObject = (CombinationListItem) mSpinner.getAdapter().getItem(position);
-            int mCombinationChosen = mSelectedObject.getId();
+            mDice.setMode(1);
             mSpinnerPosition = position;
             updateUI();
             Toast.makeText(getActivity(), String.valueOf(

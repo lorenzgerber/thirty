@@ -36,6 +36,10 @@ public class GameState {
         mRound++;
     }
 
+    public void resetRound() {
+        mRound = 1;
+    }
+
     public int getThrow(){
         return mThrow;
     }
@@ -50,6 +54,18 @@ public class GameState {
 
     public void setPoints(int index, int points){
         mPoints[index] = points;
+    }
+
+    public int getPoints(int index){
+        return mPoints[index];
+    }
+
+    public int getTotalPoints(){
+        int mTotal = 0;
+        for (int value:mPoints){
+            mTotal += value;
+        }
+        return mTotal;
     }
 
     public void resetPoints(){
