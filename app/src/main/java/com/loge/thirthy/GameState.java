@@ -60,6 +60,10 @@ public class GameState {
         return mPoints[index];
     }
 
+    public int[] getPointsArray(){
+        return mPoints;
+    }
+
     public int getTotalPoints(){
         int mTotal = 0;
         for (int value:mPoints){

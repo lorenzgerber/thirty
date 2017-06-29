@@ -240,7 +240,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     mDiceState.rollAllDice();
                     updateUI();
                 } else {
-                    Intent intent = new Intent(getActivity(), ResultActivity.class);
+                    //Intent intent = new Intent(getActivity(), ResultActivity.class);
+                    Intent intent = GameActivity.newIntent(getActivity(), mGameState.getPointsArray());
                     startActivity(intent);
                 }
 

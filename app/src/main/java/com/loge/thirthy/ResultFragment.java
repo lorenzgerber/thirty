@@ -15,15 +15,31 @@ import android.widget.TextView;
 
 public class ResultFragment extends Fragment {
 
-    GameState mGameState;
-    DiceState mDiceState;
+    private static final String ARG_RESULT_ARRAY = "result_array";
+
     Button mPlayAgainButton;
+    int[] resultArray;
+    int totalPoints;
+
+    public static ResultFragment newInstance(int[] resultArray){
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_RESULT_ARRAY, resultArray);
+
+        ResultFragment fragment = new ResultFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        mGameState = GameState.get(getActivity());
-        mDiceState = DiceState.get(getActivity());
+        resultArray = new int[10];
+        resultArray = (int[]) getArguments().getSerializable(ARG_RESULT_ARRAY);
+        totalPoints = 0;
+        for(int points:resultArray){
+            totalPoints += points;
+        }
+
     }
 
     @Override
@@ -42,17 +58,17 @@ public class ResultFragment extends Fragment {
         TextView mResultTvelve = (TextView) v.findViewById(R.id.label_result_tvelve);
         TextView mResultTotal = (TextView) v.findViewById(R.id.label_result_total);
 
-        mResultLow.setText(getString(R.string.low) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getPoints(0)));
-        mResultFour.setText(getString(R.string.four) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getPoints(1)));
-        mResultFive.setText(getString(R.string.five) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getPoints(2)));
-        mResultSix.setText(getString(R.string.six) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getPoints(3)));
-        mResultSeven.setText(getString(R.string.seven) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getPoints(4)));
-        mResultEight.setText(getString(R.string.eight) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getPoints(5)));
-        mResultNine.setText(getString(R.string.nine) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getPoints(6)));
-        mResultTen.setText(getString(R.string.ten) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getPoints(7)));
-        mResultEleven.setText(getString(R.string.eleven) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getPoints(8)));
-        mResultTvelve.setText(getString(R.string.tvelve) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getPoints(9)));
-        mResultTotal.setText(getString(R.string.total_score) + getString(R.string.ten_tabs) + String.valueOf(mGameState.getTotalPoints()));
+        mResultLow.setText(getString(R.string.low) + getString(R.string.ten_tabs) + String.valueOf(resultArray[0]));
+        mResultFour.setText(getString(R.string.four) + getString(R.string.ten_tabs) + String.valueOf(resultArray[1]));
+        mResultFive.setText(getString(R.string.five) + getString(R.string.ten_tabs) + String.valueOf(resultArray[2]));
+        mResultSix.setText(getString(R.string.six) + getString(R.string.ten_tabs) + String.valueOf(resultArray[3]));
+        mResultSeven.setText(getString(R.string.seven) + getString(R.string.ten_tabs) + String.valueOf(resultArray[4]));
+        mResultEight.setText(getString(R.string.eight) + getString(R.string.ten_tabs) + String.valueOf(resultArray[5]));
+        mResultNine.setText(getString(R.string.nine) + getString(R.string.ten_tabs) + String.valueOf(resultArray[6]));
+        mResultTen.setText(getString(R.string.ten) + getString(R.string.ten_tabs) + String.valueOf(resultArray[7]));
+        mResultEleven.setText(getString(R.string.eleven) + getString(R.string.ten_tabs) + String.valueOf(resultArray[8]));
+        mResultTvelve.setText(getString(R.string.tvelve) + getString(R.string.ten_tabs) + String.valueOf(resultArray[9]));
+        mResultTotal.setText(getString(R.string.total_score) + getString(R.string.ten_tabs) + String.valueOf(totalPoints));
 
 
         mPlayAgainButton = (Button) v.findViewById(R.id.button_play_again);
@@ -60,10 +76,7 @@ public class ResultFragment extends Fragment {
 
             @Override
             public void onClick(View v){
-                mGameState.resetThrow();
-                mGameState.resetRound();
-                mGameState.resetPoints();
-                mDiceState.resetCombinationsList();
+
                 getActivity().finish();
             }
         });
