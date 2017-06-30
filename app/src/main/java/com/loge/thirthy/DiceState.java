@@ -25,15 +25,7 @@ public class DiceState {
 
     private DiceState(Context context){
         random = new Random();
-        mDice = new Dice.Builder(6)
-                .addDie(new Die(0,random.nextInt(6) + 1 ))
-                .addDie(new Die(1, random.nextInt(6) + 1 ))
-                .addDie(new Die(2, random.nextInt(6) + 1 ))
-                .addDie(new Die(3, random.nextInt(6) + 1 ))
-                .addDie(new Die(4, random.nextInt(6) + 1 ))
-                .addDie(new Die(5, random.nextInt(6) + 1 ))
-                .build();
-
+        mDice = new Dice(6);
         buildCombinationsList();
 
     }
@@ -47,18 +39,12 @@ public class DiceState {
     }
 
     public void rollAllDice(){
-        mDice = new Dice.Builder(6)
-                .addDie(new Die(0,random.nextInt(6) + 1 ))
-                .addDie(new Die(1, random.nextInt(6) + 1 ))
-                .addDie(new Die(2, random.nextInt(6) + 1 ))
-                .addDie(new Die(3, random.nextInt(6) + 1 ))
-                .addDie(new Die(4, random.nextInt(6) + 1 ))
-                .addDie(new Die(5, random.nextInt(6) + 1 ))
-                .build();
+        mDice = new Dice(6);
     }
 
+
     public void rollDice(int index){
-        mDice.setDie(index, new Die(index, random.nextInt(6)+1));
+        mDice.setDie(index, new Die());
     }
 
     public void buildCombinationsList(){
