@@ -105,4 +105,10 @@ public class Dice implements Iterable<Die> {
         }
     }
 
+    public void unselectAll(){
+        for(Die die:mDice){
+            die.setMode(0);
+        }
+    }
+
 }

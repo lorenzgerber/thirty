@@ -36,6 +36,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     int mSpinnerPosition;
     Dice mDice;
     ArrayAdapter<CombinationListItem> mAdapter;
+    int[] mPointsTransferArray;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -240,8 +241,11 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     mDiceState.rollAllDice();
                     updateUI();
                 } else {
-                    //Intent intent = new Intent(getActivity(), ResultActivity.class);
-                    Intent intent = GameActivity.newIntent(getActivity(), mGameState.getPointsArray());
+                    mPointsTransferArray = mGameState.getPointsArray().clone();
+                    Intent intent = ResultActivity.newIntent(getActivity(), mPointsTransferArray);
+                    mGameState.resetGame();
+                    mDiceState.resetCombinationsList();
+                    mDice.unselectAll();
                     startActivity(intent);
                 }
 

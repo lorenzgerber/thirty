@@ -34,7 +34,7 @@ public class DiceState {
                 .addDie(new Die(5, random.nextInt(6) + 1 ))
                 .build();
 
-        resetCombinationsList();
+        buildCombinationsList();
 
     }
 
@@ -61,9 +61,22 @@ public class DiceState {
         mDice.setDie(index, new Die(index, random.nextInt(6)+1));
     }
 
-    public void resetCombinationsList(){
+    public void buildCombinationsList(){
         mCombinationsLeft = new ArrayList<>();
         mCombinationsLeft.add(new CombinationListItem(2,"Choose Combination..."));
+        mCombinationsLeft.add(new CombinationListItem(3, "Low"));
+        mCombinationsLeft.add(new CombinationListItem(4, "Four"));
+        mCombinationsLeft.add(new CombinationListItem(5, "Five"));
+        mCombinationsLeft.add(new CombinationListItem(6, "Six"));
+        mCombinationsLeft.add(new CombinationListItem(7, "Seven"));
+        mCombinationsLeft.add(new CombinationListItem(8, "Eight"));
+        mCombinationsLeft.add(new CombinationListItem(9, "Nine"));
+        mCombinationsLeft.add(new CombinationListItem(10, "Ten"));
+        mCombinationsLeft.add(new CombinationListItem(11, "Eleven"));
+        mCombinationsLeft.add(new CombinationListItem(12, "Twelve"));
+    }
+
+    public void resetCombinationsList(){
         mCombinationsLeft.add(new CombinationListItem(3, "Low"));
         mCombinationsLeft.add(new CombinationListItem(4, "Four"));
         mCombinationsLeft.add(new CombinationListItem(5, "Five"));

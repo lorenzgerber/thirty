@@ -64,6 +64,12 @@ public class GameState {
         return mPoints;
     }
 
+    public void resetGame(){
+        this.resetPoints();
+        this.resetThrow();
+        this.resetRound();
+    }
+
     public int getTotalPoints(){
         int mTotal = 0;
         for (int value:mPoints){
