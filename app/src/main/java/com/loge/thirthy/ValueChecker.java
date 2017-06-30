@@ -1,6 +1,5 @@
 package com.loge.thirthy;
 
-import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,13 +22,11 @@ public class ValueChecker {
 
     public int getPoints(int faceValue){
         int points = 0;
-        int counter = 0;
         boolean bitArray[] = getCombination(faceValue);
-        for (Die die : mDice){
-            if(bitArray[counter]){
-                points += die.getValue();
+        for (int i = 0; i < mDice.size(); i++){
+            if(bitArray[i]){
+                points += mDice.getFaceValue(i);
             }
-            counter++;
         }
 
         return points;
@@ -47,12 +44,10 @@ public class ValueChecker {
         Taking care of special case '3'
          */
         if (mFaceValue == 3){
-            int counter = 0;
-            for(Die die : mDice){
-                if(die.getValue() < 4){
-                   resultFrame[counter] = true;
+            for(int i = 0; i < mDice.size(); i++){
+                if(mDice.getFaceValue(i) < 4){
+                   resultFrame[i] = true;
                 }
-                counter++;
             }
 
             return resultFrame;

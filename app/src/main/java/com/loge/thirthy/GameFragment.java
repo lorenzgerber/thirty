@@ -32,7 +32,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     Spinner mSpinner;
     int[][] mImageIds;
     int mDieMode;
-    //int mCombinationChosen;
     int mSpinnerPosition;
     Dice mDice;
     ArrayAdapter<CombinationListItem> mAdapter;
@@ -72,13 +71,12 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
 
     private void updateUI() {
 
-
         mDice = mDiceState.getDice();
         mDieMode = mDice.getMode();
 
-        for (Die die : mDice){
-            mImageButtons.get(die.getPosition())
-                    .setImageResource(mImageIds[die.getMode()][die.getValue()-1]);
+        for (int i = 0; i < mDice.size(); i++){
+            mImageButtons.get(i).setImageResource(mImageIds[mDice.
+                    getDie(i).getMode()][mDice.getDie(i).getValue()-1]);
         }
     }
 
@@ -180,9 +178,9 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
             @Override
             public void onClick(View v){
                 boolean mThrowAll = true;
-                for (Die die: mDice){
-                    if(die.getMode() == 2){
-                        mDiceState.rollDice(die.getPosition());
+                for (int i = 0; i < mDice.size(); i++){
+                    if(mDice.getDie(i).getMode()==2){
+                        mDiceState.rollDice(i);
                         mThrowAll = false;
                     }
                 }
@@ -219,9 +217,9 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
 
                 // Calculate points
                 int mPoints = 0;
-                for(Die die:mDice){
-                    if(die.getMode()==1){
-                        mPoints += die.getValue();
+                for (int i = 0; i < mDice.size(); i++){
+                    if (mDice.getDie(i).getMode()==1){
+                        mPoints += mDice.getDie(i).getValue();
                     }
                 }
 
@@ -245,11 +243,12 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     Intent intent = ResultActivity.newIntent(getActivity(), mPointsTransferArray);
                     mGameState.resetGame();
                     mDiceState.resetCombinationsList();
+                    mDiceState.rollAllDice();
                     mDice.unselectAll();
+                    updateUI();
                     startActivity(intent);
+
                 }
-
-
             }
 
         });
@@ -302,8 +301,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     mValueChecker.getPoints(mCombinationsLeft.get(mSpinnerPosition).getId())) +
                     " points!", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
     @Override
