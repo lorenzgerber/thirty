@@ -32,7 +32,6 @@ import java.util.ArrayList;
 public class GameFragment extends Fragment {
 
     private static int NUMBER_OF_ROUNDS = 10;
-    //private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
 
     GameState mGameState;
 
@@ -40,12 +39,8 @@ public class GameFragment extends Fragment {
     CombinationSpinner mCombinationSpinner;
     Button mThrowButton;
     Button mTakePointsButton;
-    //ArrayList<CombinationListItem> mCombinationsLeft;
-    //Spinner mSpinner;
     int mDieMode;
-    int mSpinnerPosition;
     Dice mDice;
-    //ArrayAdapter<CombinationListItem> mAdapter;
     int[] mPointsTransferArray;
 
     @Override
@@ -53,7 +48,6 @@ public class GameFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mDice = new Dice(6);
         mGameState = GameState.get(getActivity());
-        //buildCombinationsList();
     }
 
     @Override
@@ -80,12 +74,8 @@ public class GameFragment extends Fragment {
             }
         });
 
-        //mCombinationSpinner.buildCombinationsList();
-
-
         initThrowButton(v);
         initTakePointsButton(v);
-        //initSpinner(v);
         updateUI();
 
         return v;
@@ -121,7 +111,6 @@ public class GameFragment extends Fragment {
                     mGameState.nextThrow();
                 }
 
-                //mSpinner.setSelection(0);
                 mCombinationSpinner.setSpinnerPosition(0);
                 updateUI();
             }
@@ -150,15 +139,9 @@ public class GameFragment extends Fragment {
                     }
                 }
 
-                // set points in the array
-                //mGameState.setPoints(mCombinationsLeft.get(mSpinnerPosition).getId()-3, mPoints);
                 mGameState.setPoints(mCombinationSpinner.getCombinationItemId()-3, mPoints);
-
-                // remove combination from list
-                //mCombinationsLeft.remove(mSpinnerPosition);
                 mCombinationSpinner.removeCurrentSpinnerItem();
-                //mAdapter.notifyDataSetChanged();
-                //mSpinner.setAdapter(mAdapter);
+
 
                 // Check Round
                 if(mGameState.getRound() < NUMBER_OF_ROUNDS){
@@ -171,7 +154,6 @@ public class GameFragment extends Fragment {
                     mPointsTransferArray = mGameState.getPointsArray().clone();
                     Intent intent = ResultActivity.newIntent(getActivity(), mPointsTransferArray);
                     mGameState.resetGame();
-                    //resetCombinationsList();
                     mCombinationSpinner.resetCombinationsList();
                     mDice.rollAllDice();
                     mDice.unselectAll();
@@ -184,68 +166,4 @@ public class GameFragment extends Fragment {
         });
 
     }
-
-    /*
-    private void initSpinner(View v){
-        mSpinner = (Spinner) v.findViewById(R.id.choose_points);
-        mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, mCombinationsLeft);
-        mSpinner.setAdapter(mAdapter);
-        mSpinner.setOnItemSelectedListener(this);
-    }*/
-
-
-
-    /*
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (position != 0){
-            ValueChecker mValueChecker = new ValueChecker(mDice);
-            //boolean[] mCombination = mValueChecker.getCombination(mCombinationsLeft.get(position).getId());
-            boolean[] mCombination = mValueChecker.getCombination(mCombinationSpinner.getCombinationItemId());
-            mDice.setMode(0);
-            for(int i = 0; i < 6; i++){
-                if (mCombination[i]){
-                    mDice.getDie(i).setMode(1);
-                }
-            }
-            mDice.setMode(1);
-            mSpinnerPosition = position;
-            updateUI();
-            //Toast.makeText(getActivity(), String.valueOf(
-            //        mValueChecker.getPoints(mCombinationsLeft.get(mSpinnerPosition).getId())) +
-            //        " points!", Toast.LENGTH_SHORT).show();
-            Toast.makeText(getActivity(), String.valueOf(
-                    mValueChecker.getPoints(mCombinationSpinner.getCombinationItemId())) +
-                    " points!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }*/
-
-
-    /*
-    public void buildCombinationsList(){
-        Resources res = getResources();
-        String[] mCombinationsText = res.getStringArray(R.array.combination_list);
-        mCombinationsLeft = new ArrayList<>();
-
-        for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES; i++ ) {
-            mCombinationsLeft.add(new CombinationListItem(i + 2, mCombinationsText[i]) );
-        }
-    }
-
-    public void resetCombinationsList(){
-        Resources res = getResources();
-        String[] mCombinationsText = res.getStringArray(R.array.combination_list);
-
-        for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES-1; i++ ) {
-            mCombinationsLeft.add(new CombinationListItem(i + 2, mCombinationsText[i]) );
-        }
-    }*/
-
-
 }
