@@ -18,6 +18,9 @@ import com.loge.thirthy.R;
 import com.loge.thirthy.model.Dice;
 import com.loge.thirthy.model.GameState;
 import com.loge.thirthy.model.ValueChecker;
+import com.loge.thirthy.view.CombinationSpinner;
+import com.loge.thirthy.view.CombinationSpinnerChangeEvent;
+import com.loge.thirthy.view.CombinationSpinnerChangeListener;
 import com.loge.thirthy.view.DiceImageButtons;
 
 import java.util.ArrayList;
@@ -26,22 +29,23 @@ import java.util.ArrayList;
  * Created by loge on 2017-06-22.
  */
 
-public class GameFragment extends Fragment implements AdapterView.OnItemSelectedListener{
+public class GameFragment extends Fragment {
 
     private static int NUMBER_OF_ROUNDS = 10;
-    private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
+    //private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
 
     GameState mGameState;
 
     DiceImageButtons mImageButtons;
+    CombinationSpinner mCombinationSpinner;
     Button mThrowButton;
     Button mTakePointsButton;
-    ArrayList<CombinationListItem> mCombinationsLeft;
-    Spinner mSpinner;
+    //ArrayList<CombinationListItem> mCombinationsLeft;
+    //Spinner mSpinner;
     int mDieMode;
     int mSpinnerPosition;
     Dice mDice;
-    ArrayAdapter<CombinationListItem> mAdapter;
+    //ArrayAdapter<CombinationListItem> mAdapter;
     int[] mPointsTransferArray;
 
     @Override
@@ -49,7 +53,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
         super.onCreate(savedInstanceState);
         mDice = new Dice(6);
         mGameState = GameState.get(getActivity());
-        buildCombinationsList();
+        //buildCombinationsList();
     }
 
     @Override
@@ -67,10 +71,21 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
         mImageButtons.attachListeners(mDice);
         mImageButtons.updateImages(mDice);
 
+        mCombinationSpinner = new CombinationSpinner(v, this, mDice);
+        mCombinationSpinner.addCombinationSpinnerChangeListener(new CombinationSpinnerChangeListener(){
+
+            @Override
+            public void changeEventReceived(CombinationSpinnerChangeEvent evt) {
+                updateUI();
+            }
+        });
+
+        //mCombinationSpinner.buildCombinationsList();
+
 
         initThrowButton(v);
         initTakePointsButton(v);
-        initSpinner(v);
+        //initSpinner(v);
         updateUI();
 
         return v;
@@ -106,7 +121,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     mGameState.nextThrow();
                 }
 
-                mSpinner.setSelection(0);
+                //mSpinner.setSelection(0);
+                mCombinationSpinner.setSpinnerPosition(0);
                 updateUI();
             }
         });
@@ -135,12 +151,14 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                 }
 
                 // set points in the array
-                mGameState.setPoints(mCombinationsLeft.get(mSpinnerPosition).getId()-3, mPoints);
+                //mGameState.setPoints(mCombinationsLeft.get(mSpinnerPosition).getId()-3, mPoints);
+                mGameState.setPoints(mCombinationSpinner.getCombinationItemId()-3, mPoints);
 
                 // remove combination from list
-                mCombinationsLeft.remove(mSpinnerPosition);
-                mAdapter.notifyDataSetChanged();
-                mSpinner.setAdapter(mAdapter);
+                //mCombinationsLeft.remove(mSpinnerPosition);
+                mCombinationSpinner.removeCurrentSpinnerItem();
+                //mAdapter.notifyDataSetChanged();
+                //mSpinner.setAdapter(mAdapter);
 
                 // Check Round
                 if(mGameState.getRound() < NUMBER_OF_ROUNDS){
@@ -153,7 +171,8 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     mPointsTransferArray = mGameState.getPointsArray().clone();
                     Intent intent = ResultActivity.newIntent(getActivity(), mPointsTransferArray);
                     mGameState.resetGame();
-                    resetCombinationsList();
+                    //resetCombinationsList();
+                    mCombinationSpinner.resetCombinationsList();
                     mDice.rollAllDice();
                     mDice.unselectAll();
                     updateUI();
@@ -166,19 +185,23 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
 
     }
 
+    /*
     private void initSpinner(View v){
         mSpinner = (Spinner) v.findViewById(R.id.choose_points);
         mAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, mCombinationsLeft);
         mSpinner.setAdapter(mAdapter);
         mSpinner.setOnItemSelectedListener(this);
-    }
+    }*/
 
 
+
+    /*
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position != 0){
             ValueChecker mValueChecker = new ValueChecker(mDice);
-            boolean[] mCombination = mValueChecker.getCombination(mCombinationsLeft.get(position).getId());
+            //boolean[] mCombination = mValueChecker.getCombination(mCombinationsLeft.get(position).getId());
+            boolean[] mCombination = mValueChecker.getCombination(mCombinationSpinner.getCombinationItemId());
             mDice.setMode(0);
             for(int i = 0; i < 6; i++){
                 if (mCombination[i]){
@@ -188,17 +211,23 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
             mDice.setMode(1);
             mSpinnerPosition = position;
             updateUI();
+            //Toast.makeText(getActivity(), String.valueOf(
+            //        mValueChecker.getPoints(mCombinationsLeft.get(mSpinnerPosition).getId())) +
+            //        " points!", Toast.LENGTH_SHORT).show();
             Toast.makeText(getActivity(), String.valueOf(
-                    mValueChecker.getPoints(mCombinationsLeft.get(mSpinnerPosition).getId())) +
+                    mValueChecker.getPoints(mCombinationSpinner.getCombinationItemId())) +
                     " points!", Toast.LENGTH_SHORT).show();
         }
     }
 
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
-    }
+    }*/
 
+
+    /*
     public void buildCombinationsList(){
         Resources res = getResources();
         String[] mCombinationsText = res.getStringArray(R.array.combination_list);
@@ -216,7 +245,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
         for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES-1; i++ ) {
             mCombinationsLeft.add(new CombinationListItem(i + 2, mCombinationsText[i]) );
         }
-    }
+    }*/
 
 
 }
