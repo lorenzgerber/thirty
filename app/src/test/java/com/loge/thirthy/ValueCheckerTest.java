@@ -1,5 +1,9 @@
 package com.loge.thirthy;
 
+import com.loge.thirthy.model.Dice;
+import com.loge.thirthy.model.Die;
+import com.loge.thirthy.model.ValueChecker;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;

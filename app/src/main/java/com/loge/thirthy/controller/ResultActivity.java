@@ -1,4 +1,4 @@
-package com.loge.thirthy;
+package com.loge.thirthy.controller;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,6 +1,7 @@
-package com.loge.thirthy;
+package com.loge.thirthy.controller;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,12 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.loge.thirthy.CombinationListItem;
+import com.loge.thirthy.R;
+import com.loge.thirthy.model.Dice;
+import com.loge.thirthy.model.GameState;
+import com.loge.thirthy.model.ValueChecker;
+
 import java.util.ArrayList;
 
 /**
@@ -22,8 +29,8 @@ import java.util.ArrayList;
 public class GameFragment extends Fragment implements AdapterView.OnItemSelectedListener{
 
     private static int NUMBER_OF_ROUNDS = 10;
+    private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
 
-    DiceState mDiceState;
     GameState mGameState;
     ArrayList<ImageButton> mImageButtons = new ArrayList<>();
     Button mThrowButton;
@@ -40,15 +47,14 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        mDiceState = DiceState.get(getActivity());
+        mDice = new Dice(6);
         mGameState = GameState.get(getActivity());
-        mCombinationsLeft = mDiceState.getCombinationsLeft();
+        buildCombinationsList();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mCombinationsLeft = mDiceState.getCombinationsLeft();
         updateUI();
     }
 
@@ -71,7 +77,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
 
     private void updateUI() {
 
-        mDice = mDiceState.getDice();
         mDieMode = mDice.getMode();
 
         for (int i = 0; i < mDice.size(); i++){
@@ -180,13 +185,12 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                 boolean mThrowAll = true;
                 for (int i = 0; i < mDice.size(); i++){
                     if(mDice.getDie(i).getMode()==2){
-                        mDiceState.rollDice(i);
+                        mDice.rollDie(i);
                         mThrowAll = false;
                     }
                 }
                 if (mThrowAll){
-                    mDiceState.rollAllDice();
-                    mDice = mDiceState.getDice();
+                    mDice.rollAllDice();
                 }
 
                 if(mGameState.getThrow() == 2){
@@ -236,14 +240,14 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
                     mGameState.nextRound();
                     mGameState.resetThrow();
                     mThrowButton.setEnabled(true);
-                    mDiceState.rollAllDice();
+                    mDice.rollAllDice();
                     updateUI();
                 } else {
                     mPointsTransferArray = mGameState.getPointsArray().clone();
                     Intent intent = ResultActivity.newIntent(getActivity(), mPointsTransferArray);
                     mGameState.resetGame();
-                    mDiceState.resetCombinationsList();
-                    mDiceState.rollAllDice();
+                    resetCombinationsList();
+                    mDice.rollAllDice();
                     mDice.unselectAll();
                     updateUI();
                     startActivity(intent);
@@ -286,7 +290,7 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position != 0){
-            ValueChecker mValueChecker = new ValueChecker(mDiceState.getDice());
+            ValueChecker mValueChecker = new ValueChecker(mDice);
             boolean[] mCombination = mValueChecker.getCombination(mCombinationsLeft.get(position).getId());
             mDice.setMode(0);
             for(int i = 0; i < 6; i++){
@@ -307,4 +311,25 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+    public void buildCombinationsList(){
+        Resources res = getResources();
+        String[] mCombinationsText = res.getStringArray(R.array.combination_list);
+        mCombinationsLeft = new ArrayList<>();
+
+        for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES; i++ ) {
+            mCombinationsLeft.add(new CombinationListItem(i + 2, mCombinationsText[i]) );
+        }
+    }
+
+    public void resetCombinationsList(){
+        Resources res = getResources();
+        String[] mCombinationsText = res.getStringArray(R.array.combination_list);
+
+        for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES-1; i++ ) {
+            mCombinationsLeft.add(new CombinationListItem(i + 2, mCombinationsText[i]) );
+        }
+    }
+
+
 }

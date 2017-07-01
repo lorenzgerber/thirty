@@ -1,8 +1,6 @@
-package com.loge.thirthy;
+package com.loge.thirthy.model;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.loge.thirthy.model.Die;
 
 /**
  * Created by loge on 2017-06-16.
@@ -10,7 +8,6 @@ import java.util.List;
 
 public class Dice {
     private final Die mDice[];
-
     private int mMode;
 
     public static final int MODE_SHOW = 0;
@@ -43,6 +40,16 @@ public class Dice {
 
     public int getFaceValue(int index){
         return mDice[index].getValue();
+    }
+
+    public void rollAllDice(){
+        for (int i = 0 ; i < mDice.length; i++){
+            mDice[i] = new Die();
+        }
+    }
+
+    public void rollDie(int index){
+        mDice[index] = new Die();
     }
 
     public void setMode(int mode){

@@ -1,4 +1,4 @@
-package com.loge.thirthy;
+package com.loge.thirthy.model;
 
 
 import java.util.ArrayList;

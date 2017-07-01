@@ -1,13 +1,14 @@
-package com.loge.thirthy;
+package com.loge.thirthy.controller;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.loge.thirthy.R;
 
 /**
  * Created by loge on 2017-06-27.
