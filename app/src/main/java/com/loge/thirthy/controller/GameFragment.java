@@ -10,15 +10,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.loge.thirthy.CombinationListItem;
+import com.loge.thirthy.view.CombinationListItem;
 import com.loge.thirthy.R;
 import com.loge.thirthy.model.Dice;
 import com.loge.thirthy.model.GameState;
 import com.loge.thirthy.model.ValueChecker;
+import com.loge.thirthy.view.DiceImageButtons;
 
 import java.util.ArrayList;
 
@@ -32,12 +32,12 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
 
     GameState mGameState;
-    ArrayList<ImageButton> mImageButtons = new ArrayList<>();
+
+    DiceImageButtons mImageButtons;
     Button mThrowButton;
     Button mTakePointsButton;
     ArrayList<CombinationListItem> mCombinationsLeft;
     Spinner mSpinner;
-    int[][] mImageIds;
     int mDieMode;
     int mSpinnerPosition;
     Dice mDice;
@@ -63,13 +63,14 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
         View v = inflater.inflate(R.layout.fragment_game, container, false);
 
         // Get ImageButton Widgets
-        initImageButtons(v);
+        mImageButtons = new DiceImageButtons(v);
+        mImageButtons.attachListeners(mDice);
+        mImageButtons.updateImages(mDice);
+
+
         initThrowButton(v);
         initTakePointsButton(v);
         initSpinner(v);
-        attachImageButtonListeners();
-        mImageIds = new int[3][6];
-        initImageIds();
         updateUI();
 
         return v;
@@ -78,103 +79,9 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
     private void updateUI() {
 
         mDieMode = mDice.getMode();
-
-        for (int i = 0; i < mDice.size(); i++){
-            mImageButtons.get(i).setImageResource(mImageIds[mDice.
-                    getDie(i).getMode()][mDice.getDie(i).getValue()-1]);
-        }
+        mImageButtons.updateImages(mDice);
     }
 
-    private void initImageButtons(View v){
-        mImageButtons.add((ImageButton) v.findViewById(R.id.die_one));
-        mImageButtons.add((ImageButton) v.findViewById(R.id.die_two));
-        mImageButtons.add((ImageButton) v.findViewById(R.id.die_three));
-        mImageButtons.add((ImageButton) v.findViewById(R.id.die_four));
-        mImageButtons.add((ImageButton) v.findViewById(R.id.die_five));
-        mImageButtons.add((ImageButton) v.findViewById(R.id.die_six));
-    }
-
-    private void attachImageButtonListeners(){
-        mImageButtons.get(0).setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                mDice.setMode(2);
-                if(mDice.getDie(0).getMode() > 0 ){
-                    mDice.getDie(0).setMode(0);
-                } else {
-                    mDice.getDie(0).setMode(2);
-                }
-                updateUI();
-            }
-        });
-
-        mImageButtons.get(1).setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                mDice.setMode(2);
-                if(mDice.getDie(1).getMode() > 0 ){
-                    mDice.getDie(1).setMode(0);
-                } else {
-                    mDice.getDie(1).setMode(2);
-                }
-                updateUI();
-            }
-        });
-        mImageButtons.get(2).setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                mDice.setMode(2);
-                if(mDice.getDie(2).getMode() > 0 ){
-                    mDice.getDie(2).setMode(0);
-                } else {
-                    mDice.getDie(2).setMode(2);
-                }
-                updateUI();
-            }
-        });
-        mImageButtons.get(3).setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                mDice.setMode(2);
-                if(mDice.getDie(3).getMode() > 0 ){
-                    mDice.getDie(3).setMode(0);
-                } else {
-                    mDice.getDie(3).setMode(2);
-                }
-                updateUI();
-            }
-        });
-        mImageButtons.get(4).setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                mDice.setMode(2);
-                if(mDice.getDie(4).getMode() > 0 ){
-                    mDice.getDie(4).setMode(0);
-                } else {
-                    mDice.getDie(4).setMode(2);
-                }
-                updateUI();
-            }
-        });
-        mImageButtons.get(5).setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                mDice.setMode(2);
-                if(mDice.getDie(5).getMode() > 0 ){
-                    mDice.getDie(5).setMode(0);
-                } else {
-                    mDice.getDie(5).setMode(2);
-                }
-                updateUI();
-            }
-        });
-    }
 
     private void initThrowButton(View v){
         mThrowButton = (Button) v.findViewById(R.id.roll_dice);
@@ -266,26 +173,6 @@ public class GameFragment extends Fragment implements AdapterView.OnItemSelected
         mSpinner.setOnItemSelectedListener(this);
     }
 
-    private void initImageIds(){
-        mImageIds[0][0] = R.drawable.white1;
-        mImageIds[0][1] = R.drawable.white2;
-        mImageIds[0][2] = R.drawable.white3;
-        mImageIds[0][3] = R.drawable.white4;
-        mImageIds[0][4] = R.drawable.white5;
-        mImageIds[0][5] = R.drawable.white6;
-        mImageIds[1][0] = R.drawable.grey1;
-        mImageIds[1][1] = R.drawable.grey2;
-        mImageIds[1][2] = R.drawable.grey3;
-        mImageIds[1][3] = R.drawable.grey4;
-        mImageIds[1][4] = R.drawable.grey5;
-        mImageIds[1][5] = R.drawable.grey6;
-        mImageIds[2][0] = R.drawable.red1;
-        mImageIds[2][1] = R.drawable.red2;
-        mImageIds[2][2] = R.drawable.red3;
-        mImageIds[2][3] = R.drawable.red4;
-        mImageIds[2][4] = R.drawable.red5;
-        mImageIds[2][5] = R.drawable.red6;
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

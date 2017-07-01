@@ -1,4 +1,4 @@
-package com.loge.thirthy;
+package com.loge.thirthy.view;
 
 /**
  * Created by loge on 2017-06-23.
