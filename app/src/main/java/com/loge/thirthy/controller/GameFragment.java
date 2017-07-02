@@ -32,6 +32,7 @@ import java.util.ArrayList;
 public class GameFragment extends Fragment {
 
     private static int NUMBER_OF_ROUNDS = 10;
+    private static int NUMBER_OF_DIE = 6;
 
     GameState mGameState;
 
@@ -46,7 +47,7 @@ public class GameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        mDice = new Dice(6);
+        mDice = new Dice(NUMBER_OF_DIE);
         mGameState = GameState.get(getActivity());
     }
 
