@@ -23,6 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
 
     private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
+    private static int DIFF_LIST_INDEX_TO_FACE_VALUE = 2;
 
     private Spinner mSpinner;
     private int mSpinnerPosition;
@@ -30,7 +31,6 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
     private GameFragment mHostFragment;
     private ArrayAdapter<CombinationListItem> mAdapter;
     private ArrayList<CombinationListItem> mCombinationsLeft;
-    private boolean[] mLabelsActive;
     private final CopyOnWriteArrayList<CombinationSpinnerChangeListener> listeners;
 
     public CombinationSpinner(View v, GameFragment f, Dice dice){
@@ -38,6 +38,7 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
         mHostFragment = f;
         mCombinationsLeft = new ArrayList<>();
         resetCombinationsList();
+
 
 
         mSpinner = (Spinner) v.findViewById(R.id.choose_points);
@@ -91,7 +92,10 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
         String[] mCombinationsText = res.getStringArray(R.array.combination_list);
         mCombinationsLeft.clear();
         for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES; i++ ) {
-            mCombinationsLeft.add(new CombinationListItem(i + 2, mCombinationsText[i]) );
+            mCombinationsLeft.add(
+                    new CombinationListItem(i + DIFF_LIST_INDEX_TO_FACE_VALUE,
+                    mCombinationsText[i])
+            );
         }
     }
 

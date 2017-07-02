@@ -26,7 +26,7 @@ public class GameState {
 
     private GameState(Context context) {
         mRound = 0;
-        mThrow = 1;
+        mThrow = 0;
         mPoints = new int[NUBMER_OF_ROUNDS];
         mRoundCompleted = new boolean[NUBMER_OF_ROUNDS];
     }

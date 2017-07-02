@@ -106,7 +106,7 @@ public class GameFragment extends Fragment {
                     mDice.rollAllDice();
                 }
 
-                if(mGameState.getThrow() == 2){
+                if(mGameState.getThrow() == 1){
                     mThrowButton.setEnabled(false);
                 } else {
                     mGameState.nextThrow();
