@@ -6,25 +6,25 @@ import android.content.Context;
  * Created by loge on 2017-06-24.
  */
 
-public class GameState {
+public class Game {
 
     private static int NUBMER_OF_ROUNDS = 10;
 
-    private static GameState sGameState;
+    private static Game sGame;
 
     private int mRound;
     private int mThrow;
     private int[] mPoints;
     private boolean[] mRoundCompleted;
 
-    public static GameState get(Context context){
-        if (sGameState == null) {
-            sGameState = new GameState(context);
+    public static Game get(Context context){
+        if (sGame == null) {
+            sGame = new Game(context);
         }
-        return sGameState;
+        return sGame;
     }
 
-    private GameState(Context context) {
+    private Game(Context context) {
         mRound = 0;
         mThrow = 0;
         mPoints = new int[NUBMER_OF_ROUNDS];

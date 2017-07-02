@@ -1,29 +1,21 @@
 package com.loge.thirthy.controller;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.loge.thirthy.view.CombinationListItem;
 import com.loge.thirthy.R;
 import com.loge.thirthy.model.Dice;
-import com.loge.thirthy.model.GameState;
-import com.loge.thirthy.model.ValueChecker;
+import com.loge.thirthy.model.Game;
 import com.loge.thirthy.view.CombinationSpinner;
 import com.loge.thirthy.view.CombinationSpinnerChangeEvent;
 import com.loge.thirthy.view.CombinationSpinnerChangeListener;
 import com.loge.thirthy.view.DiceImageButtons;
-
-import java.util.ArrayList;
 
 /**
  * Created by loge on 2017-06-22.
@@ -34,7 +26,7 @@ public class GameFragment extends Fragment {
     private static int NUMBER_OF_ROUNDS = 10;
     private static int NUMBER_OF_DIE = 6;
 
-    GameState mGameState;
+    Game mGame;
 
     DiceImageButtons mImageButtons;
     CombinationSpinner mCombinationSpinner;
@@ -48,7 +40,7 @@ public class GameFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         mDice = new Dice(NUMBER_OF_DIE);
-        mGameState = GameState.get(getActivity());
+        mGame = Game.get(getActivity());
     }
 
     @Override
@@ -106,10 +98,10 @@ public class GameFragment extends Fragment {
                     mDice.rollAllDice();
                 }
 
-                if(mGameState.getThrow() == 1){
+                if(mGame.getThrow() == 1){
                     mThrowButton.setEnabled(false);
                 } else {
-                    mGameState.nextThrow();
+                    mGame.nextThrow();
                 }
 
                 mCombinationSpinner.setSpinnerPosition(0);
@@ -140,20 +132,20 @@ public class GameFragment extends Fragment {
                     }
                 }
 
-                mGameState.setPoints(mCombinationSpinner.getCombinationItemId()-3, mPoints);
+                mGame.setPoints(mCombinationSpinner.getCombinationItemId()-3, mPoints);
                 mCombinationSpinner.removeCurrentSpinnerItem();
 
 
                 // Check Round
-                if(mGameState.getRound() < NUMBER_OF_ROUNDS){
-                    mGameState.resetThrow();
+                if(mGame.getRound() < NUMBER_OF_ROUNDS){
+                    mGame.resetThrow();
                     mThrowButton.setEnabled(true);
                     mDice.rollAllDice();
                     updateUI();
                 } else {
-                    mPointsTransferArray = mGameState.getPointsArray().clone();
+                    mPointsTransferArray = mGame.getPointsArray().clone();
                     Intent intent = ResultActivity.newIntent(getActivity(), mPointsTransferArray);
-                    mGameState.resetGame();
+                    mGame.resetGame();
                     mCombinationSpinner.resetCombinationsList();
                     mDice.rollAllDice();
                     mDice.unselectAll();
