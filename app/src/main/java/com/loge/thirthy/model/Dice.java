@@ -2,6 +2,10 @@ package com.loge.thirthy.model;
 
 import com.loge.thirthy.model.Die;
 
+import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
+import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
+import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
+
 /**
  * Created by loge on 2017-06-16.
  */
@@ -9,10 +13,6 @@ import com.loge.thirthy.model.Die;
 public class Dice {
     private final Die mDice[];
     private int mMode;
-
-    public static final int MODE_SHOW = 0;
-    public static final int MODE_HIGHLIGHTED = 1;
-    public static final int MODE_SELECTED = 2;
 
     public Dice(int size){
         mDice = new Die[size];
@@ -81,6 +81,17 @@ public class Dice {
         for(Die die:mDice){
             die.setMode(0);
         }
+    }
+
+    public int calculatePoints(){
+        int mPoints = 0;
+        for (int i = 0; i < this.size(); i++){
+            if (this.getDie(i).getMode()==1){
+                mPoints += this.getDie(i).getValue();
+            }
+        }
+
+        return mPoints;
     }
 
 }

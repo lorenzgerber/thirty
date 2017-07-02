@@ -16,6 +16,9 @@ import com.loge.thirthy.model.ValueChecker;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
+import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
+
 /**
  * Created by lgerber on 7/1/17.
  */
@@ -23,7 +26,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
 
     private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
-    private static int DIFF_LIST_INDEX_TO_FACE_VALUE = 2;
+    private static int DIFF_SPINNER_INDEX_TO_FACE_VALUE = 2;
 
     private Spinner mSpinner;
     private int mSpinnerPosition;
@@ -66,13 +69,13 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
         if (position != 0){
             ValueChecker mValueChecker = new ValueChecker(mDice);
             boolean[] mCombination = mValueChecker.getCombination(mCombinationsLeft.get(position).getId());
-            mDice.setMode(0);
+            mDice.setMode(MODE_SHOW);
             for(int i = 0; i < 6; i++){
                 if (mCombination[i]){
-                    mDice.getDie(i).setMode(1);
+                    mDice.getDie(i).setMode(MODE_HIGHLIGHTED);
                 }
             }
-            mDice.setMode(1);
+            mDice.setMode(MODE_HIGHLIGHTED);
             mSpinnerPosition = position;
             fireChangeEvent();
             Toast.makeText(mHostFragment.getActivity(), String.valueOf(
@@ -84,7 +87,6 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         mSpinnerPosition = 0;
-
     }
 
     public void resetCombinationsList(){
@@ -93,7 +95,7 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
         mCombinationsLeft.clear();
         for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES; i++ ) {
             mCombinationsLeft.add(
-                    new CombinationListItem(i + DIFF_LIST_INDEX_TO_FACE_VALUE,
+                    new CombinationListItem(i + DIFF_SPINNER_INDEX_TO_FACE_VALUE,
                     mCombinationsText[i])
             );
         }

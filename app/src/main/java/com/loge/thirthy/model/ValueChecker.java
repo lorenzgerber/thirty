@@ -82,7 +82,7 @@ public class ValueChecker {
         Collections.sort(mCombinations);
 
         Arrays.fill(resultFrame, false);
-        int points;
+
         boolean doesNotFit;
         for(Combinations combination : mCombinations){
             doesNotFit = false;
@@ -101,7 +101,6 @@ public class ValueChecker {
         }
 
         return resultFrame;
-
     }
 
     public static int pow2(int power)
@@ -111,9 +110,6 @@ public class ValueChecker {
             ret <<= 1;
         return ret;
     }
-
-
-
 
     private class Combinations implements Comparable<Combinations> {
         int mRank = 0;
@@ -143,8 +139,5 @@ public class ValueChecker {
             int compareRank = ((Combinations) compareCombination).getRank();
             return this.getRank() - compareRank;
         }
-
     }
-
-
 }

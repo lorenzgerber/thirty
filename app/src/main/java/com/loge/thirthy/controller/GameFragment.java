@@ -17,6 +17,9 @@ import com.loge.thirthy.view.CombinationSpinnerChangeEvent;
 import com.loge.thirthy.view.CombinationSpinnerChangeListener;
 import com.loge.thirthy.view.DiceImageButtons;
 
+import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
+import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
+
 /**
  * Created by loge on 2017-06-22.
  */
@@ -25,6 +28,7 @@ public class GameFragment extends Fragment {
 
     private static int NUMBER_OF_ROUNDS = 10;
     private static int NUMBER_OF_DIE = 6;
+    private static int DIFF_FACE_VALUE_TO_POINT_ARRAY_INDEX = 3;
 
     Game mGame;
 
@@ -89,7 +93,7 @@ public class GameFragment extends Fragment {
             public void onClick(View v){
                 boolean mThrowAll = true;
                 for (int i = 0; i < mDice.size(); i++){
-                    if(mDice.getDie(i).getMode()==2){
+                    if(mDice.getDie(i).getMode()==MODE_SELECTED){
                         mDice.rollDie(i);
                         mThrowAll = false;
                     }
@@ -116,23 +120,18 @@ public class GameFragment extends Fragment {
 
             @Override
             public void onClick(View v){
-                // Check for mode 1 set, otherwise Toast
-                if(mDice.getMode() != 1){
+                if(mDice.getMode() != MODE_HIGHLIGHTED){
                     Toast.makeText(getActivity(),
-                            getResources().getString(R.string.choose_combination),
+                            getResources().getText(R.string.choose_combination),
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Calculate points
-                int mPoints = 0;
-                for (int i = 0; i < mDice.size(); i++){
-                    if (mDice.getDie(i).getMode()==1){
-                        mPoints += mDice.getDie(i).getValue();
-                    }
-                }
-
-                mGame.setPoints(mCombinationSpinner.getCombinationItemId()-3, mPoints);
+                mGame.setPoints(
+                        mCombinationSpinner.getCombinationItemId() -
+                                DIFF_FACE_VALUE_TO_POINT_ARRAY_INDEX,
+                        mDice.calculatePoints()
+                );
                 mCombinationSpinner.removeCurrentSpinnerItem();
 
 
@@ -145,13 +144,12 @@ public class GameFragment extends Fragment {
                 } else {
                     mPointsTransferArray = mGame.getPointsArray().clone();
                     Intent intent = ResultActivity.newIntent(getActivity(), mPointsTransferArray);
+                    startActivity(intent);
                     mGame.resetGame();
                     mCombinationSpinner.resetCombinationsList();
                     mDice.rollAllDice();
                     mDice.unselectAll();
                     updateUI();
-                    startActivity(intent);
-
                 }
             }
 

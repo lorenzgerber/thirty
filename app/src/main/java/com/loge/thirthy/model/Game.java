@@ -16,7 +16,7 @@ public class Game {
     private int mThrow;
     private int[] mPoints;
     private boolean[] mRoundCompleted;
-
+    
     public static Game get(Context context){
         if (sGame == null) {
             sGame = new Game(context);
