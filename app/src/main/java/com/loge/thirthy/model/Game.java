@@ -16,15 +16,16 @@ public class Game {
     private int mThrow;
     private int[] mPoints;
     private boolean[] mRoundCompleted;
-    
+
+    /*
     public static Game get(Context context){
         if (sGame == null) {
             sGame = new Game(context);
         }
         return sGame;
-    }
+    }*/
 
-    private Game(Context context) {
+    public Game() {
         mRound = 0;
         mThrow = 0;
         mPoints = new int[NUBMER_OF_ROUNDS];

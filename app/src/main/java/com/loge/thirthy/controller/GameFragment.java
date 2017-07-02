@@ -44,7 +44,7 @@ public class GameFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         mDice = new Dice(NUMBER_OF_DIE);
-        mGame = Game.get(getActivity());
+        mGame = new Game();
     }
 
     @Override
