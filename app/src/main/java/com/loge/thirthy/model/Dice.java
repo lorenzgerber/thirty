@@ -46,10 +46,12 @@ public class Dice {
         for (int i = 0 ; i < mDice.length; i++){
             mDice[i] = new Die();
         }
+        setMode(0);
     }
 
     public void rollDie(int index){
         mDice[index] = new Die();
+        setMode(0);
     }
 
     public void setMode(int mode){

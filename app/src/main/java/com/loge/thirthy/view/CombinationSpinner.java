@@ -1,7 +1,6 @@
 package com.loge.thirthy.view;
 
-import android.app.Activity;
-import android.app.Fragment;
+
 import android.content.res.Resources;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,20 +24,22 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
 
     private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
 
-
-
     private Spinner mSpinner;
     private int mSpinnerPosition;
     private Dice mDice;
     private GameFragment mHostFragment;
     private ArrayAdapter<CombinationListItem> mAdapter;
-    ArrayList<CombinationListItem> mCombinationsLeft;
+    private ArrayList<CombinationListItem> mCombinationsLeft;
+    private boolean[] mLabelsActive;
     private final CopyOnWriteArrayList<CombinationSpinnerChangeListener> listeners;
 
     public CombinationSpinner(View v, GameFragment f, Dice dice){
         mDice = dice;
         mHostFragment = f;
-        buildCombinationsList();
+        mCombinationsLeft = new ArrayList<>();
+        resetCombinationsList();
+
+
         mSpinner = (Spinner) v.findViewById(R.id.choose_points);
         mAdapter = new ArrayAdapter<>(mHostFragment.getActivity(), android.R.layout.simple_spinner_dropdown_item, mCombinationsLeft);
         mSpinner.setAdapter(mAdapter);
@@ -84,24 +85,15 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+        mSpinnerPosition = 0;
 
-    }
-
-    public void buildCombinationsList(){
-        Resources res = mHostFragment.getResources();
-        String[] mCombinationsText = res.getStringArray(R.array.combination_list);
-        mCombinationsLeft = new ArrayList<>();
-
-        for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES; i++ ) {
-            mCombinationsLeft.add(new CombinationListItem(i + 2, mCombinationsText[i]) );
-        }
     }
 
     public void resetCombinationsList(){
         Resources res = mHostFragment.getResources();
         String[] mCombinationsText = res.getStringArray(R.array.combination_list);
-
-        for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES-1; i++ ) {
+        mCombinationsLeft.clear();
+        for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES; i++ ) {
             mCombinationsLeft.add(new CombinationListItem(i + 2, mCombinationsText[i]) );
         }
     }
@@ -116,10 +108,6 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
 
     public void removeCurrentSpinnerItem(){
         mCombinationsLeft.remove(mSpinnerPosition);
+        this.setSpinnerPosition(0);
     }
-
-
-
-
-
 }
