@@ -145,7 +145,6 @@ public class GameFragment extends Fragment {
 
                 // Check Round
                 if(mGameState.getRound() < NUMBER_OF_ROUNDS){
-                    //mGameState.nextRound();
                     mGameState.resetThrow();
                     mThrowButton.setEnabled(true);
                     mDice.rollAllDice();

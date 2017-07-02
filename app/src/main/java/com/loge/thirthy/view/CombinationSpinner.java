@@ -50,10 +50,7 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
     public void addCombinationSpinnerChangeListener(CombinationSpinnerChangeListener l){
         this.listeners.add(l);
     }
-
-    public void removeCombinationSpinnerChangeListener(CombinationSpinnerChangeListener l){
-        this.listeners.remove(l);
-    }
+    
 
     protected void fireChangeEvent() {
         CombinationSpinnerChangeEvent evt = new CombinationSpinnerChangeEvent(this);

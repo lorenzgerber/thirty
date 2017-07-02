@@ -17,8 +17,6 @@ public class GameState {
     private int[] mPoints;
     private boolean[] mRoundCompleted;
 
-
-
     public static GameState get(Context context){
         if (sGameState == null) {
             sGameState = new GameState(context);
@@ -26,13 +24,11 @@ public class GameState {
         return sGameState;
     }
 
-
     private GameState(Context context) {
         mRound = 0;
         mThrow = 1;
         mPoints = new int[NUBMER_OF_ROUNDS];
         mRoundCompleted = new boolean[NUBMER_OF_ROUNDS];
-
     }
 
     public int getRound(){
@@ -44,16 +40,6 @@ public class GameState {
         }
         return mRound;
     }
-
-    /*
-    public void nextRound(){
-        mRound++;
-    }*/
-
-    /*
-    public void resetRound() {
-        mRound = 1;
-    }*/
 
     public int getThrow(){
         return mThrow;
@@ -72,9 +58,6 @@ public class GameState {
         mRoundCompleted[index] = true;
     }
 
-    public int getPoints(int index){
-        return mPoints[index];
-    }
 
     public int[] getPointsArray(){
         return mPoints;
@@ -83,16 +66,6 @@ public class GameState {
     public void resetGame(){
         this.resetPoints();
         this.resetThrow();
-        //this.resetRound();
-        //this.resetRoundCompleted();
-    }
-
-    public int getTotalPoints(){
-        int mTotal = 0;
-        for (int value:mPoints){
-            mTotal += value;
-        }
-        return mTotal;
     }
 
     public void resetPoints(){
@@ -101,12 +74,5 @@ public class GameState {
             mRoundCompleted[i] = false;
         }
     }
-
-    /*
-    public void resetRoundCompleted(){
-        for(int i = 0; i < NUBMER_OF_ROUNDS; i++){
-            mRoundCompleted[i] = false;
-        }
-    }*/
 
 }
