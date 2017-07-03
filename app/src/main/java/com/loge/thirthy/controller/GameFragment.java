@@ -95,6 +95,8 @@ public class GameFragment extends Fragment {
     }
 
 
+
+    /*
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
@@ -103,7 +105,7 @@ public class GameFragment extends Fragment {
             mDice = savedInstanceState.getParcelable(DICE_PARCEL);
             mDieMode = savedInstanceState.getInt(DIE_MODE);
         }
-    }
+    }*/
 
     private void updateUI() {
 

@@ -28,8 +28,6 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
             fragment = fm.findFragmentById(R.id.fragment_container);
         }
 
-
-
         if (fragment == null) {
             fragment = createFragment();
             fm.beginTransaction()
