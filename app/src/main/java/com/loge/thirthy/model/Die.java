@@ -1,12 +1,15 @@
 package com.loge.thirthy.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Random;
 
 /**
  * Created by loge on 2017-06-16.
  */
 
-public class Die {
+public class Die implements Parcelable {
 
     private Random random;
 
@@ -37,4 +40,36 @@ public class Die {
         }
         mMode = mode;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mValue);
+        dest.writeInt(mMode);
+    }
+
+    private Die(Parcel in){
+        mValue = in.readInt();
+        mMode = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Die> CREATOR = new Parcelable.Creator<Die>() {
+
+        @Override
+        public Die createFromParcel(Parcel source) {
+            return new Die(source);
+        }
+
+        @Override
+        public Die[] newArray(int size) {
+            return new Die[size];
+        }
+    };
+
+    
+
 }

@@ -2,9 +2,6 @@ package com.loge.thirthy.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +19,7 @@ import com.loge.thirthy.view.DiceImageButtons;
 
 import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
 import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
+import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
 
 /**
  * Created by loge on 2017-06-22.
@@ -30,6 +28,8 @@ import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
 public class GameFragment extends Fragment {
 
     public static final String GAME_PARCEL = "com.loge.thirty.game";
+    public static final String DICE_PARCEL = "com.loge.thirty.dice";
+    public static final String DIE_MODE = "com.loge.thirty.dieMode";
 
     private static int NUMBER_OF_ROUNDS = 10;
     private static int NUMBER_OF_DIE = 6;
@@ -47,14 +47,15 @@ public class GameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        mDice = new Dice(NUMBER_OF_DIE);
-        mGame = new Game();
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateUI();
+        if(savedInstanceState != null) {
+            mGame = savedInstanceState.getParcelable(GAME_PARCEL);
+            mDice = savedInstanceState.getParcelable(DICE_PARCEL);
+            mDieMode = savedInstanceState.getInt(DIE_MODE);
+        } else {
+            mDice = new Dice(NUMBER_OF_DIE);
+            mGame = new Game();
+        }
     }
 
     @Override
@@ -66,7 +67,7 @@ public class GameFragment extends Fragment {
         mImageButtons.attachListeners(mDice);
         mImageButtons.updateImages(mDice);
 
-        mCombinationSpinner = new CombinationSpinner(v, this, mDice);
+        mCombinationSpinner = new CombinationSpinner(v, this, mDice, mGame);
         mCombinationSpinner.addCombinationSpinnerChangeListener(new CombinationSpinnerChangeListener(){
 
             @Override
@@ -77,6 +78,9 @@ public class GameFragment extends Fragment {
 
         initThrowButton(v);
         initTakePointsButton(v);
+        if(mGame.getThrow() == 1){
+            mThrowButton.setEnabled(false);
+        }
         updateUI();
 
         return v;
@@ -86,13 +90,18 @@ public class GameFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putParcelable(GAME_PARCEL, mGame);
+        outState.putParcelable(DICE_PARCEL, mDice);
+        outState.putInt(DIE_MODE, mDieMode);
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
         if(savedInstanceState != null) {
             mGame = savedInstanceState.getParcelable(GAME_PARCEL);
+            mDice = savedInstanceState.getParcelable(DICE_PARCEL);
+            mDieMode = savedInstanceState.getInt(DIE_MODE);
         }
     }
 
@@ -126,10 +135,12 @@ public class GameFragment extends Fragment {
                     mGame.nextThrow();
                 }
 
+                mDice.setMode(MODE_SHOW);
                 mCombinationSpinner.setSpinnerPosition(0);
                 updateUI();
             }
         });
+
     }
 
     private void initTakePointsButton(View v){

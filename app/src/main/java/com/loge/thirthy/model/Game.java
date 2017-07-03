@@ -1,6 +1,5 @@
 package com.loge.thirthy.model;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -49,6 +48,10 @@ public class Game implements Parcelable {
     public void setPoints(int index, int points){
         mPoints[index] = points;
         mRoundCompleted[index] = true;
+    }
+
+    public boolean roundComplete(int index){
+        return mRoundCompleted[index];
     }
 
 

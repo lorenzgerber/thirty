@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.loge.thirthy.R;
 import com.loge.thirthy.controller.GameFragment;
 import com.loge.thirthy.model.Dice;
+import com.loge.thirthy.model.Game;
 import com.loge.thirthy.model.ValueChecker;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
  * Created by lgerber on 7/1/17.
  */
 
-public class CombinationSpinner implements AdapterView.OnItemSelectedListener, Parcelable {
+public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
 
     private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
     private static int DIFF_SPINNER_INDEX_TO_FACE_VALUE = 2;
@@ -33,19 +34,18 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener, P
     private Spinner mSpinner;
     private int mSpinnerPosition;
     private Dice mDice;
+    private Game mGame;
     private GameFragment mHostFragment;
     private ArrayAdapter<CombinationListItem> mAdapter;
     private ArrayList<CombinationListItem> mCombinationsLeft;
     private final CopyOnWriteArrayList<CombinationSpinnerChangeListener> listeners;
 
-    public CombinationSpinner(View v, GameFragment f, Dice dice){
+    public CombinationSpinner(View v, GameFragment f, Dice dice, Game game){
         mDice = dice;
+        mGame = game;
         mHostFragment = f;
         mCombinationsLeft = new ArrayList<>();
         resetCombinationsList();
-
-
-
         mSpinner = (Spinner) v.findViewById(R.id.choose_points);
         mAdapter = new ArrayAdapter<>(mHostFragment.getActivity(), android.R.layout.simple_spinner_dropdown_item, mCombinationsLeft);
         mSpinner.setAdapter(mAdapter);
@@ -95,11 +95,21 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener, P
         Resources res = mHostFragment.getResources();
         String[] mCombinationsText = res.getStringArray(R.array.combination_list);
         mCombinationsLeft.clear();
+
         for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES; i++ ) {
-            mCombinationsLeft.add(
-                    new CombinationListItem(i + DIFF_SPINNER_INDEX_TO_FACE_VALUE,
-                    mCombinationsText[i])
-            );
+            if(i > 0){
+                if(!mGame.roundComplete(i-1))
+                mCombinationsLeft.add(
+                        new CombinationListItem(i + DIFF_SPINNER_INDEX_TO_FACE_VALUE,
+                                mCombinationsText[i])
+                );
+
+            } else {
+                mCombinationsLeft.add(
+                        new CombinationListItem(i + DIFF_SPINNER_INDEX_TO_FACE_VALUE,
+                                mCombinationsText[i])
+                );
+            }
         }
     }
 
@@ -114,37 +124,6 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener, P
     public void removeCurrentSpinnerItem(){
         mCombinationsLeft.remove(mSpinnerPosition);
         this.setSpinnerPosition(0);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mSpinnerPosition);
-        //dest.writeParcelable(mDice);
-    }
-
-    private CombinationSpinner(Parcel in){
-        mSpinnerPosition = in.readInt();
-        this.listeners = new CopyOnWriteArrayList<>();
-    }
-
-    public static final Parcelable.Creator<CombinationSpinner> CREATOR
-            = new Creator<CombinationSpinner>() {
-        @Override
-        public CombinationSpinner createFromParcel(Parcel source) {
-            return new CombinationSpinner(source);
-        }
-
-        @Override
-        public CombinationSpinner[] newArray(int size) {
-            return new CombinationSpinner[size];
-        }
-    }; {
-
     }
 
 }

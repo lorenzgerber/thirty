@@ -1,7 +1,11 @@
 package com.loge.thirthy.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.loge.thirthy.model.Die;
 
+import static android.os.Parcelable.*;
 import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
 import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
 import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
@@ -10,7 +14,7 @@ import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
  * Created by loge on 2017-06-16.
  */
 
-public class Dice {
+public class Dice implements Parcelable {
     private final Die mDice[];
     private int mMode;
 
@@ -51,7 +55,7 @@ public class Dice {
 
     public void rollDie(int index){
         mDice[index] = new Die();
-        setMode(0);
+        //setMode(0);
     }
 
     public void setMode(int mode){
@@ -93,5 +97,34 @@ public class Dice {
 
         return mPoints;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeTypedArray(mDice, 0);
+        dest.writeInt(mMode);
+    }
+
+    private Dice(Parcel in){
+        mDice = in.createTypedArray(Die.CREATOR);
+    }
+
+    public static final Parcelable.Creator<Dice> CREATOR = new Parcelable.Creator<Dice>(){
+
+        @Override
+        public Dice createFromParcel(Parcel source) {
+            return new Dice(source);
+        }
+
+        @Override
+        public Dice[] newArray(int size) {
+            return new Dice[size];
+        }
+    };
+
 
 }
