@@ -1,29 +1,21 @@
 package com.loge.thirthy.model;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by loge on 2017-06-24.
  */
 
-public class Game {
+public class Game implements Parcelable {
 
     private static int NUBMER_OF_ROUNDS = 10;
-
-    private static Game sGame;
 
     private int mRound;
     private int mThrow;
     private int[] mPoints;
     private boolean[] mRoundCompleted;
-
-    /*
-    public static Game get(Context context){
-        if (sGame == null) {
-            sGame = new Game(context);
-        }
-        return sGame;
-    }*/
 
     public Game() {
         mRound = 0;
@@ -75,5 +67,38 @@ public class Game {
             mRoundCompleted[i] = false;
         }
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mRound);
+        dest.writeInt(mThrow);
+        dest.writeIntArray(mPoints);
+        dest.writeBooleanArray(mRoundCompleted);
+    }
+
+    private Game(Parcel in){
+        mRound = in.readInt();
+        mThrow = in.readInt();
+        mPoints = in.createIntArray();
+        mRoundCompleted = in.createBooleanArray();
+    }
+
+    public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
+
+        @Override
+        public Game createFromParcel(Parcel source) {
+            return new Game(source);
+        }
+
+        @Override
+        public Game[] newArray(int size) {
+            return new Game[size];
+        }
+    };
 
 }

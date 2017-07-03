@@ -2,6 +2,9 @@ package com.loge.thirthy.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,12 +29,13 @@ import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
 
 public class GameFragment extends Fragment {
 
+    public static final String GAME_PARCEL = "com.loge.thirty.game";
+
     private static int NUMBER_OF_ROUNDS = 10;
     private static int NUMBER_OF_DIE = 6;
     private static int DIFF_FACE_VALUE_TO_POINT_ARRAY_INDEX = 3;
 
     Game mGame;
-
     DiceImageButtons mImageButtons;
     CombinationSpinner mCombinationSpinner;
     Button mThrowButton;
@@ -76,6 +80,20 @@ public class GameFragment extends Fragment {
         updateUI();
 
         return v;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(GAME_PARCEL, mGame);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState != null) {
+            mGame = savedInstanceState.getParcelable(GAME_PARCEL);
+        }
     }
 
     private void updateUI() {
@@ -156,4 +174,5 @@ public class GameFragment extends Fragment {
         });
 
     }
+
 }

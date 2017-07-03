@@ -19,9 +19,16 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
+        Fragment fragment;
 
         FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        if (savedInstanceState != null){
+            fragment = fm.getFragment(savedInstanceState, String.valueOf(R.id.fragment_container));
+        } else {
+            fragment = fm.findFragmentById(R.id.fragment_container);
+        }
+
+
 
         if (fragment == null) {
             fragment = createFragment();
@@ -30,4 +37,14 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+
+        getSupportFragmentManager().putFragment(outState,String.valueOf(R.id.fragment_container), fragment);
+    }
+
 }

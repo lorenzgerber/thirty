@@ -2,6 +2,8 @@ package com.loge.thirthy.view;
 
 
 import android.content.res.Resources;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,7 +25,7 @@ import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
  * Created by lgerber on 7/1/17.
  */
 
-public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
+public class CombinationSpinner implements AdapterView.OnItemSelectedListener, Parcelable {
 
     private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
     private static int DIFF_SPINNER_INDEX_TO_FACE_VALUE = 2;
@@ -113,4 +115,36 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
         mCombinationsLeft.remove(mSpinnerPosition);
         this.setSpinnerPosition(0);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mSpinnerPosition);
+        //dest.writeParcelable(mDice);
+    }
+
+    private CombinationSpinner(Parcel in){
+        mSpinnerPosition = in.readInt();
+        this.listeners = new CopyOnWriteArrayList<>();
+    }
+
+    public static final Parcelable.Creator<CombinationSpinner> CREATOR
+            = new Creator<CombinationSpinner>() {
+        @Override
+        public CombinationSpinner createFromParcel(Parcel source) {
+            return new CombinationSpinner(source);
+        }
+
+        @Override
+        public CombinationSpinner[] newArray(int size) {
+            return new CombinationSpinner[size];
+        }
+    }; {
+
+    }
+
 }
