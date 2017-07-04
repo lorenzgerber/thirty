@@ -51,6 +51,7 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
         mSpinner.setAdapter(mAdapter);
         mSpinner.setOnItemSelectedListener(this);
         this.listeners = new CopyOnWriteArrayList<>();
+        setSpinnerPosition(0);
     }
 
     public void addCombinationSpinnerChangeListener(CombinationSpinnerChangeListener l){
@@ -83,6 +84,10 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
             Toast.makeText(mHostFragment.getActivity(), String.valueOf(
                     mValueChecker.getPoints(mCombinationsLeft.get(mSpinnerPosition).getId())) +
                     " points!", Toast.LENGTH_SHORT).show();
+        } else {
+            mDice.setMode(MODE_SHOW);
+            mSpinnerPosition = position;
+            fireChangeEvent();
         }
     }
 

@@ -94,19 +94,6 @@ public class GameFragment extends Fragment {
         outState.putInt(DIE_MODE, mDieMode);
     }
 
-
-
-    /*
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState){
-        super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState != null) {
-            mGame = savedInstanceState.getParcelable(GAME_PARCEL);
-            mDice = savedInstanceState.getParcelable(DICE_PARCEL);
-            mDieMode = savedInstanceState.getInt(DIE_MODE);
-        }
-    }*/
-
     private void updateUI() {
 
         mDieMode = mDice.getMode();
