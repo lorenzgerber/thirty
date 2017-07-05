@@ -35,14 +35,16 @@ public class GameFragment extends Fragment {
     private static int NUMBER_OF_DIE = 6;
     private static int DIFF_FACE_VALUE_TO_POINT_ARRAY_INDEX = 3;
 
-    Game mGame;
-    DiceImageButtons mImageButtons;
-    CombinationSpinner mCombinationSpinner;
-    Button mThrowButton;
-    Button mTakePointsButton;
-    int mDieMode;
-    Dice mDice;
-    int[] mPointsTransferArray;
+    private Game mGame;
+    private int mDieMode;
+    private Dice mDice;
+    private int[] mPointsTransferArray;
+
+    private DiceImageButtons mImageButtons;
+    private CombinationSpinner mCombinationSpinner;
+    private Button mThrowButton;
+    private Button mTakePointsButton;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -170,9 +172,6 @@ public class GameFragment extends Fragment {
                     updateUI();
                 }
             }
-
         });
-
     }
-
 }

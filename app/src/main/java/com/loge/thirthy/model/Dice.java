@@ -34,10 +34,6 @@ public class Dice implements Parcelable {
         return mDice[index];
     }
 
-    public void setDie(int index, Die die){
-        mDice[index] = die;
-    }
-
     public int size(){
         return mDice.length;
     }
@@ -55,7 +51,6 @@ public class Dice implements Parcelable {
 
     public void rollDie(int index){
         mDice[index] = new Die();
-        //setMode(0);
     }
 
     public void setMode(int mode){

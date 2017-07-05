@@ -9,7 +9,7 @@ import android.os.Parcelable;
 
 public class Game implements Parcelable {
 
-    private static int NUBMER_OF_ROUNDS = 10;
+    private static int NUMBER_OF_ROUNDS = 10;
 
     private int mRound;
     private int mThrow;
@@ -19,8 +19,8 @@ public class Game implements Parcelable {
     public Game() {
         mRound = 0;
         mThrow = 0;
-        mPoints = new int[NUBMER_OF_ROUNDS];
-        mRoundCompleted = new boolean[NUBMER_OF_ROUNDS];
+        mPoints = new int[NUMBER_OF_ROUNDS];
+        mRoundCompleted = new boolean[NUMBER_OF_ROUNDS];
     }
 
     public int getRound(){
@@ -65,7 +65,7 @@ public class Game implements Parcelable {
     }
 
     public void resetPoints(){
-        for(int i = 0; i < NUBMER_OF_ROUNDS; i++){
+        for(int i = 0; i < NUMBER_OF_ROUNDS; i++){
             mPoints[i] = 0;
             mRoundCompleted[i] = false;
         }
