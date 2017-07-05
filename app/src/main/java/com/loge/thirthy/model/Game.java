@@ -18,9 +18,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by loge on 2017-06-24.
+ *  Game
+ *
+ *  Model class that contains the logic regarding
+ *  rounds, throws and points
  */
-
 public class Game implements Parcelable {
 
     private static int NUMBER_OF_ROUNDS = 10;
@@ -30,6 +32,11 @@ public class Game implements Parcelable {
     private int[] mPoints;
     private boolean[] mRoundCompleted;
 
+    /**
+     * Game
+     *
+     * Constructor
+     */
     public Game() {
         mRound = 0;
         mThrow = 0;
@@ -37,6 +44,13 @@ public class Game implements Parcelable {
         mRoundCompleted = new boolean[NUMBER_OF_ROUNDS];
     }
 
+    /**
+     * getRound
+     *
+     * returns an int in the range zero
+     * to nine.
+     * @return
+     */
     public int getRound(){
         mRound = 0;
         for (Boolean round:mRoundCompleted){
@@ -47,37 +61,89 @@ public class Game implements Parcelable {
         return mRound;
     }
 
+    /**
+     * getThrow
+     *
+     * get current throw/roll nr. Return
+     * values start from zero to 2.
+     * @return
+     */
     public int getThrow(){
         return mThrow;
     }
 
+    /**
+     * nextThrow
+     *
+     * Method advances counter to next throw/roll
+     */
     public void nextThrow(){
         mThrow++;
     }
 
+    /**
+     * resetThrow
+     *
+     * Method resets throw/roll counter to zero
+     */
     public void resetThrow(){
         mThrow = 0;
     }
 
+    /**
+     * setPoints
+     *
+     * Method sets the the number of points
+     * for for the round 'index'.
+     * @param index
+     * @param points
+     */
     public void setPoints(int index, int points){
         mPoints[index] = points;
         mRoundCompleted[index] = true;
     }
 
+    /**
+     * roundComplete
+     *
+     * returns a boolean whether the round with
+     * 'index' has been completed
+     * @param index
+     * @return
+     */
     public boolean roundComplete(int index){
         return mRoundCompleted[index];
     }
 
 
+    /**
+     * getPointsArray
+     *
+     * method returns the int[] array with
+     * the points for each round.
+     * @return
+     */
     public int[] getPointsArray(){
         return mPoints;
     }
 
+    /**
+     * resetGame
+     *
+     * Method resets the points and throw/roll
+     * variables.
+     */
     public void resetGame(){
         this.resetPoints();
         this.resetThrow();
     }
 
+    /**
+     * resetPoints
+     *
+     * method resets the point array and the
+     * boolean round completed array.
+     */
     public void resetPoints(){
         for(int i = 0; i < NUMBER_OF_ROUNDS; i++){
             mPoints[i] = 0;
@@ -85,11 +151,25 @@ public class Game implements Parcelable {
         }
     }
 
+    /**
+     * describeContents
+     *
+     * Mandatory method for Parcelable
+     * @return
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * writeToParcel
+     *
+     * method that writes round, throw, points array and
+     * round completed array into a Parcel.
+     * @param dest
+     * @param flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mRound);
@@ -98,6 +178,14 @@ public class Game implements Parcelable {
         dest.writeBooleanArray(mRoundCompleted);
     }
 
+    /**
+     * Game
+     *
+     * private constructor to recreate state
+     * after configuration change using parcels
+     * for transient state storage.
+     * @param in
+     */
     private Game(Parcel in){
         mRound = in.readInt();
         mThrow = in.readInt();
@@ -105,6 +193,12 @@ public class Game implements Parcelable {
         mRoundCompleted = in.createBooleanArray();
     }
 
+    /**
+     * Parcelable.Creator
+     *
+     * static method that calls special contstructor to
+     * recreate state after configuration change.
+     */
     public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {
 
         @Override

@@ -20,9 +20,12 @@ import android.os.Parcelable;
 import java.util.Random;
 
 /**
- * Created by loge on 2017-06-16.
+ * Die
+ *
+ * Model class that hosts the logic for
+ * the a die. This includes the value
+ * and the current mode of the die.
  */
-
 public class Die implements Parcelable {
 
     private Random random;
@@ -30,6 +33,26 @@ public class Die implements Parcelable {
     private int mValue;
     private int mMode;
 
+    /**
+     * Die
+     *
+     * Constructor that will generate a
+     * die object with random value.
+     */
+    public Die(){
+        random = new Random();
+        mValue = random.nextInt(6) + 1;
+        mMode = 0;
+    }
+
+    /**
+     * Die
+     *
+     * Constructor that will generate a
+     * die object and assign the provided
+     * value from 1 to 6 to it.
+     * @param value
+     */
     public Die(int value){
         if(value < 1 || value > 6 ){
             throw new IllegalArgumentException();
@@ -38,15 +61,24 @@ public class Die implements Parcelable {
         mMode = 0;
     }
 
-    public Die(){
-        random = new Random();
-        mValue = random.nextInt(6) + 1;
-        mMode = 0;
-    }
-
+    /**
+     * getValue
+     *
+     * Getter for face value
+     * @return
+     */
     public int getValue(){
         return mValue;
     }
+
+    /**
+     * getMode
+     *
+     * Returns the current mode of the
+     * die (0 = Show, 1 = Highlighted,
+     * 2 = Selected)
+     * @return
+     */
     public int getMode(){return mMode; }
     public void setMode(int mode) {
         if (mode < 0 || mode > 2){
@@ -55,22 +87,50 @@ public class Die implements Parcelable {
         mMode = mode;
     }
 
+    /**
+     * describeContents
+     *
+     * Mandatory method for Parcelable
+     * @return
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * writeToParcel
+     *
+     * method that writes the value and mode to a parcel
+     * for state transfer during configuration change.
+     * @param dest
+     * @param flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mValue);
         dest.writeInt(mMode);
     }
 
+    /**
+     * Die
+     *
+     * private constructor to recreate state
+     * after configuration change using parcels
+     * for transient state storage.
+     * @param in
+     */
     private Die(Parcel in){
         mValue = in.readInt();
         mMode = in.readInt();
     }
 
+    /**
+     * Parcelable.Creator
+     *
+     * static method that calls special contstructor to
+     * recreate state after configuration change.
+     */
     public static final Parcelable.Creator<Die> CREATOR = new Parcelable.Creator<Die>() {
 
         @Override

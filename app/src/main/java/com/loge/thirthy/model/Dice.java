@@ -179,21 +179,50 @@ public class Dice implements Parcelable {
         return mPoints;
     }
 
+    /**
+     * describeContents
+     *
+     * Mandatory method for Parcelable
+     * @return
+     */
     @Override
     public int describeContents() {
         return 0;
     }
 
+    /**
+     * writeToParcel
+     *
+     * method that writes the array of dice and the
+     * current mode to a parcel for state transfer
+     * during configuration change.
+     * @param dest
+     * @param flags
+     */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeTypedArray(mDice, 0);
         dest.writeInt(mMode);
     }
 
+    /**
+     * Dice
+     *
+     * private constructor to recreate state
+     * after configuration change using parcels
+     * for transient state storage.
+     * @param in
+     */
     private Dice(Parcel in){
         mDice = in.createTypedArray(Die.CREATOR);
     }
 
+    /**
+     * Parcelable.Creator
+     *
+     * static method that calls special contstructor to
+     * recreate state after configuration change.
+     */
     public static final Parcelable.Creator<Dice> CREATOR = new Parcelable.Creator<Dice>(){
 
         @Override
