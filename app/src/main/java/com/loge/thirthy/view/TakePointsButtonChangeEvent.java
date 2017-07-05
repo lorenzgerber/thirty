@@ -17,7 +17,9 @@ package com.loge.thirthy.view;
 import java.util.EventObject;
 
 /**
- * Created by loge on 2017-07-05.
+ * TakePointsButtonChangeEvent
+ *
+ * Used to signal that the TakePoints Button has been pressed
  */
 
 public class TakePointsButtonChangeEvent extends EventObject {

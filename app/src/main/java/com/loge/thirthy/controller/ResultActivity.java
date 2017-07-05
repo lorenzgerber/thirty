@@ -18,16 +18,40 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 
+/**
+ * ResultActivity
+ *
+ * Activity that hosts the Result Fragment.
+ * Defines the ID for the results extra that is used
+ * to transfer an int array with points from the Game
+ * Activity/Fragment to the Result Fragment.
+ */
 public class ResultActivity extends SingleFragmentActivity {
 
     public static final String EXTRA_RESULT_ARRAY = "com.loge.thirty.results";
 
+    /**
+     * newIntent
+     *
+     * Used to Transfer result array as extra from Game to Result. This
+     * method is called from Game and the data is handed over as argument.
+     * @param packageContext
+     * @param resultArray
+     * @return
+     */
     public static Intent newIntent(Context packageContext, int[] resultArray){
         Intent intent = new Intent(packageContext, ResultActivity.class);
         intent.putExtra(EXTRA_RESULT_ARRAY, resultArray);
         return intent;
     }
 
+    /**
+     * CreateFragment
+     *
+     * Concrete implementation to create a
+     * Result Fragment.
+     * @return
+     */
     @Override
     protected Fragment createFragment() {
         int[] resultArray = (int[]) getIntent().getSerializableExtra(EXTRA_RESULT_ARRAY);

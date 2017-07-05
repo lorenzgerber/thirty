@@ -30,9 +30,15 @@ public class GameActivity extends SingleFragmentActivity {
     public static final int MODE_HIGHLIGHTED = 1;
     public static final int MODE_SELECTED = 2;
 
+    /**
+     * createFragment
+     *
+     * Concrete implementation to construct a new
+     * GameFragment.
+     * @return
+     */
     @Override
     protected Fragment createFragment(){
         return new GameFragment();
-
     }
 }

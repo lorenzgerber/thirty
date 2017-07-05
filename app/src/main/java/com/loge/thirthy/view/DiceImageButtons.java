@@ -25,7 +25,6 @@ import java.util.ArrayList;
 /**
  * Created by lgerber on 7/1/17.
  */
-
 public class DiceImageButtons {
 
     int[][] mImageIds;

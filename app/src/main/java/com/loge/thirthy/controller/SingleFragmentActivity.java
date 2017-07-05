@@ -22,13 +22,30 @@ import android.support.v7.app.AppCompatActivity;
 import com.loge.thirthy.R;
 
 /**
- * Created by loge on 2017-06-22.
+ * Single FragmentActivity
+ *
+ * Abstract class used as mall
+ * to create new specialized activities.
  */
-
 public abstract class SingleFragmentActivity extends AppCompatActivity {
 
+    /**
+     * createFragment
+     *
+     * This method has to be overidden when implementing a concrete
+     * activity class.
+     * @return
+     */
     protected abstract Fragment createFragment();
 
+    /**
+     * onCreate
+     *
+     * lifecycle method that contains generic code
+     * to load the respective fragment using the
+     * fragment manager and a transaction.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -50,6 +67,13 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * onSaveInstanceState
+     *
+     * Takes care of storing transient bundle data from
+     * the fragment.
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);

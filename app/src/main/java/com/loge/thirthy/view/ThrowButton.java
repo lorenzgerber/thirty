@@ -18,32 +18,28 @@ import android.view.View;
 import android.widget.Button;
 
 import com.loge.thirthy.R;
-import com.loge.thirthy.model.Dice;
-import com.loge.thirthy.model.Game;
 
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
-import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
-
 /**
- * Created by loge on 2017-07-05.
+ *  ThrowButton Class
+ *
+ *  UI part for Button used to throw the dice.
  */
-
 public class ThrowButton {
 
-    CombinationSpinner mCombinationSpinner;
-    Game mGame;
-    Dice mDice;
     Button mThrowButton;
     private final CopyOnWriteArrayList<ThrowButtonChangeListener> listeners;
 
 
-    public ThrowButton(View v, Game game, Dice dice, CombinationSpinner spinner) {
-        this.mCombinationSpinner = spinner;
-        this.mGame = game;
-        this.mDice = dice;
+    /**
+     * Throw Button
+     * Constructor
+     * @param v
+     */
+    public ThrowButton(View v) {
+
         this.listeners = new CopyOnWriteArrayList<>();
 
 
@@ -52,47 +48,41 @@ public class ThrowButton {
 
             @Override
             public void onClick(View v){
-                boolean mThrowAll = true;
-                for (int i = 0; i < mDice.size(); i++){
-                    if(mDice.getDie(i).getMode()==MODE_SELECTED){
-                        mDice.rollDie(i);
-                        mThrowAll = false;
-                    }
-                }
-                if (mThrowAll){
-                    mDice.rollAllDice();
-                }
-
-                if(mGame.getThrow() == 1){
-                    mThrowButton.setEnabled(false);
-                } else {
-                    mGame.nextThrow();
-                }
-
-                mDice.setMode(MODE_SHOW);
-                mCombinationSpinner.setSpinnerPosition(0);
                 fireChangeEvent();
 
             }
         });
     }
 
+    /**
+     * setEnabled
+     *
+     * enable/disable the Dice Throw Button
+     * @param enable
+     */
     public void setEnabled(Boolean enable){
         mThrowButton.setEnabled(enable);
     }
 
+    /**
+     * addThrowButtonListener
+     *
+     * Register for updates on Throw Button click
+     * @param l ThrowButtonChangeListener
+     */
     public void addThrowButtonChangeListener(ThrowButtonChangeListener l){
         this.listeners.add(l);
     }
 
-
+    /**
+     * fireChangeEvent()
+     *
+     * Informs registered listeners on Throw Button clicked
+     */
     protected void fireChangeEvent() {
         ThrowButtonChangeEvent evt = new ThrowButtonChangeEvent(this);
         for (ThrowButtonChangeListener l : listeners){
             l.changeEventReceived(evt);
         }
     }
-
-
-
 }

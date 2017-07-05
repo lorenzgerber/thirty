@@ -20,7 +20,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.loge.thirthy.R;
@@ -38,6 +37,8 @@ import com.loge.thirthy.view.ThrowButtonChangeEvent;
 import com.loge.thirthy.view.ThrowButtonChangeListener;
 
 import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
+import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
+import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
 
 /**
  * GameFragment
@@ -67,6 +68,13 @@ public class GameFragment extends Fragment {
     private TakePointsButton mTakePointsButton;
 
 
+    /**
+     * onCreate
+     *
+     * Handles restoring state by receiving parcelable
+     * data and extras when available.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -81,6 +89,18 @@ public class GameFragment extends Fragment {
         }
     }
 
+    /**
+     *
+     * onCreateView
+     *
+     * Sets up the UI for rendering. Constructs all
+     * UI artefacts such as ImageButtons, CombiationSpinner,
+     * ThrowButton and TakePointsButton.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_game, container, false);
@@ -98,11 +118,11 @@ public class GameFragment extends Fragment {
             }
         });
 
-        mThrowButton = new ThrowButton(v, mGame, mDice, mCombinationSpinner);
+        mThrowButton = new ThrowButton(v);
         mThrowButton.addThrowButtonChangeListener(new ThrowButtonChangeListener() {
             @Override
             public void changeEventReceived(ThrowButtonChangeEvent ev) {
-                    updateUI();
+                    throwDice();
             }
         });
 
@@ -122,6 +142,14 @@ public class GameFragment extends Fragment {
         return v;
     }
 
+    /**
+     * onSaveInstanceState
+     *
+     * mGame, mDice and the mDieMode are prepared
+     * here for transient storage in a bundle on
+     * configuration change such as rotation.
+     * @param outState
+     */
     @Override
     public void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
@@ -130,6 +158,44 @@ public class GameFragment extends Fragment {
         outState.putInt(DIE_MODE, mDieMode);
     }
 
+    /**
+     * throwDice
+     *
+     * Controller method that checks UI conditions
+     * and eventually initiates rolling the dice.
+     * Finally, updateUI is called.
+     */
+    public void throwDice(){
+        boolean mThrowAll = true;
+        for (int i = 0; i < mDice.size(); i++){
+            if(mDice.getDie(i).getMode()==MODE_SELECTED){
+                mDice.rollDie(i);
+                mThrowAll = false;
+            }
+        }
+        if (mThrowAll){
+            mDice.rollAllDice();
+        }
+
+        if(mGame.getThrow() == 1){
+            mThrowButton.setEnabled(false);
+        } else {
+            mGame.nextThrow();
+        }
+
+        mDice.setMode(MODE_SHOW);
+        mCombinationSpinner.setSpinnerPosition(0);
+        updateUI();
+    }
+
+    /**
+     * checkRound
+     *
+     * Controller method that checks UI and game
+     * conditions whether the game can advance to
+     * the next round and account for the points.
+     * Finally the updateUI method is called.
+     */
     private void checkRound(){
 
         if(mDice.getMode() != MODE_HIGHLIGHTED){
@@ -158,7 +224,7 @@ public class GameFragment extends Fragment {
             mGame.resetGame();
             mCombinationSpinner.resetCombinationsList();
             mDice.rollAllDice();
-            mDice.unselectAll();
+            mDice.setMode(0);
             updateUI();
         }
     }
@@ -175,5 +241,4 @@ public class GameFragment extends Fragment {
         mDieMode = mDice.getMode();
         mImageButtons.updateImages(mDice);
     }
-
 }

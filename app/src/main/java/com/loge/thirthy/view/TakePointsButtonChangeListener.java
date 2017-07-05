@@ -15,9 +15,12 @@
 package com.loge.thirthy.view;
 
 /**
- * Created by loge on 2017-07-05.
+ * TakePointsButtonChangeListener
+ *
+ * Interface to be implemented when updates
+ * on pressing the TakePoints Button are
+ * needed.
  */
-
 public interface TakePointsButtonChangeListener {
     public void changeEventReceived(TakePointsButtonChangeEvent ev);
 }

@@ -25,9 +25,11 @@ import android.widget.TextView;
 import com.loge.thirthy.R;
 
 /**
- * Created by loge on 2017-06-27.
+ * ResultFragment
+ *
+ * This is the Fragment based controller class for
+ * presenting the results to the user.
  */
-
 public class ResultFragment extends Fragment {
 
     private static final String ARG_RESULT_ARRAY = "result_array";
@@ -36,6 +38,13 @@ public class ResultFragment extends Fragment {
     int[] resultArray;
     int totalPoints;
 
+    /**
+     * ResultFragment
+     *
+     * Constructor to construct ResultFragment
+     * @param resultArray
+     * @return
+     */
     public static ResultFragment newInstance(int[] resultArray){
         Bundle args = new Bundle();
         args.putSerializable(ARG_RESULT_ARRAY, resultArray);
@@ -45,6 +54,15 @@ public class ResultFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * onCreate
+     *
+     * The transient data from the bundle
+     * is retrieved and written into local
+     * variables. Further total points are
+     * calculated and stored.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -57,6 +75,15 @@ public class ResultFragment extends Fragment {
 
     }
 
+    /**
+     * onCreateView
+     *
+     * Here the result view is prepared for rendering.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_result, container, false);

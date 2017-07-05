@@ -17,18 +17,29 @@ package com.loge.thirthy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
 import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
 import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
-import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
+
 
 /**
- * Created by loge on 2017-06-16.
+ * Dice
+ *
+ * Model Class that implements the game logic for
+ * a set of die objects.
  */
-
 public class Dice implements Parcelable {
     private final Die mDice[];
     private int mMode;
 
+
+    /**
+     * Dice
+     *
+     * Constructor for a set of die
+     * objects.
+     * @param size
+     */
     public Dice(int size){
         mDice = new Die[size];
         for (int i = 0; i < size; i++){
@@ -37,26 +48,70 @@ public class Dice implements Parcelable {
     }
 
 
+    /**
+     * getMode
+     *
+     * Getter to obtain the mode of the dice. which could be
+     * show, select (for rolling) or highlight (to visualize a point
+     * combination)
+     * @return
+     */
     public int getMode(){
         return mMode;
     }
 
+    /**
+     * getDie
+     *
+     * Getter to access an individual die of the set.
+     * @param index
+     * @return
+     */
     public Die getDie(int index){
         return mDice[index];
     }
 
+    /**
+     * setDie
+     *
+     * Setter for individual die in the set. Can be used
+     * for testing in combination with custom constructor of
+     * die that allows setting a specific value.
+     * @param index
+     * @param die
+     */
     public void setDie(int index, Die die){
         mDice[index] = die;
     }
 
+    /**
+     * size()
+     *
+     * Returns the number of dice in the set
+     * @return
+     */
     public int size(){
         return mDice.length;
     }
 
+    /**
+     * getFaceValue
+     *
+     * Direct access to the value of a specific
+     * die in the set.
+     * @param index
+     * @return
+     */
     public int getFaceValue(int index){
         return mDice[index].getValue();
     }
 
+    /**
+     * rollAllDice
+     *
+     * Results in setting constructing
+     * new die with random values.
+     */
     public void rollAllDice(){
         for (int i = 0 ; i < mDice.length; i++){
             mDice[i] = new Die();
@@ -64,10 +119,26 @@ public class Dice implements Parcelable {
         setMode(0);
     }
 
+    /**
+     * rollDie
+     *
+     * A specific Die in the set is replaced by
+     * a new one with random value.
+     * @param index
+     */
     public void rollDie(int index){
         mDice[index] = new Die();
     }
 
+    /**
+     * setMode
+     *
+     * Set the mode for the whole dice set.
+     * MODE_SHOW will reset all die to MODE_SHOW.
+     * MODE_HIGHLIGHTED will reset all MODE_SELECTED
+     * to MODE_SHOW and MODE_SELECTED vice versa.
+     * @param mode
+     */
     public void setMode(int mode){
         if(mode == MODE_SHOW){
             mMode = mode;
@@ -91,20 +162,20 @@ public class Dice implements Parcelable {
         }
     }
 
-    public void unselectAll(){
-        for(Die die:mDice){
-            die.setMode(0);
-        }
-    }
-
+    /**
+     * calculatePoints
+     *
+     * Calculate the points from all
+     * highlighted dice.
+     * @return
+     */
     public int calculatePoints(){
         int mPoints = 0;
         for (int i = 0; i < this.size(); i++){
-            if (this.getDie(i).getMode()==1){
+            if (this.getDie(i).getMode()==MODE_HIGHLIGHTED){
                 mPoints += this.getDie(i).getValue();
             }
         }
-
         return mPoints;
     }
 
