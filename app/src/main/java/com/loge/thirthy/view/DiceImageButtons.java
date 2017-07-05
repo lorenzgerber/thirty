@@ -1,3 +1,17 @@
+/*
+ * DiceImageButtons
+ *
+ * Thirty Project,
+ * Coursework 5DV155 Development of mobile applications
+ * at Umea University, Sumemr Course 2017
+ *
+ * Lorenz Gerber
+ *
+ * Version 0.1
+ *
+ * Licensed under GPLv3
+ *
+ */
 package com.loge.thirthy.view;
 
 import android.view.View;

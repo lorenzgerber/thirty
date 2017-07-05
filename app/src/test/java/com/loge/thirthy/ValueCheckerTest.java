@@ -1,3 +1,17 @@
+/*
+ * ValueCheckerTest
+ *
+ * Thirty Project,
+ * Coursework 5DV155 Development of mobile applications
+ * at Umea University, Sumemr Course 2017
+ *
+ * Lorenz Gerber
+ *
+ * Version 0.1
+ *
+ * Licensed under GPLv3
+ *
+ */
 package com.loge.thirthy;
 
 import com.loge.thirthy.model.Dice;
@@ -15,14 +29,14 @@ public class ValueCheckerTest {
 
     @Test
     public void bitmaskForFourCombintations() throws Exception {
-        Dice dice = new Dice.Builder(6)
-                .addDie(new Die(1))
-                .addDie(new Die(2))
-                .addDie(new Die(3))
-                .addDie(new Die(4))
-                .addDie(new Die(5))
-                .addDie(new Die(6))
-                .build();
+        Dice dice = new Dice(6);
+        dice.setDie(0, new Die(1));
+        dice.setDie(1, new Die(2));
+        dice.setDie(2, new Die(3));
+        dice.setDie(3, new Die(4));
+        dice.setDie(4, new Die(5));
+        dice.setDie(5, new Die(6));
+
 
         ValueChecker vc = new ValueChecker(dice);
 
@@ -53,14 +67,13 @@ public class ValueCheckerTest {
 
     @Test
     public void testRun() throws Exception {
-        Dice dice = new Dice.Builder(6)
-                .addDie(new Die(1))
-                .addDie(new Die(2))
-                .addDie(new Die(3))
-                .addDie(new Die(4))
-                .addDie(new Die(5))
-                .addDie(new Die(6))
-                .build();
+        Dice dice = new Dice(6);
+        dice.setDie(0, new Die(1));
+        dice.setDie(1, new Die(2));
+        dice.setDie(2, new Die(3));
+        dice.setDie(3, new Die(4));
+        dice.setDie(4, new Die(5));
+        dice.setDie(5, new Die(6));
 
         ValueChecker vc = new ValueChecker(dice);
         vc.getCombination(10);
@@ -68,42 +81,39 @@ public class ValueCheckerTest {
 
     @Test
     public void calcPointsLow() throws Exception {
-        Dice dice = new Dice.Builder(6)
-                .addDie(new Die(1))
-                .addDie(new Die(2))
-                .addDie(new Die(3))
-                .addDie(new Die(4))
-                .addDie(new Die(5))
-                .addDie(new Die(6))
-                .build();
+        Dice dice = new Dice(6);
+        dice.setDie(0, new Die(1));
+        dice.setDie(1, new Die(2));
+        dice.setDie(2, new Die(3));
+        dice.setDie(3, new Die(4));
+        dice.setDie(4, new Die(5));
+        dice.setDie(5, new Die(6));
         ValueChecker vc = new ValueChecker(dice);
         assert(vc.getPoints(3) == 6 );
     }
 
     @Test
     public void calcPointsLowZero() throws Exception {
-        Dice dice = new Dice.Builder(6)
-                .addDie(new Die(4))
-                .addDie(new Die(4))
-                .addDie(new Die(4))
-                .addDie(new Die(4))
-                .addDie(new Die(5))
-                .addDie(new Die(6))
-                .build();
+        Dice dice = new Dice(6);
+        dice.setDie(0, new Die(4));
+        dice.setDie(1, new Die(4));
+        dice.setDie(2, new Die(4));
+        dice.setDie(3, new Die(4));
+        dice.setDie(4, new Die(5));
+        dice.setDie(5, new Die(6));
         ValueChecker vc = new ValueChecker(dice);
         assert(vc.getPoints(3) == 0 );
     }
 
     @Test
     public void calcPointsAllSame() throws Exception {
-        Dice dice = new Dice.Builder(6)
-                .addDie(new Die(4))
-                .addDie(new Die(4))
-                .addDie(new Die(4))
-                .addDie(new Die(4))
-                .addDie(new Die(4))
-                .addDie(new Die(4))
-                .build();
+        Dice dice = new Dice(6);
+        dice.setDie(0, new Die(4));
+        dice.setDie(1, new Die(4));
+        dice.setDie(2, new Die(4));
+        dice.setDie(3, new Die(4));
+        dice.setDie(4, new Die(4));
+        dice.setDie(5, new Die(4));
         ValueChecker vc = new ValueChecker(dice);
         assert(vc.getPoints(4) == 24 );
 

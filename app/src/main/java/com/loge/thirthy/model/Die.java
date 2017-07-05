@@ -2,7 +2,20 @@ package com.loge.thirthy.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
+/*
+ * Die
+ *
+ * Thirty Project,
+ * Coursework 5DV155 Development of mobile applications
+ * at Umea University, Sumemr Course 2017
+ *
+ * Lorenz Gerber
+ *
+ * Version 0.1
+ *
+ * Licensed under GPLv3
+ *
+ */
 import java.util.Random;
 
 /**
@@ -69,7 +82,5 @@ public class Die implements Parcelable {
             return new Die[size];
         }
     };
-
-    
 
 }

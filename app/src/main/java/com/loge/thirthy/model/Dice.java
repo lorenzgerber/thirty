@@ -1,3 +1,17 @@
+/*
+ * Dice
+ *
+ * Thirty Project,
+ * Coursework 5DV155 Development of mobile applications
+ * at Umea University, Sumemr Course 2017
+ *
+ * Lorenz Gerber
+ *
+ * Version 0.1
+ *
+ * Licensed under GPLv3
+ *
+ */
 package com.loge.thirthy.model;
 
 import android.os.Parcel;
@@ -32,6 +46,10 @@ public class Dice implements Parcelable {
 
     public Die getDie(int index){
         return mDice[index];
+    }
+
+    public void setDie(int index, Die die){
+        mDice[index] = die;
     }
 
     public int size(){

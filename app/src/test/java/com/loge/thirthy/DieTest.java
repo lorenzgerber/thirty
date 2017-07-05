@@ -1,3 +1,17 @@
+/*
+ * DieTest
+ *
+ * Thirty Project,
+ * Coursework 5DV155 Development of mobile applications
+ * at Umea University, Sumemr Course 2017
+ *
+ * Lorenz Gerber
+ *
+ * Version 0.1
+ *
+ * Licensed under GPLv3
+ *
+ */
 package com.loge.thirthy;
 
 import com.loge.thirthy.model.Die;
