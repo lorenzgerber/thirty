@@ -1,5 +1,5 @@
 /*
- * CombinationSpinnerChangeListener
+ * ThrowButtonChangeEvent
  *
  * Thirty Project, an Android implementation
  * of the Dice game 'thirty'.
@@ -14,10 +14,14 @@
  */
 package com.loge.thirthy.view;
 
+import java.util.EventObject;
+
 /**
- * Created by lgerber on 7/1/17.
+ * Created by loge on 2017-07-05.
  */
 
-public interface CombinationSpinnerChangeListener {
-    public void changeEventReceived(CombinationSpinnerChangeEvent evt);
+public class ThrowButtonChangeEvent extends EventObject {
+    public ThrowButtonChangeEvent(Object source) {
+        super(source);
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * CombinationSpinnerChangeListener
+ * TakePointsButtonChangeListener
  *
  * Thirty Project, an Android implementation
  * of the Dice game 'thirty'.
@@ -15,9 +15,9 @@
 package com.loge.thirthy.view;
 
 /**
- * Created by lgerber on 7/1/17.
+ * Created by loge on 2017-07-05.
  */
 
-public interface CombinationSpinnerChangeListener {
-    public void changeEventReceived(CombinationSpinnerChangeEvent evt);
+public interface TakePointsButtonChangeListener {
+    public void changeEventReceived(TakePointsButtonChangeEvent ev);
 }

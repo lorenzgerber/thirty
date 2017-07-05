@@ -1,7 +1,8 @@
 /*
  * GameFragment
  *
- * Thirty Project,
+ * Thirty Project, an Android implementation
+ * of the Dice game 'thirty'.
  * Coursework 5DV155 Development of mobile applications
  * at Umea University, Sumemr Course 2017
  *
@@ -10,8 +11,6 @@
  * Version 0.1
  *
  * Licensed under GPLv3
- *
- *
  */
 package com.loge.thirthy.controller;
 
@@ -31,15 +30,22 @@ import com.loge.thirthy.view.CombinationSpinner;
 import com.loge.thirthy.view.CombinationSpinnerChangeEvent;
 import com.loge.thirthy.view.CombinationSpinnerChangeListener;
 import com.loge.thirthy.view.DiceImageButtons;
+import com.loge.thirthy.view.TakePointsButton;
+import com.loge.thirthy.view.TakePointsButtonChangeEvent;
+import com.loge.thirthy.view.TakePointsButtonChangeListener;
+import com.loge.thirthy.view.ThrowButton;
+import com.loge.thirthy.view.ThrowButtonChangeEvent;
+import com.loge.thirthy.view.ThrowButtonChangeListener;
 
 import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
-import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
-import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
 
 /**
- * Created by loge on 2017-06-22.
+ * GameFragment
+ *
+ * Fragment that serves as main controller for the
+ * game. The fragment handles re-establishing states
+ * on configuration changes using extras and parcelable objects.
  */
-
 public class GameFragment extends Fragment {
 
     public static final String GAME_PARCEL = "com.loge.thirty.game";
@@ -57,8 +63,8 @@ public class GameFragment extends Fragment {
 
     private DiceImageButtons mImageButtons;
     private CombinationSpinner mCombinationSpinner;
-    private Button mThrowButton;
-    private Button mTakePointsButton;
+    private ThrowButton mThrowButton;
+    private TakePointsButton mTakePointsButton;
 
 
     @Override
@@ -79,7 +85,6 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_game, container, false);
 
-        // Get ImageButton Widgets
         mImageButtons = new DiceImageButtons(v);
         mImageButtons.attachListeners(mDice);
         mImageButtons.updateImages(mDice);
@@ -93,8 +98,22 @@ public class GameFragment extends Fragment {
             }
         });
 
-        initThrowButton(v);
-        initTakePointsButton(v);
+        mThrowButton = new ThrowButton(v, mGame, mDice, mCombinationSpinner);
+        mThrowButton.addThrowButtonChangeListener(new ThrowButtonChangeListener() {
+            @Override
+            public void changeEventReceived(ThrowButtonChangeEvent ev) {
+                    updateUI();
+            }
+        });
+
+        mTakePointsButton = new TakePointsButton(v);
+        mTakePointsButton.addTakePointsButtonChangeListener(new TakePointsButtonChangeListener() {
+            @Override
+            public void changeEventReceived(TakePointsButtonChangeEvent ev) {
+                checkRound();
+            }
+        });
+
         if(mGame.getThrow() == 1){
             mThrowButton.setEnabled(false);
         }
@@ -111,82 +130,50 @@ public class GameFragment extends Fragment {
         outState.putInt(DIE_MODE, mDieMode);
     }
 
+    private void checkRound(){
+
+        if(mDice.getMode() != MODE_HIGHLIGHTED){
+            Toast.makeText(getActivity(),
+                    getResources().getText(R.string.choose_combination),
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        mGame.setPoints(
+                mCombinationSpinner.getCombinationItemId() -
+                        DIFF_FACE_VALUE_TO_POINT_ARRAY_INDEX,
+                mDice.calculatePoints()
+        );
+        mCombinationSpinner.removeCurrentSpinnerItem();
+
+        if(mGame.getRound() < NUMBER_OF_ROUNDS){
+            mGame.resetThrow();
+            mThrowButton.setEnabled(true);
+            mDice.rollAllDice();
+            updateUI();
+        } else {
+            mPointsTransferArray = mGame.getPointsArray().clone();
+            Intent intent = ResultActivity.newIntent(getActivity(), mPointsTransferArray);
+            startActivity(intent);
+            mGame.resetGame();
+            mCombinationSpinner.resetCombinationsList();
+            mDice.rollAllDice();
+            mDice.unselectAll();
+            updateUI();
+        }
+    }
+
+    /**
+     * updateUI
+     *
+     * Method that takes care of updating the dice
+     * mode with the correct images before the
+     * UI is redrawn.
+     */
     private void updateUI() {
 
         mDieMode = mDice.getMode();
         mImageButtons.updateImages(mDice);
     }
 
-
-    private void initThrowButton(View v){
-        mThrowButton = (Button) v.findViewById(R.id.roll_dice);
-        mThrowButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v){
-                boolean mThrowAll = true;
-                for (int i = 0; i < mDice.size(); i++){
-                    if(mDice.getDie(i).getMode()==MODE_SELECTED){
-                        mDice.rollDie(i);
-                        mThrowAll = false;
-                    }
-                }
-                if (mThrowAll){
-                    mDice.rollAllDice();
-                }
-
-                if(mGame.getThrow() == 1){
-                    mThrowButton.setEnabled(false);
-                } else {
-                    mGame.nextThrow();
-                }
-
-                mDice.setMode(MODE_SHOW);
-                mCombinationSpinner.setSpinnerPosition(0);
-                updateUI();
-            }
-        });
-
-    }
-
-    private void initTakePointsButton(View v){
-        mTakePointsButton = (Button) v.findViewById(R.id.take_points);
-        mTakePointsButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v){
-                if(mDice.getMode() != MODE_HIGHLIGHTED){
-                    Toast.makeText(getActivity(),
-                            getResources().getText(R.string.choose_combination),
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                mGame.setPoints(
-                        mCombinationSpinner.getCombinationItemId() -
-                                DIFF_FACE_VALUE_TO_POINT_ARRAY_INDEX,
-                        mDice.calculatePoints()
-                );
-                mCombinationSpinner.removeCurrentSpinnerItem();
-
-
-                // Check Round
-                if(mGame.getRound() < NUMBER_OF_ROUNDS){
-                    mGame.resetThrow();
-                    mThrowButton.setEnabled(true);
-                    mDice.rollAllDice();
-                    updateUI();
-                } else {
-                    mPointsTransferArray = mGame.getPointsArray().clone();
-                    Intent intent = ResultActivity.newIntent(getActivity(), mPointsTransferArray);
-                    startActivity(intent);
-                    mGame.resetGame();
-                    mCombinationSpinner.resetCombinationsList();
-                    mDice.rollAllDice();
-                    mDice.unselectAll();
-                    updateUI();
-                }
-            }
-        });
-    }
 }

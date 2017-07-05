@@ -1,11 +1,8 @@
-package com.loge.thirthy.model;
-
-import android.os.Parcel;
-import android.os.Parcelable;
 /*
  * Die
  *
- * Thirty Project,
+ * Thirty Project, an Android implementation
+ * of the Dice game 'thirty'.
  * Coursework 5DV155 Development of mobile applications
  * at Umea University, Sumemr Course 2017
  *
@@ -14,8 +11,12 @@ import android.os.Parcelable;
  * Version 0.1
  *
  * Licensed under GPLv3
- *
  */
+package com.loge.thirthy.model;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Random;
 
 /**
