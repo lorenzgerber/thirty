@@ -15,9 +15,12 @@
 package com.loge.thirthy.view;
 
 /**
- * Created by loge on 2017-07-05.
+ * ThrowButtonChangeListener
+ *
+ * Interface to be implemented when updates
+ * on pressing the ThrowButton are
+ * needed.
  */
-
 public interface ThrowButtonChangeListener {
     public void changeEventReceived(ThrowButtonChangeEvent ev);
 }

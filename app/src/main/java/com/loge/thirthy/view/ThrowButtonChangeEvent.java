@@ -17,10 +17,17 @@ package com.loge.thirthy.view;
 import java.util.EventObject;
 
 /**
- * Created by loge on 2017-07-05.
+ * ThrowButtonChangeEvent
+ *
+ * Used to signal that the ThrowButton has been pressed
  */
-
 public class ThrowButtonChangeEvent extends EventObject {
+    /**
+     * Constructs a prototypical Event.
+     *
+     * @param source The object on which the Event initially occurred.
+     * @throws IllegalArgumentException if source is null.
+     */
     public ThrowButtonChangeEvent(Object source) {
         super(source);
     }

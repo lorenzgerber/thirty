@@ -15,21 +15,45 @@
 package com.loge.thirthy.view;
 
 /**
- * Created by loge on 2017-06-23.
+ * CombinationListItem
+ *
+ * Is used in the UI Spinner to keep
+ * bind text and id of the die combinations
+ * together.
  */
-
 public class CombinationListItem {
 
     private int mId;
     private String mText;
 
+    /**
+     * CombinationListItem
+     *
+     * Constructor, assigns only the args
+     * @param id
+     * @param text
+     */
     public CombinationListItem(int id, String text){
         mId = id;
         mText = text;
     }
 
+    /**
+     * getId
+     *
+     * Getter for the id.
+     * @return
+     */
     public int getId(){ return mId; }
 
+    /**
+     * toString
+     *
+     * In conjunction with the ArrayAdapter of
+     * combination spinner, toString output is
+     * used as the screen label.
+     * @return
+     */
     @Override
     public String toString(){
         return mText;

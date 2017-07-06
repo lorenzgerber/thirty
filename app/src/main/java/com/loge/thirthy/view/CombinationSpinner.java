@@ -37,9 +37,14 @@ import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
 import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
 
 /**
- * Created by lgerber on 7/1/17.
+ * CombinationSpinner
+ *
+ * UI element for choosing the dice combination.
+ * Uses ArrayAdapter to conveniently change the spinner
+ * list items during runtime. Implements an observeable
+ * pattern to inform back to caller when a selection
+ * has been taken.
  */
-
 public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
 
     private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
@@ -54,6 +59,16 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
     private ArrayList<CombinationListItem> mCombinationsLeft;
     private final CopyOnWriteArrayList<CombinationSpinnerChangeListener> listeners;
 
+    /**
+     * CombinationSpinner
+     *
+     * Constructor, initializes variables
+     * and data.
+     * @param v
+     * @param f
+     * @param dice
+     * @param game
+     */
     public CombinationSpinner(View v, GameFragment f, Dice dice, Game game){
         mDice = dice;
         mGame = game;
@@ -68,11 +83,23 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
         setSpinnerPosition(0);
     }
 
+    /**
+     * addCombinationSpinnerChangeListener
+     *
+     * Method to register for item selected events.
+     * @param l
+     */
     public void addCombinationSpinnerChangeListener(CombinationSpinnerChangeListener l){
         this.listeners.add(l);
     }
-    
 
+
+    /**
+     * fireChangeEvent
+     *
+     * Informs all registered listeners about
+     * item selected event
+     */
     protected void fireChangeEvent() {
         CombinationSpinnerChangeEvent evt = new CombinationSpinnerChangeEvent(this);
         for (CombinationSpinnerChangeListener l : listeners){
@@ -81,6 +108,17 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
     }
 
 
+    /**
+     * onItemSelected
+     *
+     * Built in item selection event. Used
+     * to adapt the UI data structures that control
+     * which items should be shown in the spinner
+     * @param parent used for posting toasts
+     * @param view the view in which the spinner is rendered
+     * @param position int spinner position
+     * @param id not used in the current implementation
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if (position != 0){
@@ -105,11 +143,24 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
         }
     }
 
+    /**
+     * onNothingSelected
+     *
+     * Mandatory method. Not used in the current
+     * implementation.
+     * @param parent
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         mSpinnerPosition = 0;
     }
 
+    /**
+     * resetCombinationsList
+     *
+     * resetting all data structures related to UI
+     * of the spinner combinations list.
+     */
     public void resetCombinationsList(){
         Resources res = mHostFragment.getResources();
         String[] mCombinationsText = res.getStringArray(R.array.combination_list);
@@ -132,14 +183,35 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
         }
     }
 
+    /**
+     * setSpinnerPosition
+     *
+     * Programatic selection of a spinner
+     * position.
+     *
+     * @param index
+     */
     public void setSpinnerPosition(int index) {
         mSpinner.setSelection(index);
     }
 
+    /**
+     * getCombinationItemId
+     *
+     * Getter for the id of the combinationItem in
+     * the ArrayAdapter
+     * @return
+     */
     public int getCombinationItemId(){
         return mCombinationsLeft.get(mSpinnerPosition).getId();
     }
 
+    /**
+     * removeCurrentSpinnerItem
+     *
+     * removes the CombinationListItem from the
+     * array adapter
+     */
     public void removeCurrentSpinnerItem(){
         mCombinationsLeft.remove(mSpinnerPosition);
         this.setSpinnerPosition(0);

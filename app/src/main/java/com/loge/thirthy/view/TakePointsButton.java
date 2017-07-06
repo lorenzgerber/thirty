@@ -26,14 +26,23 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 /**
- * Created by loge on 2017-07-05.
+ * TakePointsButton
+ *
+ * UI class of the TakePointsButton.
+ * Implmements a custom event listener
+ * mechanism.
  */
-
 public class TakePointsButton {
 
     Button mTakePointsButton;
     private final CopyOnWriteArrayList<TakePointsButtonChangeListener> listeners;
 
+    /**
+     * TakePointsButton
+     *
+     * Constructor
+     * @param v
+     */
     public TakePointsButton(View v){
 
         this.listeners = new CopyOnWriteArrayList<>();
@@ -46,22 +55,29 @@ public class TakePointsButton {
                 fireChangeEvent();
             }
         });
-
-
     }
 
+    /**
+     * addTakePointsButtonChangeListener
+     *
+     * add a subscriber to the list to be informed on
+     * button pressed event.
+     * @param l
+     */
     public void addTakePointsButtonChangeListener(TakePointsButtonChangeListener l){
         this.listeners.add(l);
     }
 
-
+    /**
+     * fireChagneEvent
+     *
+     * Informs all subscribers that the TakePointsButton
+     * has been pressed.
+     */
     protected void fireChangeEvent() {
         TakePointsButtonChangeEvent evt = new TakePointsButtonChangeEvent(this);
         for (TakePointsButtonChangeListener l : listeners){
             l.changeEventReceived(evt);
         }
     }
-
-
-
 }

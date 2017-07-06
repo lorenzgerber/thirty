@@ -15,9 +15,12 @@
 package com.loge.thirthy.view;
 
 /**
- * Created by lgerber on 7/1/17.
+ * CombinationSpinnerChangeListener
+ *
+ * Interface to be implemented when updates
+ * on selecting an item of the combination spinner are
+ * needed.
  */
-
 public interface CombinationSpinnerChangeListener {
     public void changeEventReceived(CombinationSpinnerChangeEvent evt);
 }

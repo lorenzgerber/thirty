@@ -21,7 +21,6 @@ import java.util.EventObject;
  *
  * Used to signal that the TakePoints Button has been pressed
  */
-
 public class TakePointsButtonChangeEvent extends EventObject {
     /**
      * Constructs a prototypical Event.

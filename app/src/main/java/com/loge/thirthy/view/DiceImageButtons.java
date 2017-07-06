@@ -23,7 +23,11 @@ import com.loge.thirthy.model.Dice;
 import java.util.ArrayList;
 
 /**
- * Created by lgerber on 7/1/17.
+ * DiceImageButtons
+ *
+ * UI class that handles the visual representation
+ * of the dice, including selection of the different
+ * colored images based on the current mode
  */
 public class DiceImageButtons {
 
@@ -31,6 +35,12 @@ public class DiceImageButtons {
     Dice mDice;
     ArrayList<ImageButton> mImageButtons = new ArrayList<>();
 
+    /**
+     * DiceImageButtons
+     *
+     * Constructor that initializes the UI elements
+     * @param v
+     */
     public DiceImageButtons(View v){
 
         mImageIds = new int[3][6];
@@ -44,6 +54,13 @@ public class DiceImageButtons {
         mImageButtons.add((ImageButton) v.findViewById(R.id.die_six));
     }
 
+    /**
+     * updateImages
+     *
+     * method that checks the mode of each die and
+     * loads the corresponding representation image.
+     * @param dice
+     */
     public void updateImages(Dice dice){
         for (int i = 0; i < dice.size(); i++){
             mImageButtons.get(i).setImageResource(mImageIds[dice.
@@ -52,6 +69,14 @@ public class DiceImageButtons {
 
     }
 
+
+    /**
+     * attachListeners
+     *
+     * Boilerplate code to attach listeners to
+     * each button.
+     * @param dice
+     */
     public void attachListeners(Dice dice){
 
         mDice = dice;
@@ -137,6 +162,14 @@ public class DiceImageButtons {
         });
     }
 
+    /**
+     * initImageIds
+     *
+     * Method used to get all images id's into a
+     * programmatic easy accessible form.
+     * Here it was chosen to store them in a
+     * 2D int array.
+     */
     private void initImageIds(){
         mImageIds[0][0] = R.drawable.white1;
         mImageIds[0][1] = R.drawable.white2;

@@ -32,7 +32,6 @@ public class ThrowButton {
     Button mThrowButton;
     private final CopyOnWriteArrayList<ThrowButtonChangeListener> listeners;
 
-
     /**
      * Throw Button
      * Constructor
@@ -41,8 +40,6 @@ public class ThrowButton {
     public ThrowButton(View v) {
 
         this.listeners = new CopyOnWriteArrayList<>();
-
-
         mThrowButton = (Button) v.findViewById(R.id.roll_dice);
         mThrowButton.setOnClickListener(new View.OnClickListener(){
 
