@@ -26,14 +26,11 @@ import com.loge.thirthy.R;
 import com.loge.thirthy.model.Dice;
 import com.loge.thirthy.model.Game;
 import com.loge.thirthy.view.CombinationSpinner;
-import com.loge.thirthy.view.CombinationSpinnerChangeEvent;
 import com.loge.thirthy.view.CombinationSpinnerChangeListener;
 import com.loge.thirthy.view.DiceImageButtons;
 import com.loge.thirthy.view.TakePointsButton;
-import com.loge.thirthy.view.TakePointsButtonChangeEvent;
 import com.loge.thirthy.view.TakePointsButtonChangeListener;
 import com.loge.thirthy.view.ThrowButton;
-import com.loge.thirthy.view.ThrowButtonChangeEvent;
 import com.loge.thirthy.view.ThrowButtonChangeListener;
 
 import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
@@ -49,23 +46,17 @@ import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
  */
 public class GameFragment extends Fragment {
 
-    public static final String GAME_PARCEL = "com.loge.thirty.game";
-    public static final String DICE_PARCEL = "com.loge.thirty.dice";
-    public static final String DIE_MODE = "com.loge.thirty.dieMode";
-
-    private static int NUMBER_OF_ROUNDS = 10;
-    private static int NUMBER_OF_DIE = 6;
-    private static int DIFF_FACE_VALUE_TO_POINT_ARRAY_INDEX = 3;
+    private static final String GAME_PARCEL = "com.loge.thirty.game";
+    private static final String DICE_PARCEL = "com.loge.thirty.dice";
+    private static final String DIE_MODE = "com.loge.thirty.dieMode";
 
     private Game mGame;
     private int mDieMode;
     private Dice mDice;
-    private int[] mPointsTransferArray;
 
     private DiceImageButtons mImageButtons;
     private CombinationSpinner mCombinationSpinner;
     private ThrowButton mThrowButton;
-    private TakePointsButton mTakePointsButton;
 
 
     /**
@@ -84,6 +75,7 @@ public class GameFragment extends Fragment {
             mDice = savedInstanceState.getParcelable(DICE_PARCEL);
             mDieMode = savedInstanceState.getInt(DIE_MODE);
         } else {
+            int NUMBER_OF_DIE = 6;
             mDice = new Dice(NUMBER_OF_DIE);
             mGame = new Game();
         }
@@ -113,7 +105,7 @@ public class GameFragment extends Fragment {
         mCombinationSpinner.addCombinationSpinnerChangeListener(new CombinationSpinnerChangeListener(){
 
             @Override
-            public void changeEventReceived(CombinationSpinnerChangeEvent evt) {
+            public void changeEventReceived() {
                 updateUI();
             }
         });
@@ -121,15 +113,15 @@ public class GameFragment extends Fragment {
         mThrowButton = new ThrowButton(v);
         mThrowButton.addThrowButtonChangeListener(new ThrowButtonChangeListener() {
             @Override
-            public void changeEventReceived(ThrowButtonChangeEvent ev) {
+            public void changeEventReceived() {
                     throwDice();
             }
         });
 
-        mTakePointsButton = new TakePointsButton(v);
-        mTakePointsButton.addTakePointsButtonChangeListener(new TakePointsButtonChangeListener() {
+        TakePointsButton takePointsButton = new TakePointsButton(v);
+        takePointsButton.addTakePointsButtonChangeListener(new TakePointsButtonChangeListener() {
             @Override
-            public void changeEventReceived(TakePointsButtonChangeEvent ev) {
+            public void changeEventReceived() {
                 checkRound();
             }
         });
@@ -165,7 +157,7 @@ public class GameFragment extends Fragment {
      * and eventually initiates rolling the dice.
      * Finally, updateUI is called.
      */
-    public void throwDice(){
+    private void throwDice(){
         boolean mThrowAll = true;
         for (int i = 0; i < mDice.size(); i++){
             if(mDice.getDie(i).getMode()==MODE_SELECTED){
@@ -184,7 +176,7 @@ public class GameFragment extends Fragment {
         }
 
         mDice.setMode(MODE_SHOW);
-        mCombinationSpinner.setSpinnerPosition(0);
+        mCombinationSpinner.setSpinnerPosition();
         updateUI();
     }
 
@@ -205,6 +197,7 @@ public class GameFragment extends Fragment {
             return;
         }
 
+        int DIFF_FACE_VALUE_TO_POINT_ARRAY_INDEX = 3;
         mGame.setPoints(
                 mCombinationSpinner.getCombinationItemId() -
                         DIFF_FACE_VALUE_TO_POINT_ARRAY_INDEX,
@@ -212,14 +205,15 @@ public class GameFragment extends Fragment {
         );
         mCombinationSpinner.removeCurrentSpinnerItem();
 
+        int NUMBER_OF_ROUNDS = 10;
         if(mGame.getRound() < NUMBER_OF_ROUNDS){
             mGame.resetThrow();
             mThrowButton.setEnabled(true);
             mDice.rollAllDice();
             updateUI();
         } else {
-            mPointsTransferArray = mGame.getPointsArray().clone();
-            Intent intent = ResultActivity.newIntent(getActivity(), mPointsTransferArray);
+            int[] pointsTransferArray = mGame.getPointsArray().clone();
+            Intent intent = ResultActivity.newIntent(getActivity(), pointsTransferArray);
             startActivity(intent);
             mGame.resetGame();
             mCombinationSpinner.resetCombinationsList();

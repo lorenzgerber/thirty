@@ -25,12 +25,12 @@ import android.os.Parcelable;
  */
 public class Game implements Parcelable {
 
-    private static int NUMBER_OF_ROUNDS = 10;
+    private static final int NUMBER_OF_ROUNDS = 10;
 
     private int mRound;
     private int mThrow;
-    private int[] mPoints;
-    private boolean[] mRoundCompleted;
+    private final int[] mPoints;
+    private final boolean[] mRoundCompleted;
 
     /**
      * Game
@@ -144,7 +144,7 @@ public class Game implements Parcelable {
      * method resets the point array and the
      * boolean round completed array.
      */
-    public void resetPoints(){
+    private void resetPoints(){
         for(int i = 0; i < NUMBER_OF_ROUNDS; i++){
             mPoints[i] = 0;
             mRoundCompleted[i] = false;

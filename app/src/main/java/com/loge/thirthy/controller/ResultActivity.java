@@ -28,7 +28,7 @@ import android.support.v4.app.Fragment;
  */
 public class ResultActivity extends SingleFragmentActivity {
 
-    public static final String EXTRA_RESULT_ARRAY = "com.loge.thirty.results";
+    private static final String EXTRA_RESULT_ARRAY = "com.loge.thirty.results";
 
     /**
      * newIntent

@@ -31,9 +31,9 @@ import java.util.ArrayList;
  */
 public class DiceImageButtons {
 
-    int[][] mImageIds;
-    Dice mDice;
-    ArrayList<ImageButton> mImageButtons = new ArrayList<>();
+    private final int[][] mImageIds;
+    private Dice mDice;
+    private final ArrayList<ImageButton> mImageButtons = new ArrayList<>();
 
     /**
      * DiceImageButtons

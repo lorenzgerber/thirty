@@ -28,8 +28,6 @@ import java.util.Random;
  */
 public class Die implements Parcelable {
 
-    private Random random;
-
     private int mValue;
     private int mMode;
 
@@ -40,7 +38,7 @@ public class Die implements Parcelable {
      * die object with random value.
      */
     public Die(){
-        random = new Random();
+        Random random = new Random();
         mValue = random.nextInt(6) + 1;
         mMode = 0;
     }

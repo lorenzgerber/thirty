@@ -21,10 +21,10 @@ package com.loge.thirthy.view;
  * bind text and id of the die combinations
  * together.
  */
-public class CombinationListItem {
+class CombinationListItem {
 
-    private int mId;
-    private String mText;
+    private final int mId;
+    private final String mText;
 
     /**
      * CombinationListItem

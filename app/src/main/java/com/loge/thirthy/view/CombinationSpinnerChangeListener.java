@@ -22,5 +22,5 @@ package com.loge.thirthy.view;
  * needed.
  */
 public interface CombinationSpinnerChangeListener {
-    public void changeEventReceived(CombinationSpinnerChangeEvent evt);
+    void changeEventReceived();
 }

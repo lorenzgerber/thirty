@@ -22,5 +22,5 @@ package com.loge.thirthy.view;
  * needed.
  */
 public interface ThrowButtonChangeListener {
-    public void changeEventReceived(ThrowButtonChangeEvent ev);
+    void changeEventReceived();
 }

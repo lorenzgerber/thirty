@@ -29,7 +29,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ThrowButton {
 
-    Button mThrowButton;
+    private final Button mThrowButton;
     private final CopyOnWriteArrayList<ThrowButtonChangeListener> listeners;
 
     /**
@@ -76,10 +76,10 @@ public class ThrowButton {
      *
      * Informs registered listeners on Throw Button clicked
      */
-    protected void fireChangeEvent() {
+    private void fireChangeEvent() {
         ThrowButtonChangeEvent evt = new ThrowButtonChangeEvent(this);
         for (ThrowButtonChangeListener l : listeners){
-            l.changeEventReceived(evt);
+            l.changeEventReceived();
         }
     }
 }

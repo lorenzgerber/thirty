@@ -2,7 +2,7 @@
 <resources>
     <string-array
         name="combination_list">
-        <item>Choose Combination...</item>
+        <item>Choose Combination…</item>
         <item>Low</item>
         <item>Four</item>
         <item>Five</item>

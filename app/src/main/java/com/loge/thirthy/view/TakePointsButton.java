@@ -34,7 +34,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class TakePointsButton {
 
-    Button mTakePointsButton;
     private final CopyOnWriteArrayList<TakePointsButtonChangeListener> listeners;
 
     /**
@@ -47,8 +46,8 @@ public class TakePointsButton {
 
         this.listeners = new CopyOnWriteArrayList<>();
 
-        mTakePointsButton = (Button) v.findViewById(R.id.take_points);
-        mTakePointsButton.setOnClickListener(new View.OnClickListener(){
+        Button takePointsButton = (Button) v.findViewById(R.id.take_points);
+        takePointsButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v){
@@ -74,10 +73,10 @@ public class TakePointsButton {
      * Informs all subscribers that the TakePointsButton
      * has been pressed.
      */
-    protected void fireChangeEvent() {
+    private void fireChangeEvent() {
         TakePointsButtonChangeEvent evt = new TakePointsButtonChangeEvent(this);
         for (TakePointsButtonChangeListener l : listeners){
-            l.changeEventReceived(evt);
+            l.changeEventReceived();
         }
     }
 }

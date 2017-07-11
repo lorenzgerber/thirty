@@ -16,8 +16,6 @@ package com.loge.thirthy.view;
 
 
 import android.content.res.Resources;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,16 +45,12 @@ import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
  */
 public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
 
-    private static int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
-    private static int DIFF_SPINNER_INDEX_TO_FACE_VALUE = 2;
-
-    private Spinner mSpinner;
+    private final Spinner mSpinner;
     private int mSpinnerPosition;
-    private Dice mDice;
-    private Game mGame;
-    private GameFragment mHostFragment;
-    private ArrayAdapter<CombinationListItem> mAdapter;
-    private ArrayList<CombinationListItem> mCombinationsLeft;
+    private final Dice mDice;
+    private final Game mGame;
+    private final GameFragment mHostFragment;
+    private final ArrayList<CombinationListItem> mCombinationsLeft;
     private final CopyOnWriteArrayList<CombinationSpinnerChangeListener> listeners;
 
     /**
@@ -70,17 +64,22 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
      * @param game
      */
     public CombinationSpinner(View v, GameFragment f, Dice dice, Game game){
+
+
+
         mDice = dice;
         mGame = game;
         mHostFragment = f;
         mCombinationsLeft = new ArrayList<>();
         resetCombinationsList();
         mSpinner = (Spinner) v.findViewById(R.id.choose_points);
-        mAdapter = new ArrayAdapter<>(mHostFragment.getActivity(), android.R.layout.simple_spinner_dropdown_item, mCombinationsLeft);
+        ArrayAdapter<CombinationListItem> mAdapter =
+                new ArrayAdapter<>(mHostFragment.getActivity(),
+                        android.R.layout.simple_spinner_dropdown_item, mCombinationsLeft);
         mSpinner.setAdapter(mAdapter);
         mSpinner.setOnItemSelectedListener(this);
         this.listeners = new CopyOnWriteArrayList<>();
-        setSpinnerPosition(0);
+        setSpinnerPosition();
     }
 
     /**
@@ -100,10 +99,10 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
      * Informs all registered listeners about
      * item selected event
      */
-    protected void fireChangeEvent() {
+    private void fireChangeEvent() {
         CombinationSpinnerChangeEvent evt = new CombinationSpinnerChangeEvent(this);
         for (CombinationSpinnerChangeListener l : listeners){
-            l.changeEventReceived(evt);
+            l.changeEventReceived();
         }
     }
 
@@ -166,7 +165,9 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
         String[] mCombinationsText = res.getStringArray(R.array.combination_list);
         mCombinationsLeft.clear();
 
+        int NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES = 11;
         for (int i = 0; i < NUMBER_OF_COMBINATIONS_SPINNER_ENTRIES; i++ ) {
+            int DIFF_SPINNER_INDEX_TO_FACE_VALUE = 2;
             if(i > 0){
                 if(!mGame.roundComplete(i-1))
                 mCombinationsLeft.add(
@@ -189,10 +190,9 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
      * Programatic selection of a spinner
      * position.
      *
-     * @param index
      */
-    public void setSpinnerPosition(int index) {
-        mSpinner.setSelection(index);
+    public void setSpinnerPosition() {
+        mSpinner.setSelection(0);
     }
 
     /**
@@ -214,7 +214,7 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
      */
     public void removeCurrentSpinnerItem(){
         mCombinationsLeft.remove(mSpinnerPosition);
-        this.setSpinnerPosition(0);
+        this.setSpinnerPosition();
     }
 
 }

@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Thirthy</string>
-    <string name="scores">Your Scores:</string>
     <string name="total_score">Total Score:</string>
     <string name="low">Low:</string>
     <string name="four">Four:</string>
@@ -13,6 +12,5 @@
     <string name="eleven">Eleven:</string>
     <string name="tvelve">Twelve:</string>
     <string name="ten_tabs">\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</string>
-    <string name="one_tab">\u0009</string>
     <string name="choose_combination">You need to choose a Combination!</string>
 </resources>

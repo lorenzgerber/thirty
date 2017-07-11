@@ -34,9 +34,8 @@ public class ResultFragment extends Fragment {
 
     private static final String ARG_RESULT_ARRAY = "result_array";
 
-    Button mPlayAgainButton;
-    int[] resultArray;
-    int totalPoints;
+    private int[] resultArray;
+    private int totalPoints;
 
     /**
      * ResultFragment
@@ -69,6 +68,7 @@ public class ResultFragment extends Fragment {
         resultArray = new int[10];
         resultArray = (int[]) getArguments().getSerializable(ARG_RESULT_ARRAY);
         totalPoints = 0;
+        assert resultArray != null;
         for(int points:resultArray){
             totalPoints += points;
         }
@@ -113,8 +113,8 @@ public class ResultFragment extends Fragment {
         mResultTotal.setText(getString(R.string.total_score) + getString(R.string.ten_tabs) + String.valueOf(totalPoints));
 
 
-        mPlayAgainButton = (Button) v.findViewById(R.id.button_play_again);
-        mPlayAgainButton.setOnClickListener(new View.OnClickListener(){
+        Button playAgainButton = (Button) v.findViewById(R.id.button_play_again);
+        playAgainButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v){

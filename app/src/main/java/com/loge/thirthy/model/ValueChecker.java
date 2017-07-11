@@ -15,6 +15,8 @@
 package com.loge.thirthy.model;
 
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,10 +35,7 @@ import java.util.List;
  */
 public class ValueChecker {
 
-    private final int COMBINATION_LOW = 3;
-
-    private Dice mDice;
-    private List<Combinations> mCombinations;
+    private final Dice mDice;
 
     /**
      * ValueChecker
@@ -64,16 +63,16 @@ public class ValueChecker {
 
     public boolean[] getCombination(int faceValue){
 
-        int mFaceValue = faceValue;
         int sumCounter;
-        mCombinations = new ArrayList<>();
+        List<Combinations> combinations = new ArrayList<>();
         boolean resultFrame[] = new boolean[mDice.size()];
 
 
         /*
         Taking care of special case '3'
          */
-        if (mFaceValue == COMBINATION_LOW){
+        int COMBINATION_LOW = 3;
+        if (faceValue == COMBINATION_LOW){
             for(int i = 0; i < mDice.size(); i++){
                 if(mDice.getFaceValue(i) < 4){
                    resultFrame[i] = true;
@@ -90,10 +89,7 @@ public class ValueChecker {
             for(int i=0;i<total;i++)
             {
                 // if the ith bit of x is not 0
-                if( ( ( 1 << i ) & x ) != 0 )
-                    bitframe[i] = true;
-                else
-                    bitframe[i] = false;
+                bitframe[i] = ((1 << i) & x) != 0;
             }
 
             // find all Die combinations that divide by facevalue
@@ -103,21 +99,21 @@ public class ValueChecker {
                     sumCounter = sumCounter + mDice.getFaceValue(i);
                 }
             }
-            if(sumCounter % mFaceValue == 0 && sumCounter/mFaceValue == 1){
-                mCombinations.add(new Combinations(bitframe.clone()));
+            if(sumCounter % faceValue == 0 && sumCounter/ faceValue == 1){
+                combinations.add(new Combinations(bitframe.clone()));
             }
         }
 
         Arrays.fill(bitframe, false);
-        Collections.sort(mCombinations);
+        Collections.sort(combinations);
 
         Arrays.fill(resultFrame, false);
 
         boolean doesNotFit;
-        for(Combinations combination : mCombinations){
+        for(Combinations combination : combinations){
             doesNotFit = false;
             for(int i = 0 ; i < mDice.size(); i++){
-                if(resultFrame[i] == combination.getBitframe()[i] && resultFrame[i] == true) {
+                if(resultFrame[i] == combination.getBitframe()[i] && resultFrame[i]) {
                     doesNotFit = true;
                 }
             }
@@ -125,7 +121,7 @@ public class ValueChecker {
                 for(int i = 0 ; i < mDice.size(); i++){
                     if(combination.getBitframe()[i]){
                         resultFrame[i] = true;
-                    };
+                    }
                 }
             }
         }
@@ -141,7 +137,7 @@ public class ValueChecker {
      * @param power
      * @return
      */
-    public static int pow2(int power)
+    private static int pow2(int power)
     {
         int ret = 1;
         for(int t=0;t<power;t++)
@@ -161,7 +157,7 @@ public class ValueChecker {
      */
     private class Combinations implements Comparable<Combinations> {
         int mRank = 0;
-        boolean[] mBitframe;
+        final boolean[] mBitframe;
 
         public Combinations(boolean[] bitframe){
 
@@ -204,8 +200,8 @@ public class ValueChecker {
          * @return
          */
         @Override
-        public int compareTo(Combinations compareCombination) {
-            int compareRank = ((Combinations) compareCombination).getRank();
+        public int compareTo(@NonNull Combinations compareCombination) {
+            int compareRank = compareCombination.getRank();
             return this.getRank() - compareRank;
         }
     }

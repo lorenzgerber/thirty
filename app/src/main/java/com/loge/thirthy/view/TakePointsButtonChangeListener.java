@@ -22,5 +22,5 @@ package com.loge.thirthy.view;
  * needed.
  */
 public interface TakePointsButtonChangeListener {
-    public void changeEventReceived(TakePointsButtonChangeEvent ev);
+    void changeEventReceived();
 }
