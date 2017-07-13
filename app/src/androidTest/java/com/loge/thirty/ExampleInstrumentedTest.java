@@ -1,4 +1,4 @@
-package com.loge.thirthy;
+package com.loge.thirty;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

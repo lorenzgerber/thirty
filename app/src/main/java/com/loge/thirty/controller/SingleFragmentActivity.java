@@ -12,14 +12,14 @@
  *
  * Licensed under GPLv3
  */
-package com.loge.thirthy.controller;
+package com.loge.thirty.controller;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.loge.thirthy.R;
+import com.loge.thirty.R;
 
 /**
  * Single FragmentActivity

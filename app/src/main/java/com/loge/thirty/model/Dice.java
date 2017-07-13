@@ -12,14 +12,14 @@
  *
  * Licensed under GPLv3
  */
-package com.loge.thirthy.model;
+package com.loge.thirty.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
-import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
-import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
+import static com.loge.thirty.controller.GameActivity.MODE_SHOW;
+import static com.loge.thirty.controller.GameActivity.MODE_HIGHLIGHTED;
+import static com.loge.thirty.controller.GameActivity.MODE_SELECTED;
 
 
 /**

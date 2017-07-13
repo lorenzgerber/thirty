@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Thirthy</string>
+    <string name="app_name">Thirty</string>
     <string name="total_score">Total Score:</string>
     <string name="take_points">Take Points"</string>
     <string name="roll_dice">Roll Dice</string>

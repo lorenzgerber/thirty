@@ -12,11 +12,11 @@
  * Licensed under GPLv3
  *
  */
-package com.loge.thirthy;
+package com.loge.thirty;
 
-import com.loge.thirthy.model.Dice;
-import com.loge.thirthy.model.Die;
-import com.loge.thirthy.model.ValueChecker;
+import com.loge.thirty.model.Dice;
+import com.loge.thirty.model.Die;
+import com.loge.thirty.model.ValueChecker;
 
 import org.junit.Test;
 

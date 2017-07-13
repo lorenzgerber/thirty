@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android" tools:keep="@drawable/selector_two">
     <item android:state_pressed="true"
           android:drawable="@drawable/red2" /> <!-- pressed -->
     <item android:state_focused="true"

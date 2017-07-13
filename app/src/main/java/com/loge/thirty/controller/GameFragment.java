@@ -12,7 +12,7 @@
  *
  * Licensed under GPLv3
  */
-package com.loge.thirthy.controller;
+package com.loge.thirty.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,16 +23,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.loge.thirthy.R;
-import com.loge.thirthy.model.Dice;
-import com.loge.thirthy.model.Game;
-import com.loge.thirthy.view.CombinationSpinner;
-import com.loge.thirthy.view.CombinationSpinnerChangeListener;
-import com.loge.thirthy.view.DiceImageButtons;
+import com.loge.thirty.R;
+import com.loge.thirty.model.Dice;
+import com.loge.thirty.model.Game;
+import com.loge.thirty.view.CombinationSpinner;
+import com.loge.thirty.view.CombinationSpinnerChangeListener;
+import com.loge.thirty.view.DiceImageButtons;
 
-import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
-import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
-import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
+import static com.loge.thirty.controller.GameActivity.MODE_HIGHLIGHTED;
+import static com.loge.thirty.controller.GameActivity.MODE_SELECTED;
+import static com.loge.thirty.controller.GameActivity.MODE_SHOW;
 
 /**
  * GameFragment

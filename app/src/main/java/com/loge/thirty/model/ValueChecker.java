@@ -12,7 +12,7 @@
  *
  * Licensed under GPLv3
  */
-package com.loge.thirthy.model;
+package com.loge.thirty.model;
 
 
 import android.support.annotation.NonNull;
@@ -91,8 +91,6 @@ public class ValueChecker {
         List<Combinations> combinations = new ArrayList<>();
         buildCombinationsList(faceValue, combinations);
 
-        boolean[] bitframe = new boolean[mDice.size()];
-        Arrays.fill(bitframe, false);
         Collections.sort(combinations);
 
         return findBestCombination(combinations);

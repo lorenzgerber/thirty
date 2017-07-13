@@ -12,7 +12,7 @@
  *
  * Licensed under GPLv3
  */
-package com.loge.thirthy.view;
+package com.loge.thirty.view;
 
 
 import android.content.res.Resources;
@@ -22,17 +22,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.loge.thirthy.R;
-import com.loge.thirthy.controller.GameFragment;
-import com.loge.thirthy.model.Dice;
-import com.loge.thirthy.model.Game;
-import com.loge.thirthy.model.ValueChecker;
+import com.loge.thirty.R;
+import com.loge.thirty.controller.GameFragment;
+import com.loge.thirty.model.Dice;
+import com.loge.thirty.model.Game;
+import com.loge.thirty.model.ValueChecker;
 
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
-import static com.loge.thirthy.controller.GameActivity.MODE_SHOW;
+import static com.loge.thirty.controller.GameActivity.MODE_HIGHLIGHTED;
+import static com.loge.thirty.controller.GameActivity.MODE_SHOW;
 
 /**
  * CombinationSpinner
@@ -100,7 +100,6 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
      * item selected event
      */
     private void fireChangeEvent() {
-        CombinationSpinnerChangeEvent evt = new CombinationSpinnerChangeEvent(this);
         for (CombinationSpinnerChangeListener l : listeners){
             l.changeEventReceived();
         }

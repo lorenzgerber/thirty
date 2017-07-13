@@ -12,13 +12,13 @@
  *
  * Licensed under GPLv3
  */
-package com.loge.thirthy.view;
+package com.loge.thirty.view;
 
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.loge.thirthy.R;
-import com.loge.thirthy.model.Dice;
+import com.loge.thirty.R;
+import com.loge.thirty.model.Dice;
 
 import java.util.ArrayList;
 

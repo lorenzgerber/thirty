@@ -12,9 +12,9 @@
  * Licensed under GPLv3
  *
  */
-package com.loge.thirthy;
+package com.loge.thirty;
 
-import com.loge.thirthy.model.Die;
+import com.loge.thirty.model.Die;
 
 import org.junit.Test;
 

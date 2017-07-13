@@ -12,7 +12,7 @@
  *
  * Licensed under GPLv3
  */
-package com.loge.thirthy.view;
+package com.loge.thirty.view;
 
 /**
  * CombinationListItem

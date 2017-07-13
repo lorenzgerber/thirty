@@ -12,7 +12,7 @@
  *
  * Licensed under GPLv3
  */
-package com.loge.thirthy.controller;
+package com.loge.thirty.controller;
 
 import android.support.v4.app.Fragment;
 

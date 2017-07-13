@@ -12,7 +12,7 @@
  *
  * Licensed under GPLv3
  */
-package com.loge.thirthy.model;
+package com.loge.thirty.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
