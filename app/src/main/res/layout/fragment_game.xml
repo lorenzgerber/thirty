@@ -15,7 +15,8 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="8dp"/>
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/die_one"/>
 
     <ImageButton
         android:id="@+id/die_two"
@@ -25,7 +26,8 @@
         app:layout_constraintStart_toEndOf="@+id/die_one"
         android:layout_marginStart="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/die_two"/>
 
     <ImageButton
         android:id="@+id/die_three"
@@ -35,7 +37,8 @@
         app:layout_constraintStart_toEndOf="@+id/die_two"
         android:layout_marginStart="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/die_three"/>
 
     <ImageButton
         android:id="@+id/die_four"
@@ -45,7 +48,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/die_one"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="8dp"/>
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/die_four"/>
 
     <ImageButton
         android:id="@+id/die_five"
@@ -55,7 +59,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/die_two"
         app:layout_constraintStart_toEndOf="@+id/die_four"
-        android:layout_marginStart="8dp"/>
+        android:layout_marginStart="8dp"
+        android:contentDescription="@string/die_five"/>
 
     <ImageButton
         android:id="@+id/die_six"
@@ -65,7 +70,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/die_five"
         app:layout_constraintTop_toBottomOf="@+id/die_three"
-        app:srcCompat="@drawable/white6"/>
+        app:srcCompat="@drawable/white6"
+        android:contentDescription="@string/die_six"/>
 
     <Button
         android:id="@+id/take_points"
@@ -74,7 +80,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="Take Points"
+        android:text="@string/take_points"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -94,7 +100,7 @@
         android:id="@+id/roll_dice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Roll Dice"
+        android:text="@string/roll_dice"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="8dp"

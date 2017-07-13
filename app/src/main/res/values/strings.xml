@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">Thirthy</string>
     <string name="total_score">Total Score:</string>
+    <string name="take_points">Take Points"</string>
+    <string name="roll_dice">Roll Dice</string>
+    <string name="your_score">Your Score:</string>
+    <string name="play_again">Play Again</string>
+    <string name="die_one">face value one</string>
+    <string name="die_two">face value two</string>
+    <string name="die_three">face value three</string>
+    <string name="die_four">face value four</string>
+    <string name="die_five">face value five</string>
+    <string name="die_six">face value six</string>
     <string name="low">Low:</string>
     <string name="four">Four:</string>
     <string name="five">Five:</string>

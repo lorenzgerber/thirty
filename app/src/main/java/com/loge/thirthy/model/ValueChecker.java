@@ -80,18 +80,12 @@ public class ValueChecker {
      */
     public boolean[] getCombination(int faceValue){
 
-        int sumCounter;
-
-        //boolean resultFrame[] = new boolean[mDice.size()];
-
-
-
         /*
         Special case selection 'LOW'
          */
         int COMBINATION_LOW = 3;
         if (faceValue == COMBINATION_LOW){
-            return getLowCombination(mDice.size());
+            return getLowCombination(mDice);
         }
 
         List<Combinations> combinations = new ArrayList<>();
@@ -176,13 +170,13 @@ public class ValueChecker {
      * Method that returns the dice combination
      * for the selection 'Low' (all dice with
      * a face value below 4)
-     * @param numberOfDice
+     * @param dice
      * @return
      */
-    private boolean[] getLowCombination(int numberOfDice) {
-        boolean resultFrame[] = new boolean[mDice.size()];
-        for(int i = 0; i < mDice.size(); i++){
-            if(mDice.getFaceValue(i) < 4){
+    private boolean[] getLowCombination(Dice dice) {
+        boolean resultFrame[] = new boolean[dice.size()];
+        for(int i = 0; i < dice.size(); i++){
+            if(dice.getFaceValue(i) < 4){
                resultFrame[i] = true;
             }
         }

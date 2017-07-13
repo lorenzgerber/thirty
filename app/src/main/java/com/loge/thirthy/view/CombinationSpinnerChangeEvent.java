@@ -22,7 +22,7 @@ import java.util.EventObject;
  * Used to signal that an item has been selected
  * in the combination spinner
  */
-public class CombinationSpinnerChangeEvent extends EventObject {
+class CombinationSpinnerChangeEvent extends EventObject {
     /**
      * Constructs a prototypical Event.
      *

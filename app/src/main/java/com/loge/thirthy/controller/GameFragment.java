@@ -54,7 +54,6 @@ public class GameFragment extends Fragment {
     private DiceImageButtons mImageButtons;
     private CombinationSpinner mCombinationSpinner;
     private Button mThrowButton;
-    private Button mTakePointsButton;
 
 
     /**
@@ -126,8 +125,8 @@ public class GameFragment extends Fragment {
             }
         });
         */
-        mTakePointsButton = (Button) v.findViewById(R.id.take_points);
-        mTakePointsButton.setOnClickListener(new View.OnClickListener(){
+        Button takePointsButton = (Button) v.findViewById(R.id.take_points);
+        takePointsButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v){
