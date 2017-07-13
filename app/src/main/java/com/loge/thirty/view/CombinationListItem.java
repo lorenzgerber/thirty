@@ -4,7 +4,7 @@
  * Thirty Project, an Android implementation
  * of the Dice game 'thirty'.
  * Coursework 5DV155 Development of mobile applications
- * at Umea University, Sumemr Course 2017
+ * at Umea University, Summer Course 2017
  *
  * Lorenz Gerber
  *
@@ -30,8 +30,8 @@ class CombinationListItem {
      * CombinationListItem
      *
      * Constructor, assigns only the args
-     * @param id
-     * @param text
+     * @param id sequence id of spinner list
+     * @param text to be shown as list entry
      */
     public CombinationListItem(int id, String text){
         mId = id;
@@ -42,7 +42,7 @@ class CombinationListItem {
      * getId
      *
      * Getter for the id.
-     * @return
+     * @return Id, the unique id of spinner entry
      */
     public int getId(){ return mId; }
 
@@ -52,7 +52,7 @@ class CombinationListItem {
      * In conjunction with the ArrayAdapter of
      * combination spinner, toString output is
      * used as the screen label.
-     * @return
+     * @return string of the label text
      */
     @Override
     public String toString(){

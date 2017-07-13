@@ -20,7 +20,6 @@
     <string name="nine">Nine:</string>
     <string name="ten">Ten:</string>
     <string name="eleven">Eleven:</string>
-    <string name="tvelve">Twelve:</string>
-    <string name="ten_tabs">\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009\u0009</string>
+    <string name="twelve">Twelve:</string>
     <string name="choose_combination">You need to choose a Combination!</string>
 </resources>

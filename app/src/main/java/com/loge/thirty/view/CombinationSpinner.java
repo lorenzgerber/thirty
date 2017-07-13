@@ -4,7 +4,7 @@
  * Thirty Project, an Android implementation
  * of the Dice game 'thirty'.
  * Coursework 5DV155 Development of mobile applications
- * at Umea University, Sumemr Course 2017
+ * at Umea University, Summer Course 2017
  *
  * Lorenz Gerber
  *
@@ -39,7 +39,7 @@ import static com.loge.thirty.controller.GameActivity.MODE_SHOW;
  *
  * UI element for choosing the dice combination.
  * Uses ArrayAdapter to conveniently change the spinner
- * list items during runtime. Implements an observeable
+ * list items during runtime. Implements an observable
  * pattern to inform back to caller when a selection
  * has been taken.
  */
@@ -58,10 +58,10 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
      *
      * Constructor, initializes variables
      * and data.
-     * @param v
-     * @param f
-     * @param dice
-     * @param game
+     * @param v the parent View
+     * @param f parent Fragment, needs to be a GameFragment
+     * @param dice a dice instance
+     * @param game a game instance
      */
     public CombinationSpinner(View v, GameFragment f, Dice dice, Game game){
 
@@ -86,7 +86,7 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
      * addCombinationSpinnerChangeListener
      *
      * Method to register for item selected events.
-     * @param l
+     * @param l listner of type CombinationSpinnerChangeListener
      */
     public void addCombinationSpinnerChangeListener(CombinationSpinnerChangeListener l){
         this.listeners.add(l);
@@ -146,7 +146,7 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
      *
      * Mandatory method. Not used in the current
      * implementation.
-     * @param parent
+     * @param parent the parent AdapterView
      */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -186,7 +186,7 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
     /**
      * setSpinnerPosition
      *
-     * Programatic selection of a spinner
+     * Reset of spinner
      * position.
      *
      */
@@ -199,7 +199,7 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
      *
      * Getter for the id of the combinationItem in
      * the ArrayAdapter
-     * @return
+     * @return combinationItem instance with specified Id
      */
     public int getCombinationItemId(){
         return mCombinationsLeft.get(mSpinnerPosition).getId();

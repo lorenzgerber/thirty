@@ -3,7 +3,7 @@
  *
  * Thirty Project,
  * Coursework 5DV155 Development of mobile applications
- * at Umea University, Sumemr Course 2017
+ * at Umea University, Summer Course 2017
  *
  * Lorenz Gerber
  *
@@ -20,9 +20,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by loge on 2017-06-16.
- */
+
 public class DieTest {
 
     @Test

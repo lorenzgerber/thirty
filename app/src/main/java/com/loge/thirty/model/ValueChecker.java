@@ -4,7 +4,7 @@
  * Thirty Project, an Android implementation
  * of the Dice game 'thirty'.
  * Coursework 5DV155 Development of mobile applications
- * at Umea University, Sumemr Course 2017
+ * at Umea University, Summer Course 2017
  *
  * Lorenz Gerber
  *
@@ -30,7 +30,7 @@ import java.util.List;
  * the which dice to choose for a specific round. The algorithm
  * loops through all 2^6 possible combinations using a binary
  * frame, testing for divisibility of the requested round face
- * value (bruteforce). Then sort is applied to the found combinations to find
+ * value (brute force). Then sort is applied to the found combinations to find
  * those using the fewest die to reach the highest possible score.
  */
 public class ValueChecker {
@@ -74,7 +74,7 @@ public class ValueChecker {
      * getCombination
      *
      * Main algorithm that returns the best
-     * combination for the chosen Facevalue
+     * combination for the chosen face value
      * @param faceValue
      * @return
      */
@@ -113,13 +113,13 @@ public class ValueChecker {
         for(Combinations combination : combinations){
             doesNotFit = false;
             for(int i = 0 ; i < mDice.size(); i++){
-                if(resultFrame[i] == combination.getBitframe()[i] && resultFrame[i]) {
+                if(resultFrame[i] == combination.getBitFrame()[i] && resultFrame[i]) {
                     doesNotFit = true;
                 }
             }
             if(!doesNotFit){
                 for(int i = 0 ; i < mDice.size(); i++){
-                    if(combination.getBitframe()[i]){
+                    if(combination.getBitFrame()[i]){
                         resultFrame[i] = true;
                     }
                 }
@@ -133,31 +133,31 @@ public class ValueChecker {
      *
      * method that populates a combinations List
      * with valid die combinations for the chose
-     * faceValue. Bruteforce, iterating over all
+     * face value. Brute force, iterating over all
      * possibilities.
      * @param faceValue
      * @param combinations
      */
     private void buildCombinationsList(int faceValue, List<Combinations> combinations) {
         int sumCounter;
-        boolean[] bitframe = new boolean[mDice.size()];
+        boolean[] bitFrame = new boolean[mDice.size()];
         final int total = mDice.size();
         for(int x=1;x<ValueChecker.pow2(total);x++) {
             for(int i=0;i<total;i++)
             {
                 // if the ith bit of x is not 0
-                bitframe[i] = ((1 << i) & x) != 0;
+                bitFrame[i] = ((1 << i) & x) != 0;
             }
 
-            // find all Die combinations that divide by facevalue
+            // find all Die combinations that divide by face value
             sumCounter = 0;
             for (int i = 0;i < total; i++) {
-                if( bitframe[i]) {
+                if( bitFrame[i]) {
                     sumCounter = sumCounter + mDice.getFaceValue(i);
                 }
             }
             if(sumCounter % faceValue == 0 && sumCounter/ faceValue == 1){
-                combinations.add(new Combinations(bitframe.clone()));
+                combinations.add(new Combinations(bitFrame.clone()));
             }
         }
     }
@@ -202,21 +202,21 @@ public class ValueChecker {
      * Combinations
      *
      * inner class of Combinations which consist of
-     * a boolean bitframe and the rank. The rank depices
-     * how many times the facevalue fits into the chosen
-     * combination. The boolean bitframe corresponds to the
+     * a boolean bit frame and the rank. The rank depicts
+     * how many times the face value fits into the chosen
+     * combination. The boolean bit frame corresponds to the
      * die, determining whether they are included or not in
      * the combination.
      */
     private class Combinations implements Comparable<Combinations> {
         int mRank = 0;
-        final boolean[] mBitframe;
+        final boolean[] mBitFrame;
 
-        public Combinations(boolean[] bitframe){
+        public Combinations(boolean[] bitFrame){
 
-            mBitframe = bitframe;
+            mBitFrame = bitFrame;
 
-            for(boolean bool : mBitframe){
+            for(boolean bool : mBitFrame){
                 if(bool){
                     mRank++;
                 }
@@ -234,14 +234,14 @@ public class ValueChecker {
         }
 
         /**
-         * getBitframe
+         * getBitFrame
          *
-         * getter method for the boolean array 'bitframe' that
+         * getter method for the boolean array 'bit frame' that
          * expresses which die is included in current combination.
          * @return
          */
-        public boolean[] getBitframe() {
-            return this.mBitframe;
+        public boolean[] getBitFrame() {
+            return this.mBitFrame;
         }
 
         /**

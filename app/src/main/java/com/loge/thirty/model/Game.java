@@ -4,7 +4,7 @@
  * Thirty Project, an Android implementation
  * of the Dice game 'thirty'.
  * Coursework 5DV155 Development of mobile applications
- * at Umea University, Sumemr Course 2017
+ * at Umea University, Summer Course 2017
  *
  * Lorenz Gerber
  *
@@ -196,7 +196,7 @@ public class Game implements Parcelable {
     /**
      * Parcelable.Creator
      *
-     * static method that calls special contstructor to
+     * static method that calls special constructor to
      * recreate state after configuration change.
      */
     public static final Parcelable.Creator<Game> CREATOR = new Parcelable.Creator<Game>() {

@@ -4,7 +4,7 @@
  * Thirty Project, an Android implementation
  * of the Dice game 'thirty'.
  * Coursework 5DV155 Development of mobile applications
- * at Umea University, Sumemr Course 2017
+ * at Umea University, Summer Course 2017
  *
  * Lorenz Gerber
  *
@@ -88,29 +88,54 @@ public class ResultFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_result, container, false);
 
-        TextView mResultLow = (TextView) v.findViewById(R.id.label_result_low);
-        TextView mResultFour = (TextView) v.findViewById(R.id.label_result_four);
-        TextView mResultFive = (TextView) v.findViewById(R.id.label_result_five);
-        TextView mResultSix = (TextView) v.findViewById(R.id.label_result_six);
-        TextView mResultSeven = (TextView) v.findViewById(R.id.label_result_seven);
-        TextView mResultEight = (TextView) v.findViewById(R.id.label_result_eight);
-        TextView mResultNine= (TextView) v.findViewById(R.id.label_result_nine);
-        TextView mResultTen = (TextView) v.findViewById(R.id.label_result_ten);
-        TextView mResultEleven = (TextView) v.findViewById(R.id.label_result_eleven);
-        TextView mResultTvelve = (TextView) v.findViewById(R.id.label_result_tvelve);
-        TextView mResultTotal = (TextView) v.findViewById(R.id.label_result_total);
+        TextView mLabelLow = (TextView) v.findViewById(R.id.label_low);
+        TextView mLabelFour = (TextView) v.findViewById(R.id.label_four);
+        TextView mLabelFive = (TextView) v.findViewById(R.id.label_five);
+        TextView mLabelSix = (TextView) v.findViewById(R.id.label_six);
+        TextView mLabelSeven = (TextView) v.findViewById(R.id.label_seven);
+        TextView mLabelEight = (TextView) v.findViewById(R.id.label_eight);
+        TextView mLabelNine= (TextView) v.findViewById(R.id.label_nine);
+        TextView mLabelTen = (TextView) v.findViewById(R.id.label_ten);
+        TextView mLabelEleven = (TextView) v.findViewById(R.id.label_eleven);
+        TextView mLabelTwelve = (TextView) v.findViewById(R.id.label_twelve);
+        TextView mLabelTotal = (TextView) v.findViewById(R.id.label_total);
+        
+        
+        TextView mResultLow = (TextView) v.findViewById(R.id.result_low);
+        TextView mResultFour = (TextView) v.findViewById(R.id.result_four);
+        TextView mResultFive = (TextView) v.findViewById(R.id.result_five);
+        TextView mResultSix = (TextView) v.findViewById(R.id.result_six);
+        TextView mResultSeven = (TextView) v.findViewById(R.id.result_seven);
+        TextView mResultEight = (TextView) v.findViewById(R.id.result_eight);
+        TextView mResultNine= (TextView) v.findViewById(R.id.result_nine);
+        TextView mResultTen = (TextView) v.findViewById(R.id.result_ten);
+        TextView mResultEleven = (TextView) v.findViewById(R.id.result_eleven);
+        TextView mResultTwelve = (TextView) v.findViewById(R.id.result_twelve);
+        TextView mResultTotal = (TextView) v.findViewById(R.id.result_total);
 
-        mResultLow.setText(getString(R.string.low) + getString(R.string.ten_tabs) + String.valueOf(resultArray[0]));
-        mResultFour.setText(getString(R.string.four) + getString(R.string.ten_tabs) + String.valueOf(resultArray[1]));
-        mResultFive.setText(getString(R.string.five) + getString(R.string.ten_tabs) + String.valueOf(resultArray[2]));
-        mResultSix.setText(getString(R.string.six) + getString(R.string.ten_tabs) + String.valueOf(resultArray[3]));
-        mResultSeven.setText(getString(R.string.seven) + getString(R.string.ten_tabs) + String.valueOf(resultArray[4]));
-        mResultEight.setText(getString(R.string.eight) + getString(R.string.ten_tabs) + String.valueOf(resultArray[5]));
-        mResultNine.setText(getString(R.string.nine) + getString(R.string.ten_tabs) + String.valueOf(resultArray[6]));
-        mResultTen.setText(getString(R.string.ten) + getString(R.string.ten_tabs) + String.valueOf(resultArray[7]));
-        mResultEleven.setText(getString(R.string.eleven) + getString(R.string.ten_tabs) + String.valueOf(resultArray[8]));
-        mResultTvelve.setText(getString(R.string.tvelve) + getString(R.string.ten_tabs) + String.valueOf(resultArray[9]));
-        mResultTotal.setText(getString(R.string.total_score) + getString(R.string.ten_tabs) + String.valueOf(totalPoints));
+        mLabelLow.setText(getString(R.string.low));
+        mLabelFour.setText(getString(R.string.four));
+        mLabelFive.setText(getString(R.string.five));
+        mLabelSix.setText(getString(R.string.six));
+        mLabelSeven.setText(getString(R.string.seven));
+        mLabelEight.setText(getString(R.string.eight));
+        mLabelNine.setText(getString(R.string.nine));
+        mLabelTen.setText(getString(R.string.ten));
+        mLabelEleven.setText(getString(R.string.eleven));
+        mLabelTwelve.setText(getString(R.string.twelve));
+        mLabelTotal.setText(getString(R.string.total_score));
+
+        mResultLow.setText(String.valueOf(resultArray[0]));
+        mResultFour.setText(String.valueOf(resultArray[1]));
+        mResultFive.setText(String.valueOf(resultArray[2]));
+        mResultSix.setText(String.valueOf(resultArray[3]));
+        mResultSeven.setText(String.valueOf(resultArray[4]));
+        mResultEight.setText(String.valueOf(resultArray[5]));
+        mResultNine.setText(String.valueOf(resultArray[6]));
+        mResultTen.setText(String.valueOf(resultArray[7]));
+        mResultEleven.setText(String.valueOf(resultArray[8]));
+        mResultTwelve.setText(String.valueOf(resultArray[9]));
+        mResultTotal.setText(String.valueOf(totalPoints));
 
 
         Button playAgainButton = (Button) v.findViewById(R.id.button_play_again);

@@ -20,7 +20,7 @@
         android:layout_marginEnd="8dp"/>
 
     <TextView
-        android:id="@+id/label_result_low"
+        android:id="@+id/label_low"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/low"
@@ -30,104 +30,104 @@
         android:layout_marginStart="8dp"/>
 
     <TextView
-        android:id="@+id/label_result_four"
+        android:id="@+id/label_four"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/four"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_result_low"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_low"/>
 
     <TextView
-        android:id="@+id/label_result_five"
+        android:id="@+id/label_five"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/five"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_result_four"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_four"/>
 
     <TextView
-        android:id="@+id/label_result_six"
+        android:id="@+id/label_six"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/six"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_result_five"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_five"/>
 
     <TextView
-        android:id="@+id/label_result_seven"
+        android:id="@+id/label_seven"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/seven"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_result_six"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_six"/>
 
     <TextView
-        android:id="@+id/label_result_eight"
+        android:id="@+id/label_eight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/eight"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_result_seven"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_seven"/>
 
     <TextView
-        android:id="@+id/label_result_nine"
+        android:id="@+id/label_nine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nine"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_result_eight"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_eight"/>
 
     <TextView
-        android:id="@+id/label_result_ten"
+        android:id="@+id/label_ten"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ten"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_result_nine"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_nine"/>
 
     <TextView
-        android:id="@+id/label_result_eleven"
+        android:id="@+id/label_eleven"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/eleven"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_result_ten"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_ten"/>
 
     <TextView
-        android:id="@+id/label_result_tvelve"
+        android:id="@+id/label_twelve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tvelve"
+        android:text="@string/twelve"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/label_result_eleven"
+        app:layout_constraintTop_toBottomOf="@+id/label_eleven"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"/>
 
     <TextView
-        android:id="@+id/label_result_total"
+        android:id="@+id/label_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/total_score"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_result_tvelve"/>
+        app:layout_constraintTop_toBottomOf="@+id/label_twelve"/>
 
     <Button
         android:id="@+id/button_play_again"
@@ -140,5 +140,137 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="8dp"/>
+
+    <TextView
+        android:id="@+id/result_low"
+        android:layout_width="wrap_content"
+        android:layout_height="19dp"
+        android:text="@string/low"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/label_result_title"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"/>
+
+    <TextView
+        android:id="@+id/result_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/four"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/result_low"/>
+
+    <TextView
+        android:id="@+id/result_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/five"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/result_four"/>
+
+    <TextView
+        android:id="@+id/result_six"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/six"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/result_five"/>
+
+    <TextView
+        android:id="@+id/result_seven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/seven"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/result_six"/>
+
+    <TextView
+        android:id="@+id/result_eight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/eight"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/result_seven"/>
+
+    <TextView
+        android:id="@+id/result_nine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nine"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/result_eight"/>
+
+    <TextView
+        android:id="@+id/result_ten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ten"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/result_nine"/>
+
+    <TextView
+        android:id="@+id/result_eleven"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/eleven"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/result_ten"/>
+
+    <TextView
+        android:id="@+id/result_twelve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/twelve"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/result_eleven"/>
+
+    <TextView
+        android:id="@+id/result_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total_score"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/result_twelve"/>
 
 </android.support.constraint.ConstraintLayout>
