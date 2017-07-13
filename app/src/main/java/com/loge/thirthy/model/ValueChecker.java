@@ -49,6 +49,15 @@ public class ValueChecker {
     }
 
 
+    /**
+     * getPoints
+     *
+     * Method that calculates
+     * the the current point value based on
+     * the selected combination.
+     * @param faceValue
+     * @return
+     */
     public int getPoints(int faceValue){
         int points = 0;
         boolean bitArray[] = getCombination(faceValue);
@@ -61,31 +70,87 @@ public class ValueChecker {
         return points;
     }
 
+    /**
+     * getCombination
+     *
+     * Main algorithm that returns the best
+     * combination for the chosen Facevalue
+     * @param faceValue
+     * @return
+     */
     public boolean[] getCombination(int faceValue){
 
         int sumCounter;
-        List<Combinations> combinations = new ArrayList<>();
-        boolean resultFrame[] = new boolean[mDice.size()];
+
+        //boolean resultFrame[] = new boolean[mDice.size()];
+
 
 
         /*
-        Taking care of special case '3'
+        Special case selection 'LOW'
          */
         int COMBINATION_LOW = 3;
         if (faceValue == COMBINATION_LOW){
-            for(int i = 0; i < mDice.size(); i++){
-                if(mDice.getFaceValue(i) < 4){
-                   resultFrame[i] = true;
-                }
-            }
-
-            return resultFrame;
+            return getLowCombination(mDice.size());
         }
 
+        List<Combinations> combinations = new ArrayList<>();
+        buildCombinationsList(faceValue, combinations);
+
+        boolean[] bitframe = new boolean[mDice.size()];
+        Arrays.fill(bitframe, false);
+        Collections.sort(combinations);
+
+        return findBestCombination(combinations);
+
+    }
+
+    /**
+     * findBestCombination
+     *
+     * returns the combination that reaches
+     * the highest total score with the fewest
+     * dice.
+     * @param combinations
+     * @return
+     */
+    private boolean[] findBestCombination(List<Combinations> combinations) {
+        boolean resultFrame[] = new boolean[mDice.size()];
+        Arrays.fill(resultFrame, false);
+        boolean doesNotFit;
+        for(Combinations combination : combinations){
+            doesNotFit = false;
+            for(int i = 0 ; i < mDice.size(); i++){
+                if(resultFrame[i] == combination.getBitframe()[i] && resultFrame[i]) {
+                    doesNotFit = true;
+                }
+            }
+            if(!doesNotFit){
+                for(int i = 0 ; i < mDice.size(); i++){
+                    if(combination.getBitframe()[i]){
+                        resultFrame[i] = true;
+                    }
+                }
+            }
+        }
+        return resultFrame;
+    }
+
+    /**
+     * buildCombinationsList
+     *
+     * method that populates a combinations List
+     * with valid die combinations for the chose
+     * faceValue. Bruteforce, iterating over all
+     * possibilities.
+     * @param faceValue
+     * @param combinations
+     */
+    private void buildCombinationsList(int faceValue, List<Combinations> combinations) {
+        int sumCounter;
         boolean[] bitframe = new boolean[mDice.size()];
         final int total = mDice.size();
-        for(int x=1;x<ValueChecker.pow2(total);x++)
-        {
+        for(int x=1;x<ValueChecker.pow2(total);x++) {
             for(int i=0;i<total;i++)
             {
                 // if the ith bit of x is not 0
@@ -103,26 +168,22 @@ public class ValueChecker {
                 combinations.add(new Combinations(bitframe.clone()));
             }
         }
+    }
 
-        Arrays.fill(bitframe, false);
-        Collections.sort(combinations);
-
-        Arrays.fill(resultFrame, false);
-
-        boolean doesNotFit;
-        for(Combinations combination : combinations){
-            doesNotFit = false;
-            for(int i = 0 ; i < mDice.size(); i++){
-                if(resultFrame[i] == combination.getBitframe()[i] && resultFrame[i]) {
-                    doesNotFit = true;
-                }
-            }
-            if(!doesNotFit){
-                for(int i = 0 ; i < mDice.size(); i++){
-                    if(combination.getBitframe()[i]){
-                        resultFrame[i] = true;
-                    }
-                }
+    /**
+     * getLowCombination
+     *
+     * Method that returns the dice combination
+     * for the selection 'Low' (all dice with
+     * a face value below 4)
+     * @param numberOfDice
+     * @return
+     */
+    private boolean[] getLowCombination(int numberOfDice) {
+        boolean resultFrame[] = new boolean[mDice.size()];
+        for(int i = 0; i < mDice.size(); i++){
+            if(mDice.getFaceValue(i) < 4){
+               resultFrame[i] = true;
             }
         }
 

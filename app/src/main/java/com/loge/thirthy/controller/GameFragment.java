@@ -20,6 +20,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.loge.thirthy.R;
@@ -28,10 +29,6 @@ import com.loge.thirthy.model.Game;
 import com.loge.thirthy.view.CombinationSpinner;
 import com.loge.thirthy.view.CombinationSpinnerChangeListener;
 import com.loge.thirthy.view.DiceImageButtons;
-import com.loge.thirthy.view.TakePointsButton;
-import com.loge.thirthy.view.TakePointsButtonChangeListener;
-import com.loge.thirthy.view.ThrowButton;
-import com.loge.thirthy.view.ThrowButtonChangeListener;
 
 import static com.loge.thirthy.controller.GameActivity.MODE_HIGHLIGHTED;
 import static com.loge.thirthy.controller.GameActivity.MODE_SELECTED;
@@ -56,7 +53,8 @@ public class GameFragment extends Fragment {
 
     private DiceImageButtons mImageButtons;
     private CombinationSpinner mCombinationSpinner;
-    private ThrowButton mThrowButton;
+    private Button mThrowButton;
+    private Button mTakePointsButton;
 
 
     /**
@@ -110,14 +108,16 @@ public class GameFragment extends Fragment {
             }
         });
 
-        mThrowButton = new ThrowButton(v);
-        mThrowButton.addThrowButtonChangeListener(new ThrowButtonChangeListener() {
+        mThrowButton = (Button) v.findViewById(R.id.roll_dice);
+        mThrowButton.setOnClickListener(new View.OnClickListener(){
+
             @Override
-            public void changeEventReceived() {
-                    throwDice();
+            public void onClick(View v){
+                throwDice();
             }
         });
 
+        /*
         TakePointsButton takePointsButton = new TakePointsButton(v);
         takePointsButton.addTakePointsButtonChangeListener(new TakePointsButtonChangeListener() {
             @Override
@@ -125,6 +125,16 @@ public class GameFragment extends Fragment {
                 checkRound();
             }
         });
+        */
+        mTakePointsButton = (Button) v.findViewById(R.id.take_points);
+        mTakePointsButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v){
+                checkRound();
+            }
+        });
+
 
         if(mGame.getThrow() == 1){
             mThrowButton.setEnabled(false);
