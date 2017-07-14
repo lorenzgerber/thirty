@@ -49,7 +49,7 @@ public class Die implements Parcelable {
      * Constructor that will generate a
      * die object and assign the provided
      * value from 1 to 6 to it.
-     * @param value
+     * @param value int: value from 1 to 6 representing the die's face value
      */
     public Die(int value){
         if(value < 1 || value > 6 ){
@@ -63,7 +63,7 @@ public class Die implements Parcelable {
      * getValue
      *
      * Getter for face value
-     * @return
+     * @return int: value from 1 to 6
      */
     public int getValue(){
         return mValue;
@@ -73,9 +73,8 @@ public class Die implements Parcelable {
      * getMode
      *
      * Returns the current mode of the
-     * die (0 = Show, 1 = Highlighted,
-     * 2 = Selected)
-     * @return
+     * die
+     * @return int: 0 = Show, 1 = Highlighted, 2 = Selected
      */
     public int getMode(){return mMode; }
     public void setMode(int mode) {
@@ -89,7 +88,7 @@ public class Die implements Parcelable {
      * describeContents
      *
      * Mandatory method for Parcelable
-     * @return
+     * @return int: 0, not used currently
      */
     @Override
     public int describeContents() {
@@ -101,8 +100,8 @@ public class Die implements Parcelable {
      *
      * method that writes the value and mode to a parcel
      * for state transfer during configuration change.
-     * @param dest
-     * @param flags
+     * @param dest Parcel: The Parcel in which the object should be written.
+     * @param flags int: Additional flags about how the object should be written.
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -116,7 +115,7 @@ public class Die implements Parcelable {
      * private constructor to recreate state
      * after configuration change using parcels
      * for transient state storage.
-     * @param in
+     * @param in Parcel: contains object to be recreated
      */
     private Die(Parcel in){
         mValue = in.readInt();

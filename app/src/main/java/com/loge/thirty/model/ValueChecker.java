@@ -42,7 +42,7 @@ public class ValueChecker {
      *
      * Constructor takes the dice set
      * to check as argument.
-     * @param dice
+     * @param dice Dice: set of dice to check
      */
     public ValueChecker(Dice dice){
         mDice = dice;
@@ -55,8 +55,8 @@ public class ValueChecker {
      * Method that calculates
      * the the current point value based on
      * the selected combination.
-     * @param faceValue
-     * @return
+     * @param faceValue int: faceValue to calculate points for
+     * @return int: points for chosen face value
      */
     public int getPoints(int faceValue){
         int points = 0;
@@ -75,8 +75,8 @@ public class ValueChecker {
      *
      * Main algorithm that returns the best
      * combination for the chosen face value
-     * @param faceValue
-     * @return
+     * @param faceValue int: face value to obtain best combination for
+     * @return boolean[]: boolean array to define which die is included in the best combination
      */
     public boolean[] getCombination(int faceValue){
 
@@ -103,8 +103,8 @@ public class ValueChecker {
      * returns the combination that reaches
      * the highest total score with the fewest
      * dice.
-     * @param combinations
-     * @return
+     * @param combinations List<Combinations>: List with all possible combinations to check for
+     * @return boolean[]: boolean array that defines which die is included in the best combination
      */
     private boolean[] findBestCombination(List<Combinations> combinations) {
         boolean resultFrame[] = new boolean[mDice.size()];
@@ -135,8 +135,9 @@ public class ValueChecker {
      * with valid die combinations for the chose
      * face value. Brute force, iterating over all
      * possibilities.
-     * @param faceValue
-     * @param combinations
+     * @param faceValue int: for which face value to build a combination list
+     * @param combinations List<Combinations>: provide list to which combination
+     *                     elements can be added
      */
     private void buildCombinationsList(int faceValue, List<Combinations> combinations) {
         int sumCounter;
@@ -168,8 +169,8 @@ public class ValueChecker {
      * Method that returns the dice combination
      * for the selection 'Low' (all dice with
      * a face value below 4)
-     * @param dice
-     * @return
+     * @param dice Dice: dice
+     * @return boolean[]: boolean array of which die are included for the 'low' combination
      */
     private boolean[] getLowCombination(Dice dice) {
         boolean resultFrame[] = new boolean[dice.size()];
@@ -187,8 +188,8 @@ public class ValueChecker {
      *
      * Helper method to calculate the n-th
      * power of 2.
-     * @param power
-     * @return
+     * @param power int: base value for power of 2
+     * @return int: n^2 result
      */
     private static int pow2(int power)
     {
@@ -227,7 +228,7 @@ public class ValueChecker {
          * getRank
          *
          * Getter method for the rank
-         * @return
+         * @return int: how many times the sought face value occurs in the combination
          */
         public int getRank(){
             return this.mRank;
@@ -238,7 +239,7 @@ public class ValueChecker {
          *
          * getter method for the boolean array 'bit frame' that
          * expresses which die is included in current combination.
-         * @return
+         * @return boolean[]: boolean array on which die are included in a combination
          */
         public boolean[] getBitFrame() {
             return this.mBitFrame;
@@ -249,8 +250,8 @@ public class ValueChecker {
          *
          * Compare function for the combinations inner class
          * to allow sorting according to the rank.
-         * @param compareCombination
-         * @return
+         * @param compareCombination Combinations: combination object to compare to
+         * @return int: below zero, zero or higher than zero
          */
         @Override
         public int compareTo(@NonNull Combinations compareCombination) {

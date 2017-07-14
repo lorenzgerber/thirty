@@ -61,7 +61,7 @@ public class GameFragment extends Fragment {
      *
      * Handles restoring state by receiving parcelable
      * data and extras when available.
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle: saved state
      */
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -85,10 +85,13 @@ public class GameFragment extends Fragment {
      * Sets up the UI for rendering. Constructs all
      * UI artifacts such as ImageButtons, CombinationSpinner,
      * ThrowButton and TakePointsButton.
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * @param inflater LayoutInflater: The LayoutInflater object that can be
+     *                 used to inflate any views in the fragment,
+     * @param container ViewGroup: If non-null, this is the parent view that
+     *                  the fragment's UI should be attached to.
+     * @param savedInstanceState Bundle: If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
+     * @return View: Return the View for the fragment's UI.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -149,7 +152,7 @@ public class GameFragment extends Fragment {
      * mGame, mDice and the mDieMode are prepared
      * here for transient storage in a bundle on
      * configuration change such as rotation.
-     * @param outState
+     * @param outState Bundle: Bundle in which to place saved state.
      */
     @Override
     public void onSaveInstanceState(Bundle outState){

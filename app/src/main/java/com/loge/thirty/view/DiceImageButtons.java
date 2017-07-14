@@ -39,7 +39,7 @@ public class DiceImageButtons {
      * DiceImageButtons
      *
      * Constructor that initializes the UI elements
-     * @param v
+     * @param v View: parent view where the Image Buttons shall be hosted
      */
     public DiceImageButtons(View v){
 
@@ -59,7 +59,7 @@ public class DiceImageButtons {
      *
      * method that checks the mode of each die and
      * loads the corresponding representation image.
-     * @param dice
+     * @param dice Dice: dice object to update the images for
      */
     public void updateImages(Dice dice){
         for (int i = 0; i < dice.size(); i++){
@@ -75,7 +75,7 @@ public class DiceImageButtons {
      *
      * Boilerplate code to attach listeners to
      * each button.
-     * @param dice
+     * @param dice Dice: dice set to which to attach click listeners
      */
     public void attachListeners(Dice dice){
 

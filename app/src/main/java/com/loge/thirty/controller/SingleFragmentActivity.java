@@ -34,7 +34,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
      *
      * This method has to be overidden when implementing a concrete
      * activity class.
-     * @return
+     * @return Fragment: returns new created fragment
      */
     protected abstract Fragment createFragment();
 
@@ -44,7 +44,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
      * lifecycle method that contains generic code
      * to load the respective fragment using the
      * fragment manager and a transaction.
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle: saved state
      */
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -72,7 +72,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
      *
      * Takes care of storing transient bundle data from
      * the fragment.
-     * @param outState
+     * @param outState Bundle: Bundle in which to place saved state.
      */
     @Override
     protected void onSaveInstanceState(Bundle outState){

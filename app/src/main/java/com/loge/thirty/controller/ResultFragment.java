@@ -41,8 +41,8 @@ public class ResultFragment extends Fragment {
      * ResultFragment
      *
      * Constructor to construct ResultFragment
-     * @param resultArray
-     * @return
+     * @param resultArray int[]: array of length 10 contains points
+     * @return ResultFragment: new created fragment
      */
     public static ResultFragment newInstance(int[] resultArray){
         Bundle args = new Bundle();
@@ -60,7 +60,7 @@ public class ResultFragment extends Fragment {
      * is retrieved and written into local
      * variables. Further total points are
      * calculated and stored.
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle: saved state
      */
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -79,10 +79,13 @@ public class ResultFragment extends Fragment {
      * onCreateView
      *
      * Here the result view is prepared for rendering.
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * @param inflater LayoutInflater: The LayoutInflater object that can be
+     *                 used to inflate any views in the fragment,
+     * @param container ViewGroup: If non-null, this is the parent view that
+     *                  the fragment's UI should be attached to.
+     * @param savedInstanceState Bundle: If non-null, this fragment is being re-constructed
+     *                           from a previous saved state as given here.
+     * @return View: Return the View for the fragment's UI.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){

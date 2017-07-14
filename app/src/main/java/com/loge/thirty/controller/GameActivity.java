@@ -34,7 +34,7 @@ public class GameActivity extends SingleFragmentActivity {
      *
      * Concrete implementation to construct a new
      * GameFragment.
-     * @return
+     * @return GameFragment: Main Fragment of the app
      */
     @Override
     protected Fragment createFragment(){

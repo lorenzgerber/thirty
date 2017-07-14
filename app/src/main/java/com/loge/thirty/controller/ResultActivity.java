@@ -35,9 +35,9 @@ public class ResultActivity extends SingleFragmentActivity {
      *
      * Used to Transfer result array as extra from Game to Result. This
      * method is called from Game and the data is handed over as argument.
-     * @param packageContext
-     * @param resultArray
-     * @return
+     * @param packageContext Context: provide the context to which to attach
+     * @param resultArray int[]: array of size 10 with the points
+     * @return Intent: intent for opening Result Activity
      */
     public static Intent newIntent(Context packageContext, int[] resultArray){
         Intent intent = new Intent(packageContext, ResultActivity.class);
@@ -50,7 +50,7 @@ public class ResultActivity extends SingleFragmentActivity {
      *
      * Concrete implementation to create a
      * Result Fragment.
-     * @return
+     * @return Fragment: new Result Fragment
      */
     @Override
     protected Fragment createFragment() {

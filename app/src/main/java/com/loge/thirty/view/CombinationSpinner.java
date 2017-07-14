@@ -86,7 +86,7 @@ public class CombinationSpinner implements AdapterView.OnItemSelectedListener {
      * addCombinationSpinnerChangeListener
      *
      * Method to register for item selected events.
-     * @param l listner of type CombinationSpinnerChangeListener
+     * @param l listener of type CombinationSpinnerChangeListener
      */
     public void addCombinationSpinnerChangeListener(CombinationSpinnerChangeListener l){
         this.listeners.add(l);

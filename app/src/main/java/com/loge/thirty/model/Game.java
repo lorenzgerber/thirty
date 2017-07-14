@@ -49,7 +49,7 @@ public class Game implements Parcelable {
      *
      * returns an int in the range zero
      * to nine.
-     * @return
+     * @return int: 0 to 9 representing the current game round
      */
     public int getRound(){
         mRound = 0;
@@ -66,7 +66,7 @@ public class Game implements Parcelable {
      *
      * get current throw/roll nr. Return
      * values start from zero to 2.
-     * @return
+     * @return int: current current, 0 to 2
      */
     public int getThrow(){
         return mThrow;
@@ -95,8 +95,8 @@ public class Game implements Parcelable {
      *
      * Method sets the the number of points
      * for for the round 'index'.
-     * @param index
-     * @param points
+     * @param index int: sequence id for which combination to set points 0 to 9
+     * @param points int: obtained points
      */
     public void setPoints(int index, int points){
         mPoints[index] = points;
@@ -108,8 +108,8 @@ public class Game implements Parcelable {
      *
      * returns a boolean whether the round with
      * 'index' has been completed
-     * @param index
-     * @return
+     * @param index int: which round to check for if completed
+     * @return boolean: is the round of the chosen index completed
      */
     public boolean roundComplete(int index){
         return mRoundCompleted[index];
@@ -121,7 +121,7 @@ public class Game implements Parcelable {
      *
      * method returns the int[] array with
      * the points for each round.
-     * @return
+     * @return int[]: array of length 10 with all point values
      */
     public int[] getPointsArray(){
         return mPoints;
@@ -155,7 +155,7 @@ public class Game implements Parcelable {
      * describeContents
      *
      * Mandatory method for Parcelable
-     * @return
+     * @return int: currently not used
      */
     @Override
     public int describeContents() {
@@ -167,8 +167,8 @@ public class Game implements Parcelable {
      *
      * method that writes round, throw, points array and
      * round completed array into a Parcel.
-     * @param dest
-     * @param flags
+     * @param dest Parcel: The Parcel in which the object should be written.
+     * @param flags int: Additional flags about how the object should be written.
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -184,7 +184,7 @@ public class Game implements Parcelable {
      * private constructor to recreate state
      * after configuration change using parcels
      * for transient state storage.
-     * @param in
+     * @param in Parcel: contains object to be recreated
      */
     private Game(Parcel in){
         mRound = in.readInt();

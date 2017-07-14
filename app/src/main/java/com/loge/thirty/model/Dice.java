@@ -38,7 +38,7 @@ public class Dice implements Parcelable {
      *
      * Constructor for a set of die
      * objects.
-     * @param size
+     * @param size int number of dice in the set
      */
     public Dice(int size){
         mDice = new Die[size];
@@ -54,7 +54,7 @@ public class Dice implements Parcelable {
      * Getter to obtain the mode of the dice. which could be
      * show, select (for rolling) or highlight (to visualize a point
      * combination)
-     * @return
+     * @return int 0, 1, 3 (show, highlighted, selected)
      */
     public int getMode(){
         return mMode;
@@ -64,8 +64,8 @@ public class Dice implements Parcelable {
      * getDie
      *
      * Getter to access an individual die of the set.
-     * @param index
-     * @return
+     * @param index int, which die to return
+     * @return die instance
      */
     public Die getDie(int index){
         return mDice[index];
@@ -77,8 +77,8 @@ public class Dice implements Parcelable {
      * Setter for individual die in the set. Can be used
      * for testing in combination with custom constructor of
      * die that allows setting a specific value.
-     * @param index
-     * @param die
+     * @param index int sequence id which die to set
+     * @param die the instance of die to be inserted in the dice set
      */
     public void setDie(int index, Die die){
         mDice[index] = die;
@@ -88,7 +88,7 @@ public class Dice implements Parcelable {
      * size()
      *
      * Returns the number of dice in the set
-     * @return
+     * @return int number of dice in the set
      */
     public int size(){
         return mDice.length;
@@ -99,8 +99,8 @@ public class Dice implements Parcelable {
      *
      * Direct access to the value of a specific
      * die in the set.
-     * @param index
-     * @return
+     * @param index int sequence id from which die to obtain the face value
+     * @return int face value of the die with the chosen index in the set
      */
     public int getFaceValue(int index){
         return mDice[index].getValue();
@@ -122,9 +122,9 @@ public class Dice implements Parcelable {
     /**
      * rollDie
      *
-     * A specific Die in the set is replaced by
-     * a new one with random value.
-     * @param index
+     * Rolling a die here is implemented by replacing one
+     * die by a new one with random value.
+     * @param index int of sequence id for which die to 'roll'
      */
     public void rollDie(int index){
         mDice[index] = new Die();
@@ -137,7 +137,7 @@ public class Dice implements Parcelable {
      * MODE_SHOW will reset all die to MODE_SHOW.
      * MODE_HIGHLIGHTED will reset all MODE_SELECTED
      * to MODE_SHOW and MODE_SELECTED vice versa.
-     * @param mode
+     * @param mode int 0, 1 or 2 corresponding to show, highlighted and selected mode
      */
     public void setMode(int mode){
         if(mode == MODE_SHOW){
@@ -167,7 +167,7 @@ public class Dice implements Parcelable {
      *
      * Calculate the points from all
      * highlighted dice.
-     * @return
+     * @return int total of all face values in the set that are highlighted (mode 1)
      */
     public int calculatePoints(){
         int mPoints = 0;
@@ -183,7 +183,7 @@ public class Dice implements Parcelable {
      * describeContents
      *
      * Mandatory method for Parcelable
-     * @return
+     * @return int, currently not used
      */
     @Override
     public int describeContents() {
@@ -196,8 +196,8 @@ public class Dice implements Parcelable {
      * method that writes the array of dice and the
      * current mode to a parcel for state transfer
      * during configuration change.
-     * @param dest
-     * @param flags
+     * @param dest Parcel: The Parcel in which the object should be written.
+     * @param flags int: Additional flags about how the object should be written.
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -211,7 +211,7 @@ public class Dice implements Parcelable {
      * private constructor to recreate state
      * after configuration change using parcels
      * for transient state storage.
-     * @param in
+     * @param in Parcel with object to be recreated
      */
     private Dice(Parcel in){
         mDice = in.createTypedArray(Die.CREATOR);
