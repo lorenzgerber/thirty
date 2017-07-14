@@ -213,7 +213,7 @@ public class ValueChecker {
         int mRank = 0;
         final boolean[] mBitFrame;
 
-        public Combinations(boolean[] bitFrame){
+        private Combinations(boolean[] bitFrame){
 
             mBitFrame = bitFrame;
 
@@ -230,7 +230,7 @@ public class ValueChecker {
          * Getter method for the rank
          * @return int: how many times the sought face value occurs in the combination
          */
-        public int getRank(){
+        private int getRank(){
             return this.mRank;
         }
 
@@ -241,7 +241,7 @@ public class ValueChecker {
          * expresses which die is included in current combination.
          * @return boolean[]: boolean array on which die are included in a combination
          */
-        public boolean[] getBitFrame() {
+        private boolean[] getBitFrame() {
             return this.mBitFrame;
         }
 
